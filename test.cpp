@@ -1,3 +1,5 @@
+// Author: sandeep172918
+// Date: 2024-11-18 00:58:00
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -17,7 +19,7 @@ lli T; //number of test cases.
 cin >>T;
  
 while(T--){
-cout<<"hello"<<endl;
+
 }
  
 }

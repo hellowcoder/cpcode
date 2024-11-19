@@ -1,7 +1,5 @@
 // Author: sandeep172918
-// Date: 2024-11-18 18:06:37
-
-
+// Date: 2024-11-19 12:39:55
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -17,23 +15,33 @@
 using namespace std;
 const int MOD=1e9+7;
 int main(){
-lli x,y;cin>>x>>y;
-
-vec(v,x);fr(i,x){cin>>v[i];}srt(v);
-if(y==0){
-  v[0]>1?cout<<"1":cout<<"-1";
-}else if(x==1 && y==1){
-  cout<<v[0];
-}
-else{
- if((v[y]-v[y-1])>=1){
-        cout<<v[y-1];
-}
-else{
-        cout<<"-1";
- }
-}
-}    
-
-
+lli T; //number of test cases.
+cin >>T;
  
+while(T--){
+string s;cin>>s;
+
+if(s[0]>s[2]){
+   if(s[1]=='>'){
+    cout<<s<<endl;
+   }else{
+   cout<<s[0]<<'>'<<s[2]<<endl;
+   }
+}
+if(s[0]==s[2]){
+    if(s[1]=='='){
+    cout<<s<<endl;
+   }else{
+    cout<<s[0]<<"="<<s[2]<<endl;
+   }
+}
+if(s[0]<s[2]){
+    if(s[1]=='<'){
+    cout<<s<<endl;
+   }else{
+   cout<<s[0]<<'<'<<s[2]<<endl;
+   }
+}
+}
+ 
+}

@@ -1,5 +1,5 @@
 // Author: sandeep172918
-// Date: 2024-11-29 23:32:23
+// Date: 2024-11-30 00:04:34
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -15,14 +15,9 @@
 using namespace std;
 const int MOD=1e9+7;
 int main(){
-lli tt; //number of test cases.
-cin >>tt;
- 
-while(tt--){
-lli w,b;cin>>w>>b;lli total=w+b;
-lli k=(sqrt(1+8*total)-1)/2;
-cout<<k<<endl;
+lli a,b,c,d;cin>>a>>b>>c>>d;lli total=a+b+c+d;
+cout<<15-total;
 
-}
+
  
 }

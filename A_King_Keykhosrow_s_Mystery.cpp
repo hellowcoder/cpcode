@@ -1,5 +1,5 @@
 // Author: sandeep172918
-// Date: 2024-11-29 23:32:23
+// Date: 2024-12-01 10:29:08
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -19,10 +19,8 @@ lli tt; //number of test cases.
 cin >>tt;
  
 while(tt--){
-lli w,b;cin>>w>>b;lli total=w+b;
-lli k=(sqrt(1+8*total)-1)/2;
-cout<<k<<endl;
-
+lli x,y;cin>>x>>y;lli k=gcd(x,y);
+cout<<(x*y)/k<<endl;
 }
  
 }

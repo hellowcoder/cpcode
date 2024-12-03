@@ -1,5 +1,5 @@
 // Author: sandeep172918
-// Date: 2024-11-18 00:58:00
+// Date: 2024-12-03 12:01:11
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -14,13 +14,21 @@
 #define mne(v)  *min_element(v.begin(),v.end())
 using namespace std;
 const int MOD=1e9+7;
+
 int main(){
-int x,y;cin>>x>>y;vec(v,x);fr(i,x){cin>>v[i];}int sum=0,ans=0,maxans=0;
-rsrt(v);
-fr(i,y){
-    sum+=v[i];
+lli tt; //number of test cases.
+cin >>tt;
+ 
+while(tt--){
+lli x;cin>>x;vec(v,x);fr(i,x){cin>>v[i];}lli count=0,sum=0;
+fr(i,x){
+   sum+=v[i];
+   lli k=sqrt(sum);
+   if((k*k)==sum){
+     if(k&1) count++;
+   }
+   
 }
- cout<<sum;
-
+ cout<<count<<endl;
 }
-
+}

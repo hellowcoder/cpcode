@@ -1,5 +1,5 @@
-// Author: sandeep172918
-// Date: 2024-11-18 00:58:00
+// Author: sandeep172918   https://codeforces.com/problemset/problem/1927/C
+// Date: 2024-12-02 22:06:54
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -14,13 +14,30 @@
 #define mne(v)  *min_element(v.begin(),v.end())
 using namespace std;
 const int MOD=1e9+7;
+
 int main(){
-int x,y;cin>>x>>y;vec(v,x);fr(i,x){cin>>v[i];}int sum=0,ans=0,maxans=0;
-rsrt(v);
-fr(i,y){
-    sum+=v[i];
+lli tt; //number of test cases.
+cin >>tt;
+ 
+while(tt--){
+lli n,m,k;cin>>n>>m>>k;vector<lli>vm(k+1,0);vector<lli>vn(k+1,0);lli countm=0,countn=0,count=0;
+fr1(i,n){
+    lli x;cin>>x;
+    if(x<=k){
+        vn[x]=1;
+    }
 }
- cout<<sum;
-
+fr1(i,m){
+    lli x;cin>>x;
+    if(x<=k){
+        vm[x]=1;
+    }
 }
-
+fr1(i,k){
+  if(vm[i]){
+    countm++;
+  }
+}
+}
+ 
+}

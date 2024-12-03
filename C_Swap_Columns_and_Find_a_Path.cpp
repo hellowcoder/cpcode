@@ -1,5 +1,5 @@
 // Author: sandeep172918
-// Date: 2024-11-18 00:58:00
+// Date: 2024-12-03 13:06:00
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -15,12 +15,26 @@
 using namespace std;
 const int MOD=1e9+7;
 int main(){
-int x,y;cin>>x>>y;vec(v,x);fr(i,x){cin>>v[i];}int sum=0,ans=0,maxans=0;
-rsrt(v);
-fr(i,y){
-    sum+=v[i];
+lli tt; //number of test cases.
+cin >>tt;
+ 
+while(tt--){
+lli x;cin>>x;vec(a,x);vec(b,x);fr(i,x){cin>>a[i];}fr(i,x){cin>>b[i];}vec(sum,x);
+fr(i,x){
+    sum[i]=a[i]+b[i];
 }
- cout<<sum;
-
+lli maxi=mxe(sum);lli index;
+fr(i,x){
+    if(sum[i]==maxi){
+        index=i;
+    }
 }
-
+fr(i,x){
+    if(i!=index){
+        maxi+=max(a[i],b[i]);
+    }
+}
+cout<<maxi<<endl;
+}
+ 
+}

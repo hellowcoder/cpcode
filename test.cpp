@@ -15,12 +15,8 @@
 using namespace std;
 const int MOD=1e9+7;
 int main(){
-int x,y;cin>>x>>y;vec(v,x);fr(i,x){cin>>v[i];}int sum=0,ans=0,maxans=0;
-rsrt(v);
-fr(i,y){
-    sum+=v[i];
-}
- cout<<sum;
+vector<int>v={1,2,-1,4,5};
+cout<<any_of(v.begin(),v.end(),[](int x){return x>0;})<<endl;
 
 }
 

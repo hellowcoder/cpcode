@@ -1,5 +1,5 @@
 // Author: sandeep172918
-// Date: 2024-11-18 00:58:00
+// Date: 2024-12-05 21:51:24
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -15,7 +15,22 @@
 using namespace std;
 const int MOD=1e9+7;
 int main(){
-
-
+lli tt; //number of test cases.
+cin >>tt;
+ 
+while(tt--){
+int n,m;cin>>n>>m;vec(v,n);
+fr(i,n){
+ string s;cin>>s;
+ v[i]=(int)s.size();
+}int ans=0;
+fr(i,n){
+  if(m>=v[i]){
+    m-=v[i];
+    ans++;
+  }else{
+    break;
+  }
 }
-
+cout<<ans<<endl;
+}}

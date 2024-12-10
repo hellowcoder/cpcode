@@ -1,5 +1,3 @@
-// Author: sandeep172918
-// Date: 2024-11-18 00:58:00
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -15,13 +13,18 @@
 using namespace std;
 const int MOD=1e9+7;
 int main(){
-    int arr[8]={1,10000,4,5,678,2,23,100000};priority_queue<int,vector<int>,greater<int>>pq;
-    fr(i,8){
-      pq.push(arr[i]);
-    }
-    while(pq.empty()==false){
-        cout<<pq.top()<<" ";
-        pq.pop();
-    }
-    
+lli tt; //number of test cases.
+cin >>tt;
+ 
+while(tt--){
+    lli x;cin>>x;
+lli ans=1,num=1;
+while(num<x){
+    num=(num+1)*2;
+    ans++;
+}
+cout<<ans<<endl;
+
+}
+ 
 }

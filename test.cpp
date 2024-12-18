@@ -20,23 +20,12 @@
 using namespace std;
 const int MOD=1e9+7;
 
+
+
 int main(){
 fastio;
-string s;cin>>s;int sum=0;
-fr(i,s.size()){
-    int k=s[i]-'0';
-    // cout<<k<<" ";
-    if(!(i%2)){
-    if(k*2 <10){
-        sum+=(k*2);
-    }else{
-        sum+=(k*2-9);
-    }
+lli tt;cin>>tt;
+while(tt--){
     
-}else sum+=k;
-
-}
-if(!(sum%10)) cout<<"HACKED";
-else cout<<"NOT";
  
 }

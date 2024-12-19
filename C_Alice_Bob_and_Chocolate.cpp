@@ -20,25 +20,45 @@
 using namespace std;
 const int MOD=1e9+7;
 
-
+void solve(){
+    lli x;cin>>x;vec(v,x);fr(i,x){cin>>v[i];}
+    if(x==1) {cout<<"1"<<" "<<"0";return;}
+    else if(x==2) {cout<<"1"<<" "<<"1";return;}
+    else{
+        lli i=0,j=x-1;
+        while(i<j){
+            
+            if(v[i]<v[j]){
+                v[j]-=v[i];
+                i++;
+                if(i==j){
+                    i--;break;
+                }
+                }
+            else if(v[i]>v[j]){
+                v[i]-=v[j];
+                j--;
+                if(i==j){
+                    j++;break;
+                }
+            }
+            else{
+                
+                i++;j--;
+                if(i>j){
+                    i--;j++;break;
+                }
+                else if(i==j){
+                     j++;break;
+                }
+            }    
+        }
+        cout<<i+1<<" "<<x-i-1;
+    }
+}
 
 int main(){
 fastio;
-lli tt;cin>>tt;vec(v,tt);fr(i,tt){cin>>v[i];}
-lli i=0,j=tt-1;lli a=v[0],b=v[j];lli acount=0,bcount=0;
-while(i<=j){
-  if(a>b){
-    j--;
-    b+=v[j];
-    bcount++;
-  }
-  if(a<b){
-    i++;a+=v[i];acount++;
-  }
-  if(a==b){
-    i++;j--;a+=v[i];b+=v[j];acount++;bcount++;
-  }
-}
-cout<<acount<<" "<<bcount;
+solve();
 
 }

@@ -1,1 +1,15 @@
 .cph/
+
+# Ignore test files
+test.cpp
+test/
+
+# Ignore compiled files
+*.o
+*.out
+*.exe
+
+# Ignore editor-specific files
+.vscode/
+.idea/
+*.swp

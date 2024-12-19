@@ -30,11 +30,11 @@ while(i<x){
   sum+=v[i];
  while(sum>=y){
     ans=min(ans,(i-j+1));
-    ans=ans-v[j];
+    sum-=v[j];
     j++;
-
- }
+}
  i++;
 }
-cout<<ans;
+if(ans==INT_MAX) cout<<"-1";
+else cout<<ans;
 }

@@ -21,18 +21,14 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-string s;cin>>s;lli check=0;
-fr(i,s.size()){
-    if(s[i]=='0'){
-        check=i;
-        break;
-    }
+string s;cin>>s;lli c1=0,c0=0,n=sz(s);
+while(c1<n && s[c1]=='1') c1++;
+while(c1+c0<n && s[c1+c0]=='0') c0++;
+lli start = max(c1-c0+1,1LL), high = min(start+n-c1-1,n);
+if(c1==n){
+    start=n,high=n;
 }
-if(check){
-    cout<<"1"<<" "<<s.size()<<" "<<check-1<<" "<<s.size()-check<<'\n';
-}else{
-    cout<<"1"<<" "<<s.size()<<" "<<"1"<<" "<<"1"<<'\n';
-}
+cout<<"1"<<" "<<n<<" "<<start<<" "<<high<<'\n';
 }
 
 int main(){

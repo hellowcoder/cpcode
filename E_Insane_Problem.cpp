@@ -26,7 +26,13 @@ int main(){
 fastio;
 lli tt;cin>>tt;
 while(tt--){
-    lli k,l1,r1,l2,r2;cin>>k>>l1>>r1>>l2>>r2;lli req=r2/l1;
-
+    lli k,l1,r1,l2,r2;cin>>k>>l1>>r1>>l2>>r2;lli ans=0,p=1;
+    while(p<=1e9){
+        lli lower=max(l1,(l2+p-1)/p);
+        lli upper=min(r1,r2/p);
+        ans+=max(upper-lower+1,0LL);
+        p*=k;
+    }
+  cout<<ans<<'\n';
 }
 }

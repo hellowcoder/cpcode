@@ -25,15 +25,15 @@ const int MOD=1e9+7;
 
 void solve(){
 lli x;cin>>x;string s;cin>>s;
-lli si=-1,pi=-1;
+lli si=-1,pi=-1;  //for first indexing of s and p
 fr(i,x){if(s[i]=='s'){si=i;break;}}
 fr(i,x){if(s[i]=='p'){pi=i;break;}}
-//cout<<pi<<" "<<si;
+
 if(pi== -1 || si== -1) {
     yes;
 }else{
     if(pi<si) no;
-    else yes;
+    else yes; //here i need more cases....
 }
 }
 

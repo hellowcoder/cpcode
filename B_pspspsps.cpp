@@ -25,16 +25,11 @@ const int MOD=1e9+7;
 
 void solve(){
 lli x;cin>>x;string s;cin>>s;
-lli si=-1,pi=-1;  //for first indexing of s and p
-fr(i,x){if(s[i]=='s'){si=i;break;}}
-fr(i,x){if(s[i]=='p'){pi=i;break;}}
-
-if(pi== -1 || si== -1) {
-    yes;
-}else{
-    if(pi<si) no;
-    else yes; //here i need more cases....
-}
+if(s[0]=='s') s[0]='.';
+if(s[x-1]=='p') s[x-1]='.';  
+lli si=count(s.begin(),s.end(),'s'),pi=count(s.begin(),s.end(),'p');
+if(si==0 || pi==0) yes;
+else no;
 }
 
 int main(){

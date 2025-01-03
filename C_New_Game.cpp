@@ -1,40 +1,44 @@
 #include <bits/stdc++.h>
+#define lli long long int
+#define fr(i,n) for(lli i=0;i<(n);i++)
+#define frs(i,s,n) for(lli i=s;i<(n);i++)
+#define fr1(i,n) for(lli i=1;i<=(n);i++)
+#define uint unsigned long long int
+#define srt(v) sort(v.begin(),v.end())
+#define rsrt(v) sort(v.rbegin(),v.rend())
+#define vec(v,n) vector<lli>v(n)
+#define vec2(v,n) vector<vector<lli>>v(n)
+#define mxe(v)  *max_element(v.begin(),v.end())
+#define mne(v)  *min_element(v.begin(),v.end())
+#define vin(a) for(auto &i:a) cin>>i
+#define psb(a) push_back(a)
+#define ppb pop_back()
+#define all(v) v.begin(),v.end()
+#define rall(v) v.rbegin(),v.rend()
+#define sz(v) (lli)(v.size())
+#define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
+#define yes cout<<
+#define no cout<<
+#define ff first
+#define ss second
 using namespace std;
-int main(){
-int t; //number of test cases.
-cin >>t;
-while(t--){
-    int n,k;
-    cin>>n>>k;
-    vector<int> vec(n);
-    for(int i=0;i<n;i++){
-        cin>>vec[i];
-    }
-    sort(vec.rbegin(),vec.rend());
-    
-    vector<int> vec_count;
-    int count=1;
-    for(int i=1;i<n;i++){
-        if(vec[i]==vec[i-1]){
-            count++;
-        }else{
-            vec_count.push_back(count);
-            count=1;
-        }
-        }
-        vec_count.push_back(count);
-    sort(vec_count.rbegin(),vec_count.rend());
-    int sum=0;
-    for(int i=0;i<min(k,(int)vec_count.size());i++){
-       sum+=vec_count[i];
-    }
-    
-    cout<<sum<<endl;
-    
+const int MOD=1e9+7;
 
-
-    }
+void solve(){
+lli n,k;cin>>n>>k;vec(v,n);fr(i,n){cin>>v[i];}
+srt(v);lli j=0;lli ans=0;
+fr(i,n){
+    j=max(i,j);
+    while(j<n-1 && v[j+1]-v[j]<=1 && v[j+1]-v[i]<k) j++;
+    ans=max(ans,j-i+1);
+}
+cout<<ans<<'\n';
 }
 
-
-
+int main(){
+fastio;
+lli tt;cin>>tt;
+while(tt--){
+solve();
+}
+}

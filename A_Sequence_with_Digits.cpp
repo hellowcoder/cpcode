@@ -18,27 +18,44 @@
 #define sz(v) (lli)(v.size())
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
+#define no cout<<
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
-
+lli mindigi(lli a){
+    lli k=9;
+    while(a){
+        lli l=a%10;
+        if(l==0) return l;
+        a/=10;
+        k=min(k,l);
+        
+    }
+    return k;
+}
+lli maxdigi(lli a){
+    lli k=0;
+    while(a){
+        lli l=a%10;
+        if(l==9) return l;
+        a/=10;
+        k=max(k,l);
+        
+    }
+    return k;
+}
 void solve(){
-lli n;cin>>n;vec(v,n);fr(i,n){cin>>v[i];}vector<pair<lli,lli>>vv;set<lli>s;
-frs(i,1,n){
-   int size=v[i]+i;
-   vv.push_back({size,i});
-}
-srt(vv);
+lli y;lli x;cin>>x>>y;
+//cout<<mindigi(x)<<" "<<maxdigi(x)<<'\n';
+fr(i,y-1){
+  lli l=x+mindigi(x)*maxdigi(x);
+  if(l==x) break;
+  x=l;
 
-
-s.insert(n);
-for(auto i:vv){
-  if(s.find(i.ff) !=s.end()){
-    s.insert(i.ff+i.ss);
-  }
+  
 }
-cout<<*s.rbegin()<<'\n';
+cout<<x<<'\n';
 }
 
 int main(){

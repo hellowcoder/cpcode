@@ -10,32 +10,46 @@
 #define vec2(v,n) vector<vector<lli>>v(n)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
+#define vin(a) for(auto &i:a) cin>>i
+#define psb(a) push_back(a)
+#define ppb pop_back()
+#define all(v) v.begin(),v.end()
+#define rall(v) v.rbegin(),v.rend()
+#define sz(v) (lli)(v.size())
+#define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
+#define yes cout<<
+#define no cout<<
+#define ff first
+#define ss second
 using namespace std;
 const int MOD=1e9+7;
-int main(){
-lli T; //number of test cases.
-cin >>T;
- 
-while(T--){
+
+void solve(){
 lli n,d,a;cin>>n>>d>>a;
 if((!d) && (!a)){
     if(n<=2)  cout<<"0"<<endl;
     else cout<<"-1"<<endl;
 }else if(d==0){
-    if(a<n){
+    if(a==n-1 || a==n-2){
         cout<<n-1<<endl;
-    }else{
+    }else if(a>n-1){
         cout<<n<<endl;
+    }else{
+        cout<<"-1\n";
     }
 }else if(a>=n){
     cout<<n<<endl;
-}else{
-    lli k=((n-a)%d)?((n-a)/d+1):((n-a)/d);
-    lli m=n-k;
-    if(m>=0){
-        cout<<m<<endl;
-    }
+}else{ //here condition is a<n && d>0 by default
+    lli k=(n-a);
+    lli index=(k+d-1)/d;
+    cout<<n-index<<'\n';
 }
 }
- 
+
+int main(){
+fastio;
+lli tt;cin>>tt;
+while(tt--){
+solve();
+}
 }

@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
-#define frs(i,s,n) for(lli i=s;i<(n);i++)
+#define frs(i,s,n) for(lli i=s;i<=(n);i++)
 #define fr1(i,n) for(lli i=1;i<=(n);i++)
 #define uint unsigned long long int
 #define srt(v) sort(v.begin(),v.end())
@@ -18,27 +18,19 @@
 #define sz(v) (lli)(v.size())
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
+#define no cout<<
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n;cin>>n;vec(v,n);fr(i,n){cin>>v[i];}vector<pair<lli,lli>>vv;set<lli>s;
-frs(i,1,n){
-   int size=v[i]+i;
-   vv.push_back({size,i});
-}
-srt(vv);
+lli a,b,c;cin>>a>>b>>c;string x="1",y="1";
+frs(i,1, a-c){x+='0';}
+frs(i,1, b-c){y+='1';}
+frs(i,1, c-1){x+='0';y+='0';}
+cout<<x<<" "<<y<<'\n';
 
-
-s.insert(n);
-for(auto i:vv){
-  if(s.find(i.ff) !=s.end()){
-    s.insert(i.ff+i.ss);
-  }
-}
-cout<<*s.rbegin()<<'\n';
 }
 
 int main(){

@@ -25,24 +25,7 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-vector<lli>pre(400001,0);
-lli x;cin>>x;vector<pair<lli,lli>>v(x);fr(i,x){lli a,b;cin>>a>>b;v[i]={a,b};if(a==b){pre[a]++;}}string a;
-fr(i,x){
-    if(v[i].ff==v[i].ss){
-        if(pre[v[i].ff]>=2) a+='0';
-        else a+='1'; 
-        }
-    else{
-        
-        lli k=accumulate(pre.begin()+v[i].ff,pre.begin()+v[i].ss+1,0LL);
-       
-        if(k<(v[i].ss-v[i].ff+1)) a+='1';
-        else a+='0';
-    }
 
-  
-}
-cout<<a<<'\n';
 }
 
 int main(){

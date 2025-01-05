@@ -21,34 +21,31 @@
 #define no cout<<
 #define ff first
 #define ss second
+#define nl <<'\n'
 using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-vector<lli>pre(400001,0);
-lli x;cin>>x;vector<pair<lli,lli>>v(x);fr(i,x){lli a,b;cin>>a>>b;v[i]={a,b};if(a==b){pre[a]++;}}string a;
-fr(i,x){
-    if(v[i].ff==v[i].ss){
-        if(pre[v[i].ff]>=2) a+='0';
-        else a+='1'; 
-        }
-    else{
-        
-        lli k=accumulate(pre.begin()+v[i].ff,pre.begin()+v[i].ss+1,0LL);
-       
-        if(k<(v[i].ss-v[i].ff+1)) a+='1';
-        else a+='0';
+lli n;cin>>n;vec(v,n);lli odd=0,sum=0;fr(i,n){cin>>v[i];sum+=(v[i]/2);if((abs(v[i]))%2)odd++;}
+fr(i,n){
+  if(!(v[i]%2)) cout<<v[i]/2 nl;
+  else{
+    if(sum==0) cout<<v[i]/2 nl;
+    else if(sum>0){
+        if(v[i]<0) {cout<<v[i]/2-1 nl;sum--;}
+        else cout<<v[i]/2 nl;
+    }else{
+        if(v[i]>0) {cout<<v[i]/2+1 nl;sum++;}
+        else cout<<v[i]/2 nl;
     }
-
-  
+  }
 }
-cout<<a<<'\n';
 }
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
+//lli tt;cin>>tt;
+//while(tt--){
 solve();
-}
+//}
 }

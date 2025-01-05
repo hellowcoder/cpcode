@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
-#define frs(i,s,n) for(lli i=s;i<(n);i++)
+#define frs(i,s,n) for(lli i=s;i<=(n);i++)
 #define fr1(i,n) for(lli i=1;i<=(n);i++)
 #define uint unsigned long long int
 #define srt(v) sort(v.begin(),v.end())
@@ -25,24 +25,23 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-vector<lli>pre(400001,0);
-lli x;cin>>x;vector<pair<lli,lli>>v(x);fr(i,x){lli a,b;cin>>a>>b;v[i]={a,b};if(a==b){pre[a]++;}}string a;
-fr(i,x){
-    if(v[i].ff==v[i].ss){
-        if(pre[v[i].ff]>=2) a+='0';
-        else a+='1'; 
-        }
+lli l,r;cin>>l>>r;if(r-l==2){cout<<l<<" "<<l+1<<" "<<r<<'\n';return;}lli ans=0;
+for(lli i=30;i>=0;i--){
+    lli a=0,b=0;
+    if(r&(1LL<<i))a=1;
+    if(l&(1LL<<i))b=1;
+    if(a==b) ans+=(a*(1LL<<i));
     else{
-        
-        lli k=accumulate(pre.begin()+v[i].ff,pre.begin()+v[i].ss+1,0LL);
-       
-        if(k<(v[i].ss-v[i].ff+1)) a+='1';
-        else a+='0';
+        ans+=(1LL<<i);
+        break;
     }
-
-  
 }
-cout<<a<<'\n';
+frs(i,l,r){
+  if(i!=ans && i!=(ans-1)){
+    cout<<ans<<" "<<ans-1<<" "<<i<<'\n';return;
+  }
+}
+
 }
 
 int main(){

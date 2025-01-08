@@ -18,31 +18,48 @@
 #define sz(v) (lli)(v.size())
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
+#define no cout<<
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n;cin>>n;vec(v,n);fr(i,n){cin>>v[i];}vector<pair<lli,lli>>vv;set<lli>s;
-frs(i,1,n){
-   int size=v[i]+i;
-   vv.push_back({size,i});
+lli n,k;cin>>n>>k;lli x=__builtin_popcount(n);
+if(x>k ||k>n) {cout<<"NO";return;}
+else if(x==k){
+    cout<<"YES \n";
+    fr(i,x){
+      lli k=n&(n-1);
+      cout<<n-k<<" ";
+      n=k;  
+    }
+
+}else{
+    cout<<"YES\n";
+    //fill the space  
+    priority_queue<lli>p;
+    fr(i,x){
+      lli k=n&(n-1);
+      p.push(n-k);  
+      n=k;  
+    }
+    while(p.size()<k){
+        lli k=p.top();
+        p.pop();
+        p.push(k/2);
+        p.push(k/2);
+    }
+    while(!p.empty()){
+        cout<<p.top()<<" ";
+        p.pop();
+    }
+    
+
 }
-srt(vv);
-s.insert(n);
-for(auto i:vv){
-  if(s.find(i.ff) !=s.end()){
-    s.insert(i.ff+i.ss);
-  }
-}
-cout<<*s.rbegin()<<'\n';
 }
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

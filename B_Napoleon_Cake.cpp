@@ -18,25 +18,27 @@
 #define sz(v) (lli)(v.size())
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
+#define no cout<<
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n;cin>>n;vec(v,n);fr(i,n){cin>>v[i];}vector<pair<lli,lli>>vv;set<lli>s;
-frs(i,1,n){
-   int size=v[i]+i;
-   vv.push_back({size,i});
-}
-srt(vv);
-s.insert(n);
-for(auto i:vv){
-  if(s.find(i.ff) !=s.end()){
-    s.insert(i.ff+i.ss);
+lli x;cin>>x;vec(v,x);vector<lli>ans(x,0);fr(i,x){cin>>v[i];}
+if(x==1){if(v[0]>0)cout<<"1 \n";else cout<<"0\n";return;}
+if(v[x-1]>0){ans[x-1]=1;v[x-1]--;}v[x-2]=max(v[x-1],v[x-2]);
+for(int i=x-2;i>0;i--){
+  if(v[i]>0){
+    ans[i]=1;
+    v[i-1]=max(v[i-1],v[i]-1);
   }
 }
-cout<<*s.rbegin()<<'\n';
+if(v[0]>0)ans[0]=1;
+fr(i,x){
+    cout<<ans[i]<<" ";
+}cout<<'\n';
+
 }
 
 int main(){

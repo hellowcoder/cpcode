@@ -22,30 +22,27 @@
 #define ff first
 #define ss second
 using namespace std;
-const int MOD=1e18;
-vector<lli>pre;
-lli digi(lli x){
-    lli ans=0;
-    while(x){
-        lli k=x%10;
-        if(k) ans++;
-        x/=10;
-    }
-    return ans;
-}
+const int MOD=1e9+7;
 
 void solve(){
-lli x,y;//cin>>x>>y;
-vector<lli>v;
-cout<<v.max_size();
-
+string s;cin>>s;vec(pre,s.size());
+if(s[0]=='Q')pre[0]=1;lli count=0;
+frs(i,1,s.size()){
+    if(s[i]=='Q')pre[i]=pre[i-1]+1;
+    else pre[i]=pre[i-1];
+}
+frs(i,1,s.size()){
+  if(s[i]=='A'){
+    lli k=pre[s.size()-1]-pre[i-1];
+    lli m=pre[s.size()-1]-k;
+    count+=(k*m);
+  }
+}
+//cout<<pre[s.size()-1]<<'\n';
+cout<<count<<'\n';
 }
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-
-while(tt--){
 solve();
-}
 }

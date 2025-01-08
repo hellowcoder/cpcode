@@ -25,13 +25,26 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-
+lli n,k,maxi=0;cin>>n>>k;vec(v1,n);vec(v2,n);fr(i,n){cin>>v1[i];maxi=max(maxi,v1[i]);}fr(i,n){cin>>v2[i];}
+lli low=0,high=1e12/maxi,c,ans=0;
+while(low<=high){
+    c=k;
+    lli mid=(high+low)/2;
+    fr(i,n){
+        c-=max(0LL,(v1[i]*mid-v2[i]));
+    }
+    if(c<0){
+        high=mid-1;
+    }else{
+        ans=mid;
+        low=mid+1;
+    }
+}
+cout<<ans;
 }
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
+
 solve();
-}
 }

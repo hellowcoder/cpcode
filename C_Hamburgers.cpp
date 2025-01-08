@@ -22,30 +22,35 @@
 #define ff first
 #define ss second
 using namespace std;
-const int MOD=1e18;
-vector<lli>pre;
-lli digi(lli x){
-    lli ans=0;
-    while(x){
-        lli k=x%10;
-        if(k) ans++;
-        x/=10;
+const int MOD=1e9+7;
+
+void solve(){   //BSC b=0 s=1 c=2 indexing
+string s;cin>>s;vec(av,3);vec(pr,3);vector<lli>req(3,0);fr(i,3){cin>>av[i];}fr(i,3)cin>>pr[i];lli k;cin>>k;
+for(auto i:s){if(i=='B')req[0]++;else if(i=='S')req[1]++;else req[2]++;}lli ans=0;
+//cout<<req[0];
+lli low=0,high=1e14;
+while(low<=high){
+    lli c=k;
+    lli mid=(high+low)/2;
+    fr(i,3){
+        
+        lli a=av[i];
+        a-=(req[i]*mid);
+        if(a<0){
+            c-=(pr[i]*(req[i]*mid-av[i]));
+        }
     }
-    return ans;
+    if(c<0)high=mid-1;
+    else{
+        ans=mid;
+        low=mid+1;
+    }
 }
 
-void solve(){
-lli x,y;//cin>>x>>y;
-vector<lli>v;
-cout<<v.max_size();
-
+cout<<ans;
 }
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-
-while(tt--){
 solve();
-}
 }

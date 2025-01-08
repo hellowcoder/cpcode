@@ -25,21 +25,23 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli x;cin>>x;lli k=1LL<<int(log2(x));cout<<x<<" ";
+lli x;cin>>x;lli k=1LL<<int(log2(x));vector<lli>ans;ans.psb(x);
 fr(i,50){
    if(x==k) break;
    else if(x&(1LL<<i)){
          x-=(1LL<<i);
-         cout<<x<<" ";
+         ans.psb(x);
          
    }
 }
 while(x!=1){
-    cout<<x/2<<" ";
+    ans.psb(x/2);
     x/=2;
 }
-
-cout<<'\n';
+cout<<ans.size()<<'\n';
+for(auto i:ans){
+    cout<<i<<" ";
+}cout<<'\n';
 }
 
 int main(){

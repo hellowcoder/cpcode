@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
-#define frs(i,s,n) for(lli i=s;i<=(n);i++)
+#define frs(i,s,n) for(lli i=s;i<(n);i++)
 #define fr1(i,n) for(lli i=1;i<=(n);i++)
 #define uint unsigned long long int
 #define srt(v) sort(v.begin(),v.end())
@@ -22,33 +22,25 @@
 #define ff first
 #define ss second
 using namespace std;
-const int MOD=1e18;
-vector<lli>pre;
-lli digi(lli x){
-    lli ans=0;
-    while(x){
-        lli k=x%10;
-        if(k) ans++;
-        x/=10;
-        if(ans>3){
-            return 0;
-        }
-    }
-    return 1;
-}
+const int MOD=1e9+7;
 
 void solve(){
-lli x,y;cin>>x>>y;lli sum=0;
-frs(i,x,y){
-    if(digi(i)) sum++;
+lli x;cin>>x;vec(v,x);fr(i,x)cin>>v[i];
+srt(v);
+map<lli,lli>m;
+frs(i,1,x){
+    lli k=v[i]-v[i-1];
+    m[k]++;
 }
-cout<<sum<<'\n';
+for(auto i:m){
+    cout<<i.first<<" "<<i.second;
+    return;
 }
+
+
+}
+
 int main(){
 fastio;
-lli tt;cin>>tt;
-
-while(tt--){
 solve();
-}
 }

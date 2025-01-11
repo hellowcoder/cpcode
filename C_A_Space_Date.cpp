@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
-#define frs(i,s,n) for(lli i=s;i<=(n);i++)
+#define frs(i,s,n) for(lli i=s;i<(n);i++)
 #define fr1(i,n) for(lli i=1;i<=(n);i++)
 #define uint unsigned long long int
 #define srt(v) sort(v.begin(),v.end())
@@ -22,32 +22,45 @@
 #define ff first
 #define ss second
 using namespace std;
-const int MOD=1e18;
-vector<lli>pre;
-lli digi(lli x){
-    lli ans=0;
+const int MOD=1e9+7;
+
+bool check(lli x){
     while(x){
         lli k=x%10;
-        if(k) ans++;
+        if(k==3 ||k==6||k==9||k==4||k==7)return false;
         x/=10;
-        if(ans>3){
-            return 0;
-        }
     }
-    return 1;
+    return true;
 }
 
 void solve(){
-lli x,y;cin>>x>>y;lli sum=0;
-frs(i,x,y){
-    if(digi(i)) sum++;
+lli x,y;cin>>x>>y;
+string s;cin>>s;
+string hr="";hr+=s[0]+s[1];
+string mn="";mn+=s[3]+s[4];
+lli hor=stoi(hr);
+lli mini=stoi(mn);
+while(hor!=0 && mini!=0){
+    if(check(hor) && check(mini)){
+        cout<<hor<<":"<<mini<<'\n';
+        return;
+    }
+    mini++;
+    if(mini==y){
+        hor++;
+        mini=0;
+        if(hor==x){
+            cout<<"00:00\n";
+            return;
+        }
+    }
+
 }
-cout<<sum<<'\n';
 }
+
 int main(){
 fastio;
 lli tt;cin>>tt;
-
 while(tt--){
 solve();
 }

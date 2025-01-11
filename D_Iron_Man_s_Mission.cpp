@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
-#define frs(i,s,n) for(lli i=s;i<=(n);i++)
+#define frs(i,s,n) for(lli i=s;i<(n);i++)
 #define fr1(i,n) for(lli i=1;i<=(n);i++)
 #define uint unsigned long long int
 #define srt(v) sort(v.begin(),v.end())
@@ -22,32 +22,39 @@
 #define ff first
 #define ss second
 using namespace std;
-const int MOD=1e18;
-vector<lli>pre;
-lli digi(lli x){
-    lli ans=0;
-    while(x){
-        lli k=x%10;
-        if(k) ans++;
-        x/=10;
-        if(ans>3){
-            return 0;
-        }
-    }
-    return 1;
-}
+const int MOD=1e9+7;
 
 void solve(){
-lli x,y;cin>>x>>y;lli sum=0;
-frs(i,x,y){
-    if(digi(i)) sum++;
+lli x;cin>>x;
+
+vector<lli>odd,even;fr(i,x){
+    lli k;cin>>k;lli c=i+1;
+    if(c%2)odd.psb(k);
+    else even.psb(k);
 }
-cout<<sum<<'\n';
+
+lli om=mne(odd);lli em=mne(even);
+lli ans=0;lli o=odd.size(),e=even.size();//o--;e--;ans+=(x-o)*odd[0];ans+=(x-e)*even[0];o++;e++;
+fr(i,o){
+    if(odd[i]==om){
+        ans+=om*(x-i);
+        break;
+    }else
+    ans+=odd[i];
 }
+fr(i,e){
+    if(even[i]==em){
+        ans+=em*(x-i);
+        break;
+    }else
+   ans+=even[i];
+}
+cout<<ans<<'\n';
+}
+
 int main(){
 fastio;
 lli tt;cin>>tt;
-
 while(tt--){
 solve();
 }

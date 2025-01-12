@@ -1,29 +1,3 @@
-// #include <bits/stdc++.h>
-// #define fr(i,n) for(int i=0;i<(n);i++)
-// #define lli long long int
-// #define srt(v) sort(v.begin(),v.end())
-// using namespace std;
-// const int k=1e9;
-// int main(){
-// int n; //number of test cases.
-// cin >>n;
-
-// while(n--){
-// int x,y;cin>>x>>y;
-// int ans=y;
-// while(true){
-//    ans+=(y/x);
-//    if(y/x==0){
-//     break;
-//    }
-//     y=(y/x)+(y%x);
-// }
-
-
-// cout<<ans<<endl;
-// }
- 
-// }
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -51,16 +25,18 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli x,y;cin>>x>>y;
-lli low=1,high=1e18;
-while(low<=high){
-    lli mid=low+(high-low)/2;
-    lli count=mid-(mid/x);
-    if(count>=y)high=mid-1;
-    else low=mid+1;
-}
-cout<<low<<'\n';
-
+lli n,x,y,ans=0,lo,hi,sum;
+    cin>>n>>x>>y;
+    vector<lli> v(n);
+    for(auto &i:v) cin>>i;
+    sort(v.begin(),v.end());
+    //sum=accumulate(v.begin(),v.end(),0LL);
+    for(int i=0;i<n;i++){
+        lo=lower_bound(v.begin()+i+1,v.end(),x-v[i])-v.begin();
+        hi=upper_bound(v.begin()+i+1,v.end(),y-v[i])-v.begin();
+        ans+=(hi-lo);
+    }
+    cout<<ans<<"\n";
 }
 
 int main(){

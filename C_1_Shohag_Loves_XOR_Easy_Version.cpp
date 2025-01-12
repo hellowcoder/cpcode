@@ -18,10 +18,11 @@ cin >>tt;
  
 while(tt--){
 lli x,m;cin>>x>>m;lli count=0;
+m=min(m,2*x);
 fr1(i,m){
     if(i==x) continue;
     lli k=x^i;
-    if(!(x%k)|| !(i%k)) count++;
+    if(!(x%k) || !(i%k)) count++;
 }
 cout<<count<<endl;
 }

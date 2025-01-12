@@ -1,29 +1,3 @@
-// #include <bits/stdc++.h>
-// #define fr(i,n) for(int i=0;i<(n);i++)
-// #define lli long long int
-// #define srt(v) sort(v.begin(),v.end())
-// using namespace std;
-// const int k=1e9;
-// int main(){
-// int n; //number of test cases.
-// cin >>n;
-
-// while(n--){
-// int x,y;cin>>x>>y;
-// int ans=y;
-// while(true){
-//    ans+=(y/x);
-//    if(y/x==0){
-//     break;
-//    }
-//     y=(y/x)+(y%x);
-// }
-
-
-// cout<<ans<<endl;
-// }
- 
-// }
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -51,22 +25,21 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli x,y;cin>>x>>y;
-lli low=1,high=1e18;
-while(low<=high){
-    lli mid=low+(high-low)/2;
-    lli count=mid-(mid/x);
-    if(count>=y)high=mid-1;
-    else low=mid+1;
+    
+vec(v,4);fr(i,4)cin>>v[i];srt(v);int flag=0;
+if((v[0]+v[1])>v[2]){cout<<"TRIANGLE";return;}
+if((v[0]+v[1])==v[2]){
+    if((v[0]+v[1])>v[3]){cout<<"TRIANGLE";return;}
+    flag=1;
 }
-cout<<low<<'\n';
+if((v[2]+v[1])>v[3]){cout<<"TRIANGLE";return;flag=0;}
+if((v[2]+v[1])==v[3]){flag=1;}
+if(flag){cout<<"SEGMENT";return;}
+cout<<"IMPOSSIBLE";
 
 }
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

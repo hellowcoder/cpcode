@@ -1,29 +1,3 @@
-// #include <bits/stdc++.h>
-// #define fr(i,n) for(int i=0;i<(n);i++)
-// #define lli long long int
-// #define srt(v) sort(v.begin(),v.end())
-// using namespace std;
-// const int k=1e9;
-// int main(){
-// int n; //number of test cases.
-// cin >>n;
-
-// while(n--){
-// int x,y;cin>>x>>y;
-// int ans=y;
-// while(true){
-//    ans+=(y/x);
-//    if(y/x==0){
-//     break;
-//    }
-//     y=(y/x)+(y%x);
-// }
-
-
-// cout<<ans<<endl;
-// }
- 
-// }
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -51,22 +25,26 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli x,y;cin>>x>>y;
-lli low=1,high=1e18;
-while(low<=high){
-    lli mid=low+(high-low)/2;
-    lli count=mid-(mid/x);
-    if(count>=y)high=mid-1;
-    else low=mid+1;
+lli n,p1,p2,p3,t1,t2;cin>>n>>p1>>p2>>p3>>t1>>t2;lli ans=0;vector<pair<lli,lli>>v(n);
+fr(i,n){
+    cin>>v[i].ff>>v[i].ss;ans+=(v[i].ss-v[i].ff)*p1;
 }
-cout<<low<<'\n';
-
+frs(i,1,n){
+    lli in=v[i].ff-v[i-1].ss;
+    ans+=(in-t1 ? t1 : 0)*p1;
+    if(in-t1>0){
+         in-=t1;
+         ans+=(in-t2 ? t2 : 0)*p2;
+    }
+    if(in-t2>0){
+         in-=t2;
+         ans+=(in ? in : 0)*p3;
+    }
+}
+cout<<ans;
 }
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
-solve();
-}
+ solve();
 }

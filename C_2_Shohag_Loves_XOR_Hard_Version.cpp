@@ -1,29 +1,3 @@
-// #include <bits/stdc++.h>
-// #define fr(i,n) for(int i=0;i<(n);i++)
-// #define lli long long int
-// #define srt(v) sort(v.begin(),v.end())
-// using namespace std;
-// const int k=1e9;
-// int main(){
-// int n; //number of test cases.
-// cin >>n;
-
-// while(n--){
-// int x,y;cin>>x>>y;
-// int ans=y;
-// while(true){
-//    ans+=(y/x);
-//    if(y/x==0){
-//     break;
-//    }
-//     y=(y/x)+(y%x);
-// }
-
-
-// cout<<ans<<endl;
-// }
- 
-// }
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -51,16 +25,14 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli x,y;cin>>x>>y;
-lli low=1,high=1e18;
-while(low<=high){
-    lli mid=low+(high-low)/2;
-    lli count=mid-(mid/x);
-    if(count>=y)high=mid-1;
-    else low=mid+1;
+lli x,m;cin>>x>>m;lli count=0;
+m=min(m,2*x);
+fr1(i,m){
+    //if(i==x) continue;
+    lli k=x^i;
+    if(!(x%k) || !(i%k)) count++;
 }
-cout<<low<<'\n';
-
+cout<<count<<endl;
 }
 
 int main(){

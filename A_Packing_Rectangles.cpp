@@ -35,7 +35,7 @@ lli low=1,high=1e12,ans=high;
 while(low<high){
     lli mid=(low+high)/2;
     if(check(a,b,mid)>=n){
-        ans=mid;
+          ans=mid;
           high=mid-1;
     }else{
         //cout<<"*"<<low;

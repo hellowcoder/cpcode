@@ -25,11 +25,36 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-  lli x,y;cin>>x>>y;
-  vec(v,x);fr(i,x)cin>>v[i];
+lli n,m1,m2;cin>>n>>m1>>m2;
+vector<pair<lli,lli>>v(m1+m2);map<pair<lli,lli>,lli>s;
+fr(i,m1+m2){
+    lli x,y ;cin>>x>>y;
+    pair<lli,lli>p;
+    if(x>y) p={y,x};
+    else p={x,y};
+    v[i]=p;
+    
+   
+}
+// for(auto &i :v){
+//   cout<<i.ff<<" "<<i.ss<<'\n';
+// }
+//srt(v);
+fr(i,m1+m2){
+    s[v[i]]++;
+}
+lli count=0;
+for(auto &i : s){
+  if(i.ss==1) count++;
+}
+
+cout<<count<<'\n';
 }
 
 int main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

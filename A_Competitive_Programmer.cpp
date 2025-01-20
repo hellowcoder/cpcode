@@ -25,11 +25,23 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-  lli x,y;cin>>x>>y;
-  vec(v,x);fr(i,x)cin>>v[i];
+string s;cin>>s;lli count =0,count0=0;
+lli sum=0;
+fr(i,s.size()){
+    lli k=s[i]-'0';
+    sum+=k;
+    if(!(k%2)) count++;
+    if(!k) count0++;
+}
+if( count>=2 && !(sum%3) && count0>=1)
+cout<<"red \n";
+else cout<<"cyan \n";
 }
 
 int main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

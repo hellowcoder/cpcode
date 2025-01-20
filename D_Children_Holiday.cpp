@@ -24,8 +24,19 @@
 using namespace std;
 const int MOD=1e9+7;
 
+bool check(vector<vector<lli>>& v,lli mid,lli x){
+    lli ball =0;
+    fr(i,x){
+       ball+=((mid/v[i][0])*v[i][1]);
+
+    }
+    if() return false;
+    return true;
+
+}
+
 void solve(){
-lli x,y;cin>>x>>y;vector<vector<lli>>v(n,vector<lli>(3));
+lli x,y;cin>>x>>y;vector<vector<lli>>v(x,vector<lli>(3));
 fr(i,y){
     cin>>v[i][0]>>v[i][1]>>v[i][2];
 
@@ -36,6 +47,7 @@ while(lo<hi){
     if(check(v,mid,x)) hi=mid-1;
     else lo=mid+1;
 }
+cout<<lo;
 }
 
 int main(){

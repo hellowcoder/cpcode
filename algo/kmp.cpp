@@ -24,9 +24,25 @@
 using namespace std;
 const int MOD=1e9+7;
 
+vector<lli> kmp (string s){lli k=s.size();vector<lli>ans(k,0);
+frs(i,1,k){ 
+    lli j =ans[i-1]; 
+
+     while(j>0 && s[i]!=s[j]){
+        j=ans[j-1];
+     }
+
+
+    if(s[i]==s[j]){ 
+        j++; ans[i]=j;}}
+        return ans;}
+
 void solve(){
-  lli x,y;cin>>x>>y;
-  vec(v,x);fr(i,x)cin>>v[i];
+string s;cin>>s;
+vector<lli>pre=kmp(s);
+for(auto i : pre){
+    cout<<i<<" ";
+}
 }
 
 int main(){

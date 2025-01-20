@@ -25,11 +25,20 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-  lli x,y;cin>>x>>y;
-  vec(v,x);fr(i,x)cin>>v[i];
+lli n,k;cin>>n>>k;
+if(n==k) cout<<"1\n";
+else if(n>k){
+    if(n%k==0)cout<<"1\n";
+    else
+    cout<<"2\n";
+} 
+else cout<<(k+n-1)/n<<'\n';
 }
 
 int main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

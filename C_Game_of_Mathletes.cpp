@@ -25,11 +25,48 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-  lli x,y;cin>>x>>y;
-  vec(v,x);fr(i,x)cin>>v[i];
+lli n,k;cin>>n>>k;//n even
+//cout<<n<<k<<'\n';
+map<lli,lli>m;
+fr(i,n){
+lli x;cin>>x;
+m[x]++;
+}
+lli count =0;
+// for(auto &i :m){
+//     cout<<i.ff<<" "<<i.ss;
+//     cout<<'\n';
+// }
+for(auto &i : m){
+    lli a=k-i.ff;
+   // cout<<a<<" \n";
+    if(a==i.ff){
+       count+=i.ss/2;
+    }
+    else if(m.find(a) !=m.end()){
+        lli g=m[a];//cout<<g<<'\n';
+      //  cout<<"*"<<g<<'\n';
+       count+=min(g,i.ss);
+    }
+    //cout<<count<<"*\n";
+}lli flag=0;
+for(auto &i : m){
+    if(i.ff*2 == k){
+        flag=i.ss;break;
+    }
+}
+if(flag){
+count=(count-(flag/2))/2+(flag/2);
+}else{
+    count/=2;
+}
+cout<<count<<"\n";
 }
 
 int main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

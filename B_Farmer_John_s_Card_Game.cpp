@@ -25,11 +25,38 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-  lli x,y;cin>>x>>y;
-  vec(v,x);fr(i,x)cin>>v[i];
+lli n,m;cin>>n>>m;vector<vector<lli>>v(n,vector<lli>(m));
+fr(i,n){
+    fr(j,m){
+        cin>>v[i][j];
+    }
+}
+fr(i,n){
+    srt(v[i]);
+}
+fr(i,n){
+    frs(j,1,m){
+        if(v[i][j]-v[i][j-1]  !=  n){
+            cout<<"-1\n";return;
+        }
+    }
+}
+vector<pair<lli,lli>>p(n);
+fr(i,n){
+    lli k=mne(v[i]);
+    p[i]={k,i+1};
+
+}
+srt(p);
+fr(i,n){
+    cout<<p[i].ss<<" ";
+}cout<<'\n';
 }
 
 int main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

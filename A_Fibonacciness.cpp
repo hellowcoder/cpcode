@@ -25,11 +25,20 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-  lli x,y;cin>>x>>y;
-  vec(v,x);fr(i,x)cin>>v[i];
+lli a,b,d,e;cin>>a>>b>>d>>e;
+lli k=a+b;lli ans=1;
+if(k+b==d) ans++;
+if(k+d==e) ans++;
+//cout<<ans<<'\n';
+lli ans2=0;
+if(d-b ==e-d) ans2=2;
+cout<<max(ans2,ans)<<'\n';
 }
 
 int main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

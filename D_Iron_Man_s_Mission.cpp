@@ -34,7 +34,7 @@ vector<lli>odd,even;fr(i,x){
 }
 
 lli om=mne(odd);lli em=mne(even);
-lli ans=0;lli o=odd.size(),e=even.size();//o--;e--;ans+=(x-o)*odd[0];ans+=(x-e)*even[0];o++;e++;
+lli ans=0;lli o=odd.size(),e=even.size();
 fr(i,o){
     if(odd[i]==om){
         ans+=om*(x-i);

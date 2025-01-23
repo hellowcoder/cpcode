@@ -17,27 +17,36 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES\n"
-#define no cout<<"NO\n"
+#define yes cout<<
+#define no cout<<
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,m;cin>>n>>m;vec(a,n);vec(b,m);fr(i,n)cin>>a[i];fr(i,m)cin>>b[i];srt(a);srt(b);
-if(n==m){
-    if(a==b) yes;
-    else no;
-}else{
-    
+lli n;cin>>n;vec(v,n);fr(i,n){lli x;cin>>x;x=abs(x);v[i]=x;};srt(v);lli pair=0;
+// for(auto i : v){
+//     cout<<i<<"*";
+// }
+fr(i,n){
+    lli ans=0;
+    lli k=v[i];
+    lli low=i+1,high=n-1;
+    while(low<=high){
+        lli mid=(low+high)/2;
+        lli req=2*k;
+        if(v[mid]<=req){
+            ans=(mid-i);
+            low=mid+1;
+        }else
+        high=mid-1;
+    }
+    pair+=ans;
 }
+cout<<pair<<'\n';
 }
 
 int main(){
-fastio;
-lli tt;cin>>tt;
-while(tt--){
-solve();
-}
+fastio;solve();
 }

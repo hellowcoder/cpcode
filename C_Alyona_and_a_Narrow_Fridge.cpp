@@ -17,27 +17,57 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES\n"
-#define no cout<<"NO\n"
+#define yes cout<<
+#define no cout<<
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,m;cin>>n>>m;vec(a,n);vec(b,m);fr(i,n)cin>>a[i];fr(i,m)cin>>b[i];srt(a);srt(b);
-if(n==m){
-    if(a==b) yes;
-    else no;
-}else{
-    
-}
-}
+lli n,h;cin>>n>>h;vec(a,n);fr(i,n)cin>>a[i];lli counter=0;lli in;lli ans=0;
+for(lli j=1;j<n;j++){
+       ans=0;
+       counter=0;lli k;
+       vector<lli>v = a;
+       sort(v.begin(),v.begin()+j+1);
+    //    for(lli i=0;i<=j;i++){
+    //     cout<<v[i]<<" ";
+    //    }cout<<'\n';
+       for(k=j;k>0;k-=2){
+        lli wat=max(v[k],v[k-1]);
+
+        if(wat+counter <=h){
+            counter+=wat;
+            ans+=2;
+        }
+       }
+        if(k==0){
+            
+           if(v[k]+counter <=h){
+            counter+=v[k];
+            ans++;
+        }
+        
+       }
+       //cout<<ans<<counter<<j<<'\n';
+       if(ans>j+1){
+        cout<<j<<'\n';
+        return;
+       }
+
+       }
+
+cout<<ans;
+
+    }
+
+
+
+
+
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

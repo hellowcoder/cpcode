@@ -17,21 +17,23 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES\n"
-#define no cout<<"NO\n"
+#define yes cout<<
+#define no cout<<
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,m;cin>>n>>m;vec(a,n);vec(b,m);fr(i,n)cin>>a[i];fr(i,m)cin>>b[i];srt(a);srt(b);
-if(n==m){
-    if(a==b) yes;
-    else no;
-}else{
-    
+lli n,l,r;cin>>n>>l>>r;//cout<<l<<" "<<r<<" ";
+vec(v,n);fr(i,n)cin>>v[i];
+srt(v);lli sum=0;
+//cout<<r-l<<" ";
+fr(i,r-l+1){
+ sum+=v[i];
 }
+cout<<sum<<'\n';
+
 }
 
 int main(){

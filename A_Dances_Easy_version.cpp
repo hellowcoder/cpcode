@@ -25,25 +25,24 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,m;cin>>n>>m;vec(b,n);vector<lli>a;a.psb(1);
-fr(i,n-1){
-    lli x;cin>>x;a.psb(x);
-}
+lli n,m;cin>>n>>m;vec(b,n);vec(a,n);a[0]=1;
+frs(i,1,n)cin>>a[i];   
 fr(i,n)cin>>b[i];
-srt(a);srt(b);
-lli count=0,index=0;
-lli low=0,high=n-1;
-lli check=b[n-1];
-fr(i,n){
-   if(a[i]>=check){
-    index=i;break;
-   }
-}count=n-index;
-for(lli i=index;i>=0;i--){
-    if(b[i]<=a[i])count++;
-}
 
-cout<<count<<"\n";
+srt(a);srt(b);
+lli count=0;
+lli i=0,j=0;
+while(i<n  && j<n){
+    if(a[i]<b[j]){
+       count++;
+       i++;
+       j++;
+
+    }else{
+        j++;
+    }
+}
+cout<<n-count<<"\n";
 }
 int main(){
 fastio;

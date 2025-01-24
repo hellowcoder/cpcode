@@ -25,18 +25,27 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,h;cin>>n>>h;vec(a,n);fr(i,n)cin>>a[i];lli counter=0;lli in;lli ans=0;
+lli n,h;cin>>n>>h;vec(a,n);fr(i,n)cin>>a[i];lli counter=0;lli in;lli ans=0;lli final=0;
+if(n==1){
+    if(h>=a[0]){
+        cout<<"1 \n";
+    }
+    else
+    cout<<"0\n";
+    return;
+}
 for(lli j=1;j<n;j++){
        ans=0;
        counter=0;lli k;
        vector<lli>v = a;
-       sort(v.begin(),v.begin()+j+1);
-    //    for(lli i=0;i<=j;i++){
+   
+    sort(v.begin(),v.begin()+j+1);
+     //      for(lli i=0;i<=j;i++){
     //     cout<<v[i]<<" ";
-    //    }cout<<'\n';
+    //    }cout<<'\n'; 
        for(k=j;k>0;k-=2){
         lli wat=max(v[k],v[k-1]);
-
+         //cout<<wat<<"*";
         if(wat+counter <=h){
             counter+=wat;
             ans+=2;
@@ -51,14 +60,13 @@ for(lli j=1;j<n;j++){
         
        }
        //cout<<ans<<counter<<j<<'\n';
-       if(ans>j+1){
-        cout<<j<<'\n';
-        return;
+       if(ans>=j+1){
+          final=max(final,j+1);
+       }
+    //cout<<"#";
        }
 
-       }
-
-cout<<ans;
+cout<<final;
 
     }
 

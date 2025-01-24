@@ -25,9 +25,9 @@ using namespace std;
 const int MOD=998244353;
 
 void solve(){
-lli x;cin>>x;vec(v,x+1);fr1(i,x)cin>>v[i];vector<lli>track(x+1,0);if(x==1){if(v[0]==0)cout<<"2\n";else cout<<"1\n";return;}
+lli x;cin>>x;vec(v,x+1);fr1(i,x)cin>>v[i];vector<lli>track(x+1,0);if(x==1){if(v[1]==0)cout<<"2\n";else cout<<"1\n";return;}
 fr1(i,x){
-    if(v[i]>i-1) continue;
+    if(v[i]>=i) continue;
     if(i<=2 && v[i]==i-1){
         track[i]=1;
     }

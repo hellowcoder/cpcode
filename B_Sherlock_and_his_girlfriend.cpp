@@ -24,33 +24,34 @@
 using namespace std;
 const int MOD=1e9+7;
 
-lli solve2(lli x){
-    lli counter=0;
-    for(lli i=2;i*i<=x;i++){
-       
-        if(x%i==0){
-           counter++;
-           while(x%i==0){
-              x/=i;
-           }
-        }
-    }
-    if(x!=1) counter++;
-    return counter;
-}
-void solve(){
-   lli x;cin>>x;
-   if(x<6) cout<<"0";
-   else{
-    lli ans=0;
-    for(lli i=6;i<=x;i++){
-      if(solve2(i)==2){
-        ans++;
-      }
-    }
-    cout<<ans;
+void primee(vector<lli>& v ,lli x){    //nlog(log(n))  prime harmonic series...
+   for(lli i=2;i*i<=x+1;i++){
+     if(v[i]==1){
+        for(lli j=i*i;j<=x+1;j+=i)
+        v[j]=2;
+     }
    }
+}
 
+// void solve(){
+//     lli x;cin>>x;
+//     vector<lli>prime(x+1,1);
+//     prime[0]=prime[1]=0;
+     
+//      primee(prime,x);
+//     frs(i,2,x+1){
+//       if(prime[i]) cout<<i<<'\n';
+//     }
+// }
+
+void solve(){
+lli x;cin>>x;vector<lli>v(x+2,1);
+primee(v,x);
+lli k=mxe(v);
+cout<<k<<'\n';
+for(lli i=2;i<x+2;i++){
+    cout<<v[i]<<" ";
+}cout<<'\n';
 }
 
 int main(){

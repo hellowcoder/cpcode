@@ -24,7 +24,8 @@
 using namespace std;
 const int MOD=1e9+7;
 
-vector<lli> kmp (string s){lli k=s.size();vector<lli>ans(k,0);
+vector<lli> kmp (string s){
+lli k=s.size();vector<lli>ans(k,0);
 frs(i,1,k){ 
     lli j =ans[i-1]; 
 

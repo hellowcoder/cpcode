@@ -24,36 +24,48 @@
 using namespace std;
 const int MOD=1e9+7;
 
-lli solve2(lli x){
-    lli counter=0;
-    for(lli i=2;i*i<=x;i++){
-       
-        if(x%i==0){
-           counter++;
-           while(x%i==0){
-              x/=i;
-           }
-        }
-    }
-    if(x!=1) counter++;
-    return counter;
-}
 void solve(){
-   lli x;cin>>x;
-   if(x<6) cout<<"0";
-   else{
-    lli ans=0;
-    for(lli i=6;i<=x;i++){
-      if(solve2(i)==2){
-        ans++;
-      }
-    }
-    cout<<ans;
-   }
+lli n;cin>>n;vec(pos,n);vec(tim,n);fr(i,n)cin>>pos[i];fr(i,n)cin>>tim[i];vec(total,n);
+double low=mne(pos),high=mxe(pos),ans=0;
+// fr(i,n){
+//     lli timed=abs(pos[i])+tim[i];
 
+// }
+
+
+while(high-low>=1e-9){
+  double mid=(low+high)/2.0;
+  double maxt=0.0;
+  fr(i,n){
+    double timed=abs(pos[i]-mid)+tim[i];
+    maxt=max(maxt,timed);
+
+  }
+  double l=0.0,r=0.0;
+  for(lli i=low;i<mid;i++){
+    double k= abs(pos[i]-(mid-1e-9))+tim[i];
+    l=max(l,k);
+  }
+  for(lli i=mid+1;i<=high;i++){
+    double k= abs(pos[i]-(mid+1e-9))+tim[i];
+    r=max(r,k);
+  }
+  //if(r==l)ans=mid;
+  if(r>l){
+   // ans=mid;
+    high=mid-1e-9;
+  }else{
+    ans=mid;
+    low=mid+1e-9;
+  }
+}
+cout<<ans<<'\n';
 }
 
 int main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

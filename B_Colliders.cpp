@@ -17,38 +17,50 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES\n"
-#define no cout<<"NO\n"
+#define yes cout<<
+#define no cout<<
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
-void solve(){
-lli n,m;cin>>n>>m;vec(a,n);vec(b,m);lli sum1=0,sum2=0;fr(i,n){cin>>a[i];sum1+=a[i];}fr(i,m){cin>>b[i];sum2+=b[i];}srt(a);srt(b);
-if(n==m){
-    if(a==b) yes;
-    else no;
-    return;
-}
-if(sum1!=sum2){
-    no;return;
-}
-lli i=0,j=0;
-while(i<n && j<m){
-    if(a[i]<b[j])i++;
-    if(a[i]==b[j]){
-        i++;j++;
+lli gc(vector<lli>& v,lli x){
+   
+    if(v.size()==0){
+        v.psb(x);
+        return 0;
     }
-    if(a[i]>b[i])j++;
+    lli result=__gcd(x,v[0]);
+    if(result!=0)return v[0];
+    frs(i,1,v.size()){
+        result=__gcd(result,v[i]);
+        if(result!=1){
+            return v[i];
+        }
+    }
+    v.psb(x);
+   return 0;
 }
 
+void solve(){
+lli n,m;cin>>n>>m;vector<pair<char,lli>>v(m);
+fr(i,m){
+    cin>>v[i].ff>>v[i].ss;
+}
+vector<lli>ans;
+if(v[0].ff=='-') cout<<"Already off \n";
+else {cout<<"Success \n";ans.psb(v[0].ss);}
+frs(i,1,m){
+    if(v[i].ff=='+'){
+        lli k= gc(ans,v[i].ss);
+       if(k){
+        cout<<"Conflict with "<<k<<'\n';
+       }else cout<<"Success \n";
+    }
+}
 }
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

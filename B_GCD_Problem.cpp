@@ -17,32 +17,28 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES\n"
-#define no cout<<"NO\n"
+#define yes cout<<
+#define no cout<<
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,m;cin>>n>>m;vec(a,n);vec(b,m);lli sum1=0,sum2=0;fr(i,n){cin>>a[i];sum1+=a[i];}fr(i,m){cin>>b[i];sum2+=b[i];}srt(a);srt(b);
-if(n==m){
-    if(a==b) yes;
-    else no;
-    return;
-}
-if(sum1!=sum2){
-    no;return;
-}
-lli i=0,j=0;
-while(i<n && j<m){
-    if(a[i]<b[j])i++;
-    if(a[i]==b[j]){
-        i++;j++;
-    }
-    if(a[i]>b[i])j++;
-}
+lli x;cin>>x;
+if(x%2){
+   lli k=(x-1)/2;
+   if(k%2){
+     cout<<k-2<<" "<<k+2<<" "<<"1\n";
+    }else{
+         cout<<k-1<<" "<<k+1<<" "<<"1\n";
 
+    }
+   }
+else{
+    cout<<x/2<<" "<<x/2-1<<" "<<"1\n";
+}
+//cout<<__gcd(61345206,61345205);
 }
 
 int main(){

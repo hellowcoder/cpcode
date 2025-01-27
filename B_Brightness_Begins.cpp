@@ -1,44 +1,49 @@
-// #include <bits/stdc++.h>
-// using namespace std;
-// const int N=1e18;
-// long long int hash[N];
-// int main(){
-// int n; //number of test cases.
-// cin >>n;
-// long long int arr[];
-// for(long long int  i=0;i<N;i++){
-//     arr[i]=i;
-// }
-// for(long long int  i=2;i<arr[i];i++){
-//    if(arr[i]%i==0){
-//     hash[arr[i]]++;
-//    }
-   
-// }
-// while(n--){
-// long long int x;
-// cin >>x;
-// for(long long int i=1;i<N;i++){
-//     if()
-// }
-// }
-
-// }
 #include <bits/stdc++.h>
+#define lli long long int
+#define fr(i,n) for(lli i=0;i<(n);i++)
+#define frs(i,s,n) for(lli i=s;i<(n);i++)
+#define fr1(i,n) for(lli i=1;i<=(n);i++)
+#define uint unsigned long long int
+#define srt(v) sort(v.begin(),v.end())
+#define rsrt(v) sort(v.rbegin(),v.rend())
+#define vec(v,n) vector<lli>v(n)
+#define vec2(v,n) vector<vector<lli>>v(n)
+#define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
+#define mxe(v)  *max_element(v.begin(),v.end())
+#define mne(v)  *min_element(v.begin(),v.end())
+#define vin(a) for(auto &i:a) cin>>i
+#define psb(a) push_back(a)
+#define ppb pop_back()
+#define all(v) v.begin(),v.end()
+#define rall(v) v.rbegin(),v.rend()
+#define sz(v) (lli)(v.size())
+#define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
+#define yes cout<<
+#define no cout<<
+#define ff first
+#define ss second
 using namespace std;
-int main(){
-    int t;
-    cin >> t;
-    while(t--){
-        long long k, l = 1, r = 2e18;
-        cin >> k;
-        while(r-l > 1){
-            long long mid = (l+r)>>1;
-            long long n = mid - int(sqrtl(mid));
-            if(n >= k) r = mid;
-            else l = mid;
-        }
-        cout << r << "\n";
+const int MOD=1e9+7;
+
+void solve(){
+lli k;cin>>k;
+lli low=1,high=2e18,ans=0;
+while(low<=high){
+    lli mid=low+(high-low)/2;
+    lli r= mid-sqrt(mid);
+    if(r<k){
+       ans=mid;
+       low=mid+1;
     }
-    return 0;
+    else high=mid-1;
+}
+cout<<ans<<'\n';
+}
+
+int main(){
+fastio;
+lli tt;cin>>tt;
+while(tt--){
+solve();
+}
 }

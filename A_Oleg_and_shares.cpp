@@ -8,6 +8,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,n) vector<vector<lli>>v(n)
+#define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define vin(a) for(auto &i:a) cin>>i
@@ -18,30 +19,32 @@
 #define sz(v) (lli)(v.size())
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
-#define no cout<<
+#define no cout<<"-1\n"
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,l,r;cin>>n>>l>>r;//cout<<l<<" "<<r<<" ";
-vec(v,n);fr(i,n)cin>>v[i];
-vector<lli>left,right;
-
-left.assign(v.begin(),v.begin()+r);
-right.assign(v.begin()+l-1,v.end());
-srt(left);srt(right);
-lli k= accumulate(left.begin(),left.begin()+(r-l+1),0LL);
-lli m=accumulate(right.begin(),right.begin()+(r-l+1),0LL);
-cout<<min(k,m)<<'\n';
-
+lli n,k;cin>>n>>k;get(v,n);
+if(n==1){
+    cout<<"0\n";
+    return;
+}lli sum=0;
+lli mm=mne(v);
+fr(i,n){
+    v[i]-=mm;
+}
+fr(i,n){
+    if(v[i]%k){
+        no;return;
+    }
+   sum+=v[i]/k;
+}
+cout<<sum<<'\n';
 }
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

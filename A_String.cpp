@@ -8,6 +8,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,n) vector<vector<lli>>v(n)
+#define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define vin(a) for(auto &i:a) cin>>i
@@ -25,17 +26,12 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,l,r;cin>>n>>l>>r;//cout<<l<<" "<<r<<" ";
-vec(v,n);fr(i,n)cin>>v[i];
-vector<lli>left,right;
-
-left.assign(v.begin(),v.begin()+r);
-right.assign(v.begin()+l-1,v.end());
-srt(left);srt(right);
-lli k= accumulate(left.begin(),left.begin()+(r-l+1),0LL);
-lli m=accumulate(right.begin(),right.begin()+(r-l+1),0LL);
-cout<<min(k,m)<<'\n';
-
+string s;cin>>s;
+lli count=0;
+fr(i,s.size()){
+    if(s[i]=='1') count++;
+}
+cout<<count<<'\n';
 }
 
 int main(){

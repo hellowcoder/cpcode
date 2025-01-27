@@ -8,6 +8,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,n) vector<vector<lli>>v(n)
+#define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define vin(a) for(auto &i:a) cin>>i
@@ -24,18 +25,48 @@
 using namespace std;
 const int MOD=1e9+7;
 
+
+
 void solve(){
-lli n,l,r;cin>>n>>l>>r;//cout<<l<<" "<<r<<" ";
-vec(v,n);fr(i,n)cin>>v[i];
-vector<lli>left,right;
-
-left.assign(v.begin(),v.begin()+r);
-right.assign(v.begin()+l-1,v.end());
-srt(left);srt(right);
-lli k= accumulate(left.begin(),left.begin()+(r-l+1),0LL);
-lli m=accumulate(right.begin(),right.begin()+(r-l+1),0LL);
-cout<<min(k,m)<<'\n';
-
+lli x;cin>>x;get(v,x);
+lli maxi=accumulate(all(v),0LL);vector<lli>rev,v2,rev2;
+lli maxi2=accumulate(all(v),0LL);
+//rev=v;
+while(x>1){
+  lli sum=0,sum2=0;
+  if(v[0]>=v.back()) reverse(all(v));
+//   for(auto &i:v){
+//     cout<<i<<"*";
+//   }cout<<'\n';
+//   frs(i,1,v2.size()){
+//     lli k=v2[i]-v2[i-1];
+//     rev2.psb(k);
+//     sum2+=k;
+//   }
+//   maxi2=max(maxi2,sum2);
+//   cout<<maxi2<<'\n';
+//   for(auto &i:rev2){
+//     cout<<i<<"*";
+//   }cout<<'\n';
+  frs(i,1,v.size()){
+    lli k=v[i]-v[i-1];
+     rev.psb(k);
+     sum+=k;
+  }
+  maxi=max(maxi,sum);
+//   cout<<maxi<<'\n';
+//   for(auto &i:rev){
+//     cout<<i<<"*";
+//   }cout<<'\n';
+  v.clear();
+  //v2.clear();
+  v=rev;
+ // v2=rev2;
+  //rev2.clear();
+  rev.clear();
+  x--;
+}
+cout<<maxi<<'\n';
 }
 
 int main(){

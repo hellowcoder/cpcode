@@ -34,14 +34,30 @@ if(n==m){
 if(sum1!=sum2){
     no;return;
 }
-lli i=0,j=0;
-while(i<n && j<m){
-    if(a[i]<b[j])i++;
-    if(a[i]==b[j]){
-        i++;j++;
-    }
-    if(a[i]>b[i])j++;
+priority_queue<lli>pq1,pq2;
+for(auto &i:a){
+    pq1.push(i);
 }
+for(auto &i:b){
+    pq2.push(i);
+}
+while(true){
+    while(pq1.top()==pq2.top()){
+        pq1.pop();pq2.pop();
+    }
+    lli k=pq2.top();pq2.pop();pq2.push(k/2);pq2.push((k+1)/2);
+    //cout<<k<<'\n';
+    if(pq1.size()==pq2.size()) break;
+}
+lli k=pq1.size();
+//cout<<k<<'\n';
+while(!pq1.empty()){
+    if(pq1.top()!=pq2.top()){
+        no;return;
+    }
+    pq1.pop();pq2.pop();
+}
+yes;
 
 }
 

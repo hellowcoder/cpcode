@@ -8,6 +8,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,n) vector<vector<lli>>v(n)
+#define take(lli,x) lli x;cin>>x
 #define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
@@ -17,6 +18,7 @@
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
+#define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
 #define no cout<<
@@ -24,20 +26,40 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
+vector<lli>fact(5000001);
+vector<lli>isprime(5000001,0);
+vector<lli>arr(5000001,0);
+
+void pre(vector<lli>&isprime,vector<lli>&arr){
+frs(i,2,5000001){
+        if(isprime[i] == 0){
+            for(lli j=i; j<=5000000; j += i){
+                lli v = j;
+                while(v % i == 0){
+                    v /= i;
+                    arr[j]++;
+                }
+                isprime[j] = 1;
+            }
+        }
+    }
+}
+
 
 void solve(){
-lli k;cin>>k;
-lli  ex=sqrtl(k);
-k+=ex;
-lli g=sqrtl(k);
-if(g==ex)
-cout<<k<<'\n';
-else 
-cout<<k+abs(g-ex)<<'\n';
+lli a,b;cin>>a>>b;lli ans=0;
+
+ans=arr[a]-arr[b];
+cout<<ans<<'\n';
 }
 
 int main(){
 fastio;
+
+pre(isprime,arr);
+for(lli i=1;i<arr.size();i++){
+    arr[i]+=arr[i-1];
+}
 lli tt;cin>>tt;
 while(tt--){
 solve();

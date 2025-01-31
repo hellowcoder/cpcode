@@ -8,6 +8,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,n) vector<vector<lli>>v(n)
+#define take(lli,x) lli x;cin>>x
 #define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
@@ -17,6 +18,7 @@
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
+#define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
 #define no cout<<
@@ -26,14 +28,25 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli k;cin>>k;
-lli  ex=sqrtl(k);
-k+=ex;
-lli g=sqrtl(k);
-if(g==ex)
-cout<<k<<'\n';
-else 
-cout<<k+abs(g-ex)<<'\n';
+take(string,s);lli x=1e6;
+reverse(all(s));
+fr(i,s.size()){
+    if(s[i]=='5'){
+      frs(j,i+1,s.size()){
+         if(s[j]=='2'||s[j]=='7'){
+            x=min(x,j-1);
+         }
+      }
+    }
+    if(s[i]=='0'){
+       frs(j,i+1,s.size()){
+         if(s[j]=='0'||s[j]=='5'){
+            x=min(x,j-1);
+         }
+      }
+    }
+}
+cout<<x<<'\n';
 }
 
 int main(){

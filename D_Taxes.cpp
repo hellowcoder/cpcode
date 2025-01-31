@@ -8,6 +8,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,n) vector<vector<lli>>v(n)
+#define take(lli,x) lli x;cin>>x
 #define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
@@ -17,6 +18,7 @@
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
+#define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
 #define no cout<<
@@ -25,21 +27,28 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void solve(){
-lli k;cin>>k;
-lli  ex=sqrtl(k);
-k+=ex;
-lli g=sqrtl(k);
-if(g==ex)
-cout<<k<<'\n';
-else 
-cout<<k+abs(g-ex)<<'\n';
+
+bool prime(lli x){
+    for(lli i=2;i*i<=x;i++){
+        if(x%i==0) return false;
+    }
+    return true;
 }
 
+void solve() {
+    lli x;
+    cin >> x;
+    if(x==2) cout<<"1";
+    else if(x%2){
+        if(prime(x)) cout<<"1";
+        else if(prime(x-2)) cout<<"2";
+        else cout<<'3';
+    }
+    else{
+        cout<<"2\n";  //goldback conjecture....
+    }
+}
 int main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

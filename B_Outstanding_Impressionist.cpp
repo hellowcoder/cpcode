@@ -33,11 +33,18 @@ fr(i,x){
         else a+='1'; 
         }
     else{
-        
-        lli k=accumulate(pre.begin()+v[i].ff,pre.begin()+v[i].ss+1,0LL);
-       
-        if(k<(v[i].ss-v[i].ff+1)) a+='1';
-        else a+='0';
+     bool boolo =true;
+       for(lli j=v[i].ff;j<=v[i].ss;j++){
+        if(pre[j]==0){
+            a+='1';
+            boolo=false;
+            break;
+        }
+       }
+       if(boolo){
+        a+='0';
+       }
+
     }
 
   

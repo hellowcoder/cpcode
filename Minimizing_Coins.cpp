@@ -8,6 +8,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,n) vector<vector<lli>>v(n)
+#define take(lli,x) lli x;cin>>x
 #define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
@@ -17,6 +18,7 @@
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
+#define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
 #define no cout<<
@@ -25,37 +27,34 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void solve(){
-lli n,m1,m2;cin>>n>>m1>>m2;
-vector<pair<lli,lli>>v(m1+m2);map<pair<lli,lli>,lli>s;
-fr(i,m1+m2){
-    lli x,y ;cin>>x>>y;
-    pair<lli,lli>p;
-    if(x>y) p={y,x};
-    else p={x,y};
-    v[i]=p;
-    
-   
-}
-// for(auto &i :v){
-//   cout<<i.ff<<" "<<i.ss<<'\n';
-// }
-//srt(v);
-fr(i,m1+m2){
-    s[v[i]]++;
-}
-lli count=0;
-for(auto &i : s){
-  if(i.ss==1) count++;
+void ans(vector<lli>&v,lli k){
+   vector<lli>dp(k+1,0);
+   dp[0]=0;
+   frs(i,1,k+1){
+      dp[i]=1e16;
+      fr(j,v.size()){
+         if(i-v[j]>=0)
+         dp[i]=min(dp[i],dp[i-v[j]]);
+      }
+      dp[i]++;
+   }
+      if(dp[k]==1e16) cout<<"-1\n";
+      else cout<<dp[k]<<'\n';
+  
 }
 
-cout<<count<<'\n';
+void solve(){
+lli n,k;cin>>n>>k;get(v,n);
+
+ans(v,k);
+
+
+
+
+
 }
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

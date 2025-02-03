@@ -34,7 +34,7 @@ fr(i,s.size()){
     if(s[i]=='5'){
       frs(j,i+1,s.size()){
          if(s[j]=='2'||s[j]=='7'){
-            x=min(x,j-1);
+            x=min(x,j-1);  //i+(j-i-1)=j-1
          }
       }
     }

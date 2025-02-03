@@ -28,7 +28,7 @@ const int MOD=1e9+7;
 void solve(){
 lli n;cin>>n;get(a,n);
 fr(i,n){
-        if(a[i]<=i*2) {
+        if(a[i]<=i*2||a[i]<=(n-i-1)*2) {
             no;
             return;
         }

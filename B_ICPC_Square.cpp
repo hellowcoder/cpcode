@@ -33,6 +33,7 @@ if(n/st <2){
     cout<<st;
     return;
 }
+//max he can reach at 2*mx;;
 
 }
 

@@ -43,20 +43,17 @@ lli mexi(vector<lli>&v){
 
 void solve(){
 take(lli,n);get(v,n);
+if(n==1){if(v[0]==0)no;else yes;return;}
 lli mex= mexi(v);
 //cout<<mex<<" ";
-if(!mex){
+lli mini=mne(v);
+if(mex==0){
     yes;return;
 }
-lli mini=mne(v);
-if((mex+1-mini)>=3){
-    no;return;
-}
-else{
-   if(v[0]==mini  || v.back()==mini) yes;
-    else no;
-}
-
+ if(count(all(v),mex+1)==1) {yes;return;}
+if(v[0]==mini || v.back()==mini){
+   
+}else no;
 }
 
 int main(){

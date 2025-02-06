@@ -24,28 +24,29 @@
 using namespace std;
 const int MOD=1e18;
 vector<lli>pre;
-lli digi(lli x){
-    lli ans=0;
-    while(x){
-        lli k=x%10;
-        if(k) ans++;
-        x/=10;
-        if(ans>3){
-            return 0;
-        }
+
+void gener(lli x,lli count){
+    if(x>1e18 || count>3) return;  //main thought
+    pre.psb(x);
+    fr(i,10){
+        if(x*10+i>0){
+             if(i>0) gener(x*10+i,count+1);   //basic intution dont think of numbers just recussion do thid job
+             else gener(x*10+i,count);
+         }
     }
-    return 1;
 }
 
+
 void solve(){
-lli x,y;cin>>x>>y;lli sum=0;
-frs(i,x,y){
-    if(digi(i)) sum++;
-}
-cout<<sum<<'\n';
+lli x,y;cin>>x>>y;
+cout<<upper_bound(all(pre),y)-lower_bound(all(pre),x)<<'\n';
+
 }
 int main(){
 fastio;
+
+gener(0,0);
+srt(pre);
 lli tt;cin>>tt;
 
 while(tt--){

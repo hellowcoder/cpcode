@@ -27,29 +27,23 @@
 using namespace std;
 const int MOD=1e9+7;
 
-vector<lli>v(1e6+1);
-
-lli div(lli x){
-    lli count=0;
-    for(lli i=1;i*i<=x;i++){
-        if(x%i==0){
-          count+=2;
-          if(i*i==x)count--;
-        }
-    }
-    return count;
+void solve(){
+lli a,b,c;cin>>a>>b>>c;
+if(a==b && b==c) cout<<"1 1 1\n";
+else if(a==b) cout<<"0 0 1\n";
+else if(c==b) cout<<"1 0 0\n";
+else if(a==c) cout<<"0 1 0\n";
+else{
+    lli k=max(a,max(b,c));
+    if(k==a) cout<<"1 0 0\n";
+    if(k==b) cout<<"0 1 0\n";
+    if(k==c) cout<<"0 0 1\n";
 }
 
-void solve(){
-lli x;cin>>x;
-cout<<v[x]<<'\n';
 }
 
 int main(){
 fastio;
-for(lli i=1;i<=1e6;i++){
-    v[i]=div(i);
-}
 lli tt;cin>>tt;
 while(tt--){
 solve();

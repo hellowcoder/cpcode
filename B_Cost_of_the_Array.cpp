@@ -9,7 +9,7 @@
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,n) vector<vector<lli>>v(n)
 #define take(lli,x) lli x;cin>>x
-#define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
+#define get(v,n) vec(v,n+1);fr1(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define vin(a) for(auto &i:a) cin>>i
@@ -27,29 +27,24 @@
 using namespace std;
 const int MOD=1e9+7;
 
-vector<lli>v(1e6+1);
-
-lli div(lli x){
-    lli count=0;
-    for(lli i=1;i*i<=x;i++){
-        if(x%i==0){
-          count+=2;
-          if(i*i==x)count--;
+void solve(){
+lli n,k;cin>>n>>k;get(v,n);
+if(n==k){               //brute one
+    for(lli i=2;i<=n;i+=2){
+        if(v[i] != i/2){
+            cout<<i/2<<'\n';return;
         }
     }
-    return count;
+    cout<<k/2+1<<'\n';return;
 }
-
-void solve(){
-lli x;cin>>x;
-cout<<v[x]<<'\n';
+lli c=count(v.begin()+2,v.begin()+n-k+2+1,1);
+//cout<<"*"<<c<<'\n';
+if(c==n-k+1) cout<<"2\n";
+else cout<<"1\n";
 }
 
 int main(){
 fastio;
-for(lli i=1;i<=1e6;i++){
-    v[i]=div(i);
-}
 lli tt;cin>>tt;
 while(tt--){
 solve();

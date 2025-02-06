@@ -27,31 +27,25 @@
 using namespace std;
 const int MOD=1e9+7;
 
-vector<lli>v(1e6+1);
+void solve(){
+lli x,k;cin>>x>>k;get(pr,x);get(page,x);
+vector<lli>dp(k+1,0);
 
-lli div(lli x){
-    lli count=0;
-    for(lli i=1;i*i<=x;i++){
-        if(x%i==0){
-          count+=2;
-          if(i*i==x)count--;
+frs(i,1,k+1){
+    fr(j,x){
+        if(i-pr[j]>=0){
+                 if(pr[j]*2==i)continue;
+                if(i-pr[j]==0) dp[i]=max(dp[i],page[j]);
+                else dp[i]=max(dp[i],dp[i-pr[j]]+page[j]);
+            
         }
     }
-    return count;
-}
 
-void solve(){
-lli x;cin>>x;
-cout<<v[x]<<'\n';
+}
+cout<<dp[k];
 }
 
 int main(){
 fastio;
-for(lli i=1;i<=1e6;i++){
-    v[i]=div(i);
-}
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

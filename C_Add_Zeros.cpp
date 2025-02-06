@@ -25,15 +25,12 @@ const int MOD=1e9+7;
 
 void solve(){
 lli n;cin>>n;vec(v,n);fr(i,n){cin>>v[i];}vector<pair<lli,lli>>vv;set<lli>s;
-frs(i,1,n){
-   int size=v[i]+i;
-   vv.push_back({size,i});
-}
+fr(i,n) vv.push_back({v[i]+i,i}); //expected size that can be find on choosing that element
 srt(vv);
 s.insert(n);
-for(auto i:vv){
-  if(s.find(i.ff) !=s.end()){
-    s.insert(i.ff+i.ss);
+fr(i,n){
+  if(s.find(vv[i].ff) !=s.end()){   //agar size mil gaya mtlb wo i select kiya ja skta tha so append zeros
+    s.insert(vv[i].ff+vv[i].ss);
   }
 }
 cout<<*s.rbegin()<<'\n';

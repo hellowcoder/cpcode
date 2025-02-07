@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
 #define frs(i,s,n) for(lli i=s;i<(n);i++)
@@ -9,6 +8,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,n) vector<vector<lli>>v(n)
+#define take(lli,x) lli x;cin>>x
 #define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
@@ -18,6 +18,7 @@
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
+#define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
 #define no cout<<
@@ -26,59 +27,38 @@
 using namespace std;
 const int MOD=1e9+7;
 
-class UnionFind
-{
-private:
-    vector<int> par;
-    vector<int> sz;
- 
-public:
-    UnionFind(int n)
-    {
-        par = vector<int>(n);
-        iota(par.begin(), par.end(), 0);
-        sz = vector<int>(n, 1);
+//Matrix multiplication with modulo
+void multiply(vector<vector<lli>>& mat1, vector<vector<lli>>& mat2) {
+    lli x = (mat1[0][0] * mat2[0][0] + mat1[0][1] * mat2[1][0]) % MOD;
+    lli y = (mat1[0][0] * mat2[0][1] + mat1[0][1] * mat2[1][1]) % MOD;
+    lli z = (mat1[1][0] * mat2[0][0] + mat1[1][1] * mat2[1][0]) % MOD;
+    lli w = (mat1[1][0] * mat2[0][1] + mat1[1][1] * mat2[1][1]) % MOD;
+
+    mat1[0][0] = x;
+    mat1[0][1] = y;
+    mat1[1][0] = z;
+    mat1[1][1] = w;
+}
+
+// Matrix exponentiation with modulo
+void matrixPower(vector<vector<lli>>& mat1, lli n) {
+    if (n == 0 || n == 1) return;
+
+    vector<vector<lli>> mat2 = {{3, 1}, {1, 3}};
+    matrixPower(mat1, n / 2);
+    multiply(mat1, mat1);
+
+    if (n % 2 != 0) {
+        multiply(mat1, mat2);
     }
- 
-    int find(int u)
-    {
-        // this optimisation was good.
-        if (par[u] != par[par[u]])
-            par[u] = find(par[par[u]]);
-        return par[u];
-    }
- 
-    bool connected(int u, int v)
-    {
-        u = find(u);
-        v = find(v);
-        if (u == v)
-            return true;
-        return false;
-    }
-    bool join(int u, int v)
-    {
-        u = find(u);
-        v = find(v);
-        if (u == v)
-            return false;
-        if (sz[u] <= sz[v])
-        {
-            sz[v] += sz[u];
-            par[u] = v;
-        }
-        else
-        {
-            sz[u] += sz[v];
-            par[v] = u;
-        }
-        return true;
-    }
-};
+}
 
 
 void solve(){
-
+lli x;cin>>x;
+vector<vector<lli>> mat1 = {{3, 1}, {1, 3}};
+    matrixPower(mat1, x-1);
+    cout<<mat1[0][0];
 }
 
 int main(){

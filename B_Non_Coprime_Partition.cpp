@@ -9,7 +9,7 @@
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,n) vector<vector<lli>>v(n)
 #define take(lli,x) lli x;cin>>x
-#define get(v,n) vec(v,n+1);fr1(i,n)cin>>v[i]
+#define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define vin(a) for(auto &i:a) cin>>i
@@ -20,33 +20,44 @@
 #define sz(v) (lli)(v.size())
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
-
-void solve(){
-lli n,k;cin>>n>>k;get(v,n);
-if(n==k){               //brute one
-    for(lli i=2;i<=n;i+=2){
-        if(v[i] != i/2){
-            cout<<i/2<<'\n';return;
+vector<lli>v(45007);
+void spf(vector<lli>&x){
+    for(lli i=2;i*i<=45000;i++){
+        if(x[i]==i){
+            for(lli j=i*i;j<45000;j+=i){
+                if(x[j]==j){
+                    x[j]=i;
+                }
+            }
         }
     }
-    cout<<k/2+1<<'\n';return;
 }
-lli c=count(v.begin()+2,v.begin()+n-k+2+1,1);
-//cout<<"*"<<c<<'\n';
-if(c==n-k+1) cout<<"2\n";    //if all are one then ans =====2
-else cout<<"1\n";
+
+void solve(){
+take(lli,x);
+if(x<=2){no;return;}
+lli k;
+if(x&1) k=(x+1)/2;
+else k=x/2;
+yes;
+cout<<"1 "<<k<<'\n'<<x-1<<" ";
+fr1(i,x){
+    if(i!=k)cout<<i<<" ";
+}
+
+cout<<'\n';  
+
 }
 
 int main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
+
+
 solve();
-}
 }

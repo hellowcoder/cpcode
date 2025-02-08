@@ -27,29 +27,53 @@
 using namespace std;
 const int MOD=1e9+7;
 
-vector<lli>v(1e6+1);
+vector<lli>spf(1e6+1),divisor(1e6+1,1);
 
-lli div(lli x){
-    lli count=0;
-    for(lli i=1;i*i<=x;i++){
-        if(x%i==0){
-          count+=2;
-          if(i*i==x)count--;
+void print(){
+    fr(i,1e6+1){
+      spf[i]=i;
+    }
+    for(lli i=2;i*i<=1e6;i++){
+        if(spf[i]==i){
+            for(lli j=i*i;j<=1e6;j+=i){
+                if(spf[j]==j){
+                    spf[j]=i;
+                }
+            }
         }
     }
-    return count;
+} 
+
+void divi(){
+   
+    fr1(i,1e6){
+         lli ans=1,count=1;
+        lli k=i;
+      while(k-1){
+          lli s=spf[k];
+          count=1;
+          while(k%s==0){
+              count++;
+              k/=s;
+          }
+          ans*=count;
+      }
+      divisor[i]=ans;
+    }
 }
 
-void solve(){
-lli x;cin>>x;
-cout<<v[x]<<'\n';
+void solve(){    
+   lli x;cin>>x;
+   cout<<divisor[x]<<'\n';
+
 }
+
+
 
 int main(){
 fastio;
-for(lli i=1;i<=1e6;i++){
-    v[i]=div(i);
-}
+print();
+divi();
 lli tt;cin>>tt;
 while(tt--){
 solve();

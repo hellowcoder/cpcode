@@ -51,7 +51,8 @@ lli lisb(vector<lli>&v){     //dp with binary seach
         temp.push_back(v[0]);
         for(int i=1;i<n;i++){
             if(v[i]>temp.back()){
-                temp.push_back(v[i]);ans++;
+                temp.push_back(v[i]);
+                ans++;
             }
             else{
                 int ind = lower_bound(temp.begin(),temp.end(),v[i])-temp.begin();
@@ -84,6 +85,20 @@ lli liscount(vector<lli>&v){                 //usage brute o(n^2) to find count 
     return ans;
 }
 
+lli lis_last_min_value(vector<lli>&v,lli n){  
+ 
+    vector<lli>temp;
+    fr(i,n){
+      auto it=upper_bound(all(temp),v[i]);
+      if(it==temp.end()){
+        temp.psb(v[i]);
+      }
+      else{
+        *it=v[i];
+      }
+    }
+    return temp.empty()? -1 : temp.back();
+}
 
 void solve(){
 lli x;cin>>x;get(v,x);

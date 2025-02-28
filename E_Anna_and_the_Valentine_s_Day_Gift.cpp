@@ -27,13 +27,41 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void solve(){
-lli n,a,b;cin>>n>>a>>b;get(v,n);vec(av,n);vec(bv,n);
-fr(i,n){
-    av[i]=v[i]%a;
-    bv[i]=v[i]%b;
+lli trail(lli x){
+    lli ans=0;
+    while(x){
+     if(x%10==0){
+      ans++;
+      x/=10;
+     }
+     else return ans;
+    }
+    return ans;
 }
 
+void solve(){
+lli n,k;cin>>n>>k;get(v,n);vector<bool>used(n,true);vector<pair<lli,lli>>z(n);
+fr(i,n){
+    z[i]={trail(v[i]),i};
+}
+rsrt(z);
+lli check=0;
+for(lli i=0;i<n;i+=2){
+  if(z[i].ff>0){
+     used[z[i].ss]=false;
+  }
+}
+fr(i,n){
+    if(used[i]){
+      check+=(log10(v[i])+1);
+    }
+    else{
+      check+=((log10(v[i])+1)-trail(v[i]));
+    }
+}
+if(check>k){
+    cout<<"Sasha\n";
+}else cout<<"Anna\n";
 }
 
 int32_t main(){

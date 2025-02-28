@@ -27,13 +27,20 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void solve(){
-lli n,a,b;cin>>n>>a>>b;get(v,n);vec(av,n);vec(bv,n);
-fr(i,n){
-    av[i]=v[i]%a;
-    bv[i]=v[i]%b;
-}
 
+void solve(){
+lli x;cin>>x;get(v,x);
+lli ans=0;lli g1=INT_MAX,g2=INT_MAX;  //keep grouping in two part untill a bigger one appers
+fr(i,x){
+   if(g2>g1)swap(g2,g1);//keep g1 larger  although no use
+   if(v[i]<=g2)g2=v[i];
+   else if(v[i]<=g1)g1=v[i];
+   else{
+    ans++;
+    g2=v[i];
+   }
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){

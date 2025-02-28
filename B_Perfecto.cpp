@@ -26,18 +26,35 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
-
-void solve(){
-lli n,a,b;cin>>n>>a>>b;get(v,n);vec(av,n);vec(bv,n);
-fr(i,n){
-    av[i]=v[i]%a;
-    bv[i]=v[i]%b;
+vector<lli>pre(500007,0);
+void prc(){
+    fr1(i,500000){
+        lli k=i*(i+1)/2;
+        lli s=sqrt(k);
+        if(s*s==k)pre[i]=1;
+    }
 }
 
+void solve(){
+lli x;cin>>x;vec(v,x+1);
+if(pre[x])cout<<"-1\n";
+else{
+    fr1(i,x){
+        v[i]=i;
+    }
+    fr1(i,x){
+        if(pre[i]){
+          swap(v[i],v[i+1]);
+        }
+    }
+    fr1(i,x)cout<<v[i]<<" ";
+    cout<<'\n';
+}
 }
 
 int32_t main(){
 fastio;
+prc();
 lli tt;cin>>tt;
 while(tt--){
 solve();

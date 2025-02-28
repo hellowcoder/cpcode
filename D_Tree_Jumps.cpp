@@ -25,14 +25,46 @@
 #define ff first
 #define ss second
 using namespace std;
-const int MOD=1e9+7;
+const int MOD=998244353;
 
 void solve(){
-lli n,a,b;cin>>n>>a>>b;get(v,n);vec(av,n);vec(bv,n);
-fr(i,n){
-    av[i]=v[i]%a;
-    bv[i]=v[i]%b;
+lli x;cin>>x;
+vec(child,x+1);  //number of child
+vec(par,x+1);
+vec(dep,x+1);  //at which depth it is present 
+frs(i,2,x+1){
+   cin>>par[i];
+   child[par[i]]++;
+   dep[i]=dep[par[i]]+1;
 }
+vector<vector<lli>>ind(x+1);
+frs(i,1,x+1){
+  ind[dep[i]].psb(i);
+}
+lli parent=1;
+vector<lli>dp(x+1,0);
+// fr(i,ind.size()){
+//     for(lli &k:ind[i])cout<<k<<" ";
+//     cout<<'\n';
+// }
+frs(i,1,x+1){    //depth transversal
+    if(ind[i].size()==0)continue;
+    for(lli &k : ind[i]){   //all index of that depth
+        dp[k]=parent-dp[par[k]];   //removing contribution fron there parent
+        if(dp[k]<0)dp[k]+=MOD;
+    }
+    parent=0;
+    for(lli &k : ind[i]){
+        parent=(parent+dp[k])%MOD;
+    }
+    parent%=MOD;
+}
+//fr(i,x+1)cout<<dp[i]<<" ";cout<<'\n';
+lli total=1;
+fr(i,x+1){
+  total=(total+dp[i])%MOD;
+}
+cout<<total%MOD<<'\n';
 
 }
 

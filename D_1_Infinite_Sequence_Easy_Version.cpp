@@ -27,13 +27,24 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void solve(){
-lli n,a,b;cin>>n>>a>>b;get(v,n);vec(av,n);vec(bv,n);
-fr(i,n){
-    av[i]=v[i]%a;
-    bv[i]=v[i]%b;
+
+lli meme(vector<lli>&v,lli l,lli x,lli check){
+    if(l<=x) return v[l];
+    return (l&1LL)?check:check^meme(v,l/2,x,check);
 }
 
+void solve(){
+lli x,l,r;cin>>x>>l>>r;vec(v,x+1);vec(pre,x+1);
+fr1(i,x)cin>>v[i];
+//pre[0]=0;
+frs(i,1,x+1){
+   pre[i]=pre[i-1]^v[i];
+}
+lli check=pre[x];
+lli precl=(x&1LL) ? check : check^pre[x/2];
+//l/=2;
+lli ans=meme(pre,l,x,precl);
+cout<<ans<<'\n';
 }
 
 int32_t main(){

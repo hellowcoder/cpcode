@@ -27,19 +27,17 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void solve(){
-lli n,a,b;cin>>n>>a>>b;get(v,n);vec(av,n);vec(bv,n);
-fr(i,n){
-    av[i]=v[i]%a;
-    bv[i]=v[i]%b;
-}
 
+void solve(){
+lli x;cin>>x;vector<pair<lli,lli>>v(x);
+fr(i,x)cin>>v[i].ff>>v[i].ss;
+lli ans=x*x/4-(x-1);
+
+//if(x>=4)ans=x/4+1;
+cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

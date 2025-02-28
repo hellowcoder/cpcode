@@ -28,12 +28,25 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,a,b;cin>>n>>a>>b;get(v,n);vec(av,n);vec(bv,n);
-fr(i,n){
-    av[i]=v[i]%a;
-    bv[i]=v[i]%b;
+lli x,k;cin>>x>>k;get(v,x);
+vec(pre,31);
+fr(i,31){
+    lli sum=0;
+    lli a=1<<i;
+    fr(i,x){
+      if((a&v[i])==0)sum++;
+    }
+    pre[i]=sum;
 }
-
+lli curr=0;
+for(lli i=30;i>=0;i--){
+   if(k>=pre[i]){
+    curr+=(1<<i);
+    k-=pre[i];
+   }
+//cout<<pre[i]<<" ";
+}
+cout<<curr<<'\n';
 }
 
 int32_t main(){

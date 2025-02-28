@@ -28,11 +28,10 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,a,b;cin>>n>>a>>b;get(v,n);vec(av,n);vec(bv,n);
-fr(i,n){
-    av[i]=v[i]%a;
-    bv[i]=v[i]%b;
-}
+lli x,k;cin>>x>>k;
+string s;cin>>s;
+get(v,x);
+
 
 }
 

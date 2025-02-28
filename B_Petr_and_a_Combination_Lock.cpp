@@ -20,26 +20,35 @@
 #define sz(v) (lli)(v.size())
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define yes cout<<"YES"
+#define no cout<<"NO"
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,a,b;cin>>n>>a>>b;get(v,n);vec(av,n);vec(bv,n);
-fr(i,n){
-    av[i]=v[i]%a;
-    bv[i]=v[i]%b;
+take(lli,x);get(v,x);
+lli sum=accumulate(all(v),0LL);
+if(sum%360==0)yes;
+else{
+    fr(i,10){
+        lli a=1LL<<i;
+        lli count=0;
+        fr(k,x){
+            if(v[k]&a)count++;
+
+        }
+        if(count&1){
+            no;return;
+        }
+    }
+    yes;
 }
 
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

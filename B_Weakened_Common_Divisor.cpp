@@ -1,5 +1,3 @@
-//Author: sandeep172918
-//Date: 2025-03-04 08:59
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -10,7 +8,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
-#define take(x) lli x;cin>>x
+#define take(lli,x) lli x;cin>>x
 #define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
@@ -29,45 +27,46 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void div(lli x,vector<lli>&v){
-    for(lli i=1;i*i<=x;i++){
-        if(x%i==0){
-            if(i*i!=x){
-                v.psb(i);
-                v.psb(x/i);
-            }else{
-                v.psb(i);
+void primefac(vector<lli>&v,lli a){
+    lli k=a;
+    for(int i=2;i*i<=k;i++){
+        if(a%i==0){
+            v.psb(i);
+            while((a%i)==0){
+              a/=i;
             }
         }
     }
+    if(a>1){
+        v.psb(a);
+    }
 }
 
+
 void solve(){
-lli n,k;cin>>n>>k;
-if(k>=n)cout<<"1\n";
-else{
-  vector<lli>v;
-  div(n,v);
-  srt(v);
-  lli ans=INT_MAX;
-  fr(i,v.size()){
-    if((v[i])<=k){
-        //cout<<"hello\n";
-        lli check=n/v[i];
-        //cout<<check<<'\n';
-        ans=min(ans,check);
+take(lli,x);vector<pair<lli,lli>>v(x-1);
+lli a,b;cin>>a>>b;
+fr(i,x-1)cin>>v[i].ff>>v[i].ss;
+vector<lli>check;lli ans=-1;
+primefac(check,a);primefac(check,b);
+srt(check);
+for(auto &k:check){
+    bool c=true;
+     fr(i,x-1){
+        if((v[i].ff%k!=0) && (v[i].ss%k!=0)){
+            c=false;
+            break;
+        }
+     }
+    if(c){
+     ans=k;
+     break;
     }
-    //cout<<v[i]<<" ";
-    
-  }
-  cout<<ans<<'\n';
 }
+cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

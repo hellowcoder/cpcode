@@ -52,6 +52,7 @@ void pre(vector<lli>&v,vector<lli>&prefix){
 void solve(){
 take(lli,k);get(v,k);
 vector<lli>suffix(k),prefix(k);
+pre(v,prefix);
 lli mex=mexi(v);
 if(mex==0){
     cout<<k<<'\n';

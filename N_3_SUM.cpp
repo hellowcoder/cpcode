@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-03-04 08:59
+//Date: 2025-03-04 19:19
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -22,46 +22,43 @@
 #define sz(v) (lli)(v.size())
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
-void div(lli x,vector<lli>&v){
-    for(lli i=1;i*i<=x;i++){
-        if(x%i==0){
-            if(i*i!=x){
-                v.psb(i);
-                v.psb(x/i);
-            }else{
-                v.psb(i);
+void solve(){
+lli x;cin>>x;
+vec(v,x);vector<lli>pre(10,0);
+fr(i,x){
+    lli a;cin>>a;
+    v[i]=a%10;
+    pre[v[i]]++;
+}
+
+fr(i,10){
+   fr(j,10){
+     fr(k,10){
+        lli check=i+j+k;
+        if((check%10)==3){
+            vec(prec,10);prec=pre;
+            if(prec[i]){
+                prec[i]--;
+                if(prec[j]){
+                    prec[j]--;
+                    if(prec[k]){
+                        yes;return;
+                    }
+                }
             }
         }
     }
+   }
 }
+no;
 
-void solve(){
-lli n,k;cin>>n>>k;
-if(k>=n)cout<<"1\n";
-else{
-  vector<lli>v;
-  div(n,v);
-  srt(v);
-  lli ans=INT_MAX;
-  fr(i,v.size()){
-    if((v[i])<=k){
-        //cout<<"hello\n";
-        lli check=n/v[i];
-        //cout<<check<<'\n';
-        ans=min(ans,check);
-    }
-    //cout<<v[i]<<" ";
-    
-  }
-  cout<<ans<<'\n';
-}
 }
 
 int32_t main(){

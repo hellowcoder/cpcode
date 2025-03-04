@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-03-04 08:59
+//Date: 2025-03-04 22:32
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -29,45 +29,30 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void div(lli x,vector<lli>&v){
-    for(lli i=1;i*i<=x;i++){
-        if(x%i==0){
-            if(i*i!=x){
-                v.psb(i);
-                v.psb(x/i);
-            }else{
-                v.psb(i);
-            }
-        }
-    }
-}
-
 void solve(){
-lli n,k;cin>>n>>k;
-if(k>=n)cout<<"1\n";
-else{
-  vector<lli>v;
-  div(n,v);
-  srt(v);
-  lli ans=INT_MAX;
-  fr(i,v.size()){
-    if((v[i])<=k){
-        //cout<<"hello\n";
-        lli check=n/v[i];
-        //cout<<check<<'\n';
-        ans=min(ans,check);
+lli n,k;cin>>n>>k;vec(v,n+1);
+fr1(i,n)cin>>v[i];
+lli count=0;
+frs(i,k+1,n+1){
+    if(v[i]==v[k])count++;
+    else{
+        count=0;//just to not gach mach
+        break;
     }
-    //cout<<v[i]<<" ";
-    
-  }
-  cout<<ans<<'\n';
 }
+lli lcount=0;
+for(lli i=k-1;i>=1;i--){
+    if(v[i]==v[k])lcount++;
+    else break;
+}
+lli left=k-1,right=n-k;
+if(right==0){cout<<n-1-lcount;return;}
+if(right==count){cout<<left-lcount;return;}
+cout<<"-1";
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
+//lli tt;cin>>tt;
 solve();
-}
 }

@@ -29,22 +29,17 @@ const int MOD=1e9+7;
 
 void solve(){
 take(lli,x);get(v,x);
-lli sum=accumulate(all(v),0LL);
-if(sum%360==0)yes;
-else{
-    fr(i,10){
-        lli a=1LL<<i;
-        lli count=0;
-        fr(k,x){
-            if(v[k]&a)count++;
-
-        }
-        if(count&1){
-            no;return;
-        }
+fr(i,1<<x){   //whole subset
+    lli sum=0;
+    fr(j,x){
+       if((1LL<<j)&i)sum+=v[j];
+       else sum-=v[j];
     }
-    yes;
+    if(sum%360==0){
+        yes;return;
+    }
 }
+no;
 
 }
 

@@ -1,5 +1,3 @@
-//Author: sandeep172918
-//Date: 2025-03-04 08:59
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -10,7 +8,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
-#define take(x) lli x;cin>>x
+#define take(lli,x) lli x;cin>>x
 #define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
@@ -29,39 +27,32 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void div(lli x,vector<lli>&v){
-    for(lli i=1;i*i<=x;i++){
-        if(x%i==0){
-            if(i*i!=x){
-                v.psb(i);
-                v.psb(x/i);
-            }else{
-                v.psb(i);
-            }
-        }
-    }
-}
-
 void solve(){
-lli n,k;cin>>n>>k;
-if(k>=n)cout<<"1\n";
-else{
-  vector<lli>v;
-  div(n,v);
-  srt(v);
-  lli ans=INT_MAX;
-  fr(i,v.size()){
-    if((v[i])<=k){
-        //cout<<"hello\n";
-        lli check=n/v[i];
-        //cout<<check<<'\n';
-        ans=min(ans,check);
-    }
-    //cout<<v[i]<<" ";
+lli x;cin>>x;
+vector<lli>adj[x];
+fr(i,x-1){
+    lli a,b;cin>>a>>b;
     
-  }
-  cout<<ans<<'\n';
+    adj[a].psb(b);
+    adj[b].psb(a);
 }
+lli c=adj[0].size();lli co=1;
+fr(i,x){
+    if(find(adj[i].begin(),adj[i].end(),co)==adj[i].end()){
+        break;
+    }
+    else co++;
+}
+frs(i,2,x+1){
+    if(i==2)cout<<co<<" ";
+    else if(i>=3 && i<=c+1){
+        cout<<1<<" ";
+    }
+    else cout<<"0 ";
+}
+cout<<'\n';
+
+
 }
 
 int32_t main(){

@@ -26,7 +26,7 @@ const int MOD=1e9+7;
 lli n,m;
 
 
-string print(lli row,lli col,vector<vector<char>>&v,vector<vector<char>> &booli){
+string print(lli row,lli col,vector<vector<char>>&v,vector<vector<bool>>&booli){
     string ans="";
     while(col <m && booli[row][col]){
         ans+=v[row][col];booli[row][col]=false;
@@ -47,26 +47,49 @@ string print(lli row,lli col,vector<vector<char>>&v,vector<vector<char>> &booli)
         ans+=v[row][col];booli[row][col]=false;
         row--;
     }
-    fr(i,3){
-        ans+=v[row][col];
-        col++;
-    }
-
+    row++;col++;
+    //cout<<"*"<<row<<"*"<<col<<'\n';
+   
+    return ans;
+   
 }
 
 void solve(){
-cin>>n>>m;vector<vector<char>>v(n,vector<char>(m));vector<string>s;vector<vector<bool>>booli(n,vector<bool>(m));
+cin>>n>>m;
+vector<vector<char>>v(n,vector<char>(m));
+vector<string>s;
+vector<vector<bool>>booli(n,vector<bool>(m));
 fr(i,n){
     fr(j,m){
         cin>>v[i][j];
         booli[i][j]=true;
     }
 }lli row=0,col=0;
-while(row+2<=n && col+2<=m){
+while(row<n && col<m){
     string k = print(row,col,v,booli);
+    if(k!="")
     s.psb(k);
+    row++;
+    col++;
 }
-//cout<<print(row,col,v);
+//cout<<print(row,col,v,booli);
+lli total=0;
+fr(i,s.size()){
+   string k=s[i];
+   //cout<<k<<'\n';
+   k+=k;
+   lli count=0;
+   fr(i,k.size()-4){
+     if(k.substr(i,4)=="1543"){
+        count++;
+     }
+   }
+   total+=(count+1)/2;
+
+}
+cout<<total<<'\n';
+
+
 }
 
 int main(){

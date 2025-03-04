@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-03-04 08:59
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -22,46 +22,33 @@
 #define sz(v) (lli)(v.size())
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
-void div(lli x,vector<lli>&v){
-    for(lli i=1;i*i<=x;i++){
-        if(x%i==0){
-            if(i*i!=x){
-                v.psb(i);
-                v.psb(x/i);
-            }else{
-                v.psb(i);
-            }
-        }
-    }
-}
-
 void solve(){
-lli n,k;cin>>n>>k;
-if(k>=n)cout<<"1\n";
-else{
-  vector<lli>v;
-  div(n,v);
-  srt(v);
-  lli ans=INT_MAX;
-  fr(i,v.size()){
-    if((v[i])<=k){
-        //cout<<"hello\n";
-        lli check=n/v[i];
-        //cout<<check<<'\n';
-        ans=min(ans,check);
-    }
-    //cout<<v[i]<<" ";
+lli x;cin>>x;string s;cin>>s;
+//lli i=2,j=0;
+map<string,lli>ans;
+fr(i,x-1){
+    string k="";
+    k+=s[i];k+=s[i+1];
     
-  }
-  cout<<ans<<'\n';
+    if(ans.find(k)!=ans.end()&&ans[k]!=i-1){
+        yes;return;
+    }
+    if(ans.find(k)==ans.end())ans[k]=i;
+   
+
 }
+// fr(i,x-1){
+//     cout<<check[i]<<'\n';
+// }
+no;
+
 }
 
 int32_t main(){

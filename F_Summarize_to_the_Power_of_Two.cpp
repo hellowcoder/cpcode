@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-03-04 08:59
+//Date: 2025-03-04 23:31
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -29,45 +29,30 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void div(lli x,vector<lli>&v){
-    for(lli i=1;i*i<=x;i++){
-        if(x%i==0){
-            if(i*i!=x){
-                v.psb(i);
-                v.psb(x/i);
-            }else{
-                v.psb(i);
-            }
+void solve(){
+lli x;cin>>x;unordered_map<lli,lli>m;
+vec(v,x);
+fr(i,x){
+   cin>>v[i];
+   m[v[i]]++;
+}
+if(x==1){cout<<"1";return;}
+lli count=0;
+fr(i,x){
+    fr(j,33){
+        lli req=(1LL<<j)-v[i];
+        if(req==v[i] && m[req]<=1)continue;
+        if(m[req]){
+          count++;
+          break;
         }
     }
 }
+cout<<x-count<<'\n';
 
-void solve(){
-lli n,k;cin>>n>>k;
-if(k>=n)cout<<"1\n";
-else{
-  vector<lli>v;
-  div(n,v);
-  srt(v);
-  lli ans=INT_MAX;
-  fr(i,v.size()){
-    if((v[i])<=k){
-        //cout<<"hello\n";
-        lli check=n/v[i];
-        //cout<<check<<'\n';
-        ans=min(ans,check);
-    }
-    //cout<<v[i]<<" ";
-    
-  }
-  cout<<ans<<'\n';
-}
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

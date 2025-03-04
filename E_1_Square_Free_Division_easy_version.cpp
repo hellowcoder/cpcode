@@ -26,14 +26,76 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
+vector<lli>prime(1e5+23,1);
+vector<lli>s;
+void primee(vector<lli>& prime ,lli x){    //nlog(log(n))  prime harmonic series...
+    for(lli i=2;i*i<=x;i++){
+      if(prime[i]){
+         for(lli j=i*i;j<=x;j+=i)
+         prime[j]=0;
+      }
+    }
+ }
+
+ 
+ void print(vector<lli>&s){
+    frs(i,2,1e5){
+        if(prime[i]){
+            s.psb(i);
+        }
+    }
+ }
+
+lli getting(lli k,vector<lli>&s){
+    lli ans=1,n=k,index=0;
+  while(s[index]*s[index]<=n){
+        lli div=s[index];
+        if(k%div==0){
+           lli count=0;
+           while(k%div==0){
+              count++;
+              k/=div;
+           }
+           if(count&1){
+            ans*=div;
+           }
+        }
+        index++;
+    }
+    if(k>1)ans*=k;
+    return ans;
+}
 
 void solve(){
 lli n,k;cin>>n>>k;get(v,n);
-cout<<"1";
+fr(i,n){
+    v[i]=getting(v[i],s);
+    //cout<<v[i]<<" ";
+}
+set<lli>s;lli count=0;
+s.insert(v[0]);
+frs(i,1,n){
+ if(s.find(v[i])!=s.end()){
+    count++;
+    s.clear();
+    s.insert(v[i]);
+
+ }else{
+    s.insert(v[i]);
+ }
+}
+if(s.find(v.back())!=s.end()){
+    count++;
+}
+cout<<count<<'\n';
 }
 
 int32_t main(){
 fastio;
+primee(prime,1e5+1);
+prime[0]=prime[1]=0;
+print(s);
+
 lli tt;cin>>tt;
 while(tt--){
 solve();

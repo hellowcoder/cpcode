@@ -8,7 +8,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
-#define take(lli,x) lli x;cin>>x
+#define take(x) lli x;cin>>x
 #define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
@@ -20,36 +20,46 @@
 #define sz(v) (lli)(v.size())
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,k;cin>>n>>k;get(v,n);
-vector<lli>temp;
+lli n,k,x;cin>>n>>k>>x;
+string s;cin>>s;
+//vector<lli>v(26);
+string search="abcdefghijklmnopqrstuvwxyz";
 
 
-fr(j,n-1){
-    
-    srt(v);
-    fr(i,n-j-1){
-      temp.push_back(abs(v[i]-v[i+1]));
+//cout<<maxi<<mini<<'\n';
+
+  //cout<<"hlow\n";return;
+  set<char>sete;     //n k x  inputsss
+  string check="";
+  fr(i,x){
+    sete.insert(s[i]);
+    if(sete.size()==k){   //atleast n group toh banega hi
+      check+=s[i];     //here storing last element
+      sete.clear();
     }
-    srt(temp);
-    k--;
-    if(k==0){
-        cout<<*temp.begin()<<'\n';return;
+  }
+  if(check.size()>=n){yes;return;}   //mtlb n group ka ban gaya hoga mtlb har ek element n bar aa hi gay hoga...
+ // map<char,lli>m2;
+  // vec(v,k);
+  // cout<<check<<'\n';
+  char missing='a';
+  fr(i,k){
+    char c=search[i];
+    if(sete.find(c)==sete.end()){
+     missing=c;
+     break;
     }
-    lli x=temp.size();
-    v.resize(x);
-    v=temp;
-    temp.clear();
-}
-cout<<*temp.begin()<<'\n';
-
+  }
+  while(check.size()<n)check+=missing;
+  no;cout<<check<<'\n';return;
 }
 
 int32_t main(){

@@ -1,3 +1,5 @@
+//Author: sandeep172918
+//Date: 2025-03-08 15:55
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -7,29 +9,46 @@
 #define srt(v) sort(v.begin(),v.end())
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
-#define vec2(v,n) vector<vector<lli>>v(n)
+#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
+#define take(x) lli x;cin>>x
+#define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
-#define mne(v)  *min_element(v.begin()+i,v.end())
+#define mne(v)  *min_element(v.begin(),v.end())
 #define vin(a) for(auto &i:a) cin>>i
 #define psb(a) push_back(a)
 #define ppb pop_back()
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
+#define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
+#define yes cout<<
+#define no cout<<
+#define ff first
+#define ss second
 using namespace std;
 const int MOD=1e9+7;
 
-void selection(vector<lli>& v,lli tt){
-    fr(i,tt){
-        swap(v[i],mne(v));
+void solve(){
+take(x);take(k);
+lli a=1,b=x;
+vec(v,x);  //k even so even +even ===evennnn  graettttttt
+fr(i,k){   //s s+1   s+1-1  s 
+   for(lli j=i;j<x;j+=k){
+    if(i%2==0){
+        v[j]=a;a++;
+    }else{
+        v[j]=b;b--;
     }
+   }
+}
+fr(i,x)cout<<v[i]<<" ";cout<<'\n';
 }
 
-int main(){
+int32_t main(){
 fastio;
-lli tt;cin>>tt;vec(v,tt);
-fr(i,tt){cin>>v[i];}
-selection(v,tt);
-fr(i,tt){cout<<v[i]<<" ";}
+lli tt;cin>>tt;
+while(tt--){
+solve();
+}
 }

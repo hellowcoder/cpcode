@@ -1,3 +1,5 @@
+//Author: sandeep172918
+//Date: 2025-03-05 13:50
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -7,7 +9,9 @@
 #define srt(v) sort(v.begin(),v.end())
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
-#define vec2(v,n) vector<vector<lli>>v(n)
+#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
+#define take(x) lli x;cin>>x
+#define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define vin(a) for(auto &i:a) cin>>i
@@ -16,29 +20,40 @@
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
+#define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
-
+#define no cout<<
+#define ff first
+#define ss second
 using namespace std;
 const int MOD=1e9+7;
 
-lli upper(vector<lli>v,lli target,lli n){
-  lli low=0,high=n-1,ans=n;
-  while(low<=high){
-        lli mid=(high+low)/2;
-        if(v[mid]>target){
-            ans=mid;high=mid-1;
-        }else{
-            low=mid+1;
-        }
-  }
-  return ans;
+void solve(){
+lli n,k;cin>>n>>k;
+
+vec(v,n+1);
+fr1(i,n){
+    cin>>v[i];
+}
+lli ans=0,curr=0;
+fr1(i,k){
+    if(v[i+1]*2>v[i])curr++;
+}
+//cout<<curr<<" ";
+if(curr==k)ans++;
+frs(i,k+1,n){
+    if(v[i+1]*2>v[i])curr++;
+    if(v[i+1-k]*2>v[i-k])curr--;
+    if(curr==k)ans++;
+}
+cout<<ans<<'\n';
 }
 
-int main(){
+int32_t main(){
 fastio;
-lli tt;cin>>tt;lli target;cin>>target;
-vec(v,tt);fr(i,tt){cin>>v[i];}
-cout<<upper_bound(v.begin(),v.end(),target)-v.begin()<<" ";
-cout<<upper(v,target,tt);
+lli tt;cin>>tt;
+while(tt--){
+solve();
+}
 }

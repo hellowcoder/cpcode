@@ -1,3 +1,5 @@
+//Author: sandeep172918
+//Date: 2025-03-11 01:35
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -7,7 +9,9 @@
 #define srt(v) sort(v.begin(),v.end())
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
-#define vec2(v,n) vector<vector<lli>>v(n)
+#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
+#define take(x) lli x;cin>>x
+#define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define vin(a) for(auto &i:a) cin>>i
@@ -16,43 +20,44 @@
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
 #define sz(v) (lli)(v.size())
+#define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
+#define yes cout<<
+#define no cout<<
+#define ff first
+#define ss second
 using namespace std;
 const int MOD=1e9+7;
 
-lli f(vector<lli>& v,lli low,lli high){
-   lli pivot=v[low];
-   lli i=low,j=high;lli partition;
-   while(i<j){
-       while(v[i]<=pivot&& i<high){
-        i++;
-       }
-       while(v[j]>pivot && j>low){
-        j--;
-       }
-       if(i<j) swap(v[i],v[j]);
-       
-   }
-   swap(v[low],v[j]);
-   return j;
+void solve(){
+lli x;cin>>x;get(v,2*x);
+srt(v);
+// vec(vc,2*x);
+// vc=v;
+// srt(vc);
+lli sum=0;
+fr(i,x){
+sum+=(v[x+i]-v[i]);
 }
+cout<<sum;
+if(sum!=v[x]){
 
-void quick(vector<lli>& v,lli low,lli high){
-    if(low<high){
-        lli partition = f(v,low,high);
-        quick(v,low,partition-1);
-        quick(v,partition+1,high);
+fr(i,x){
+  cout<<" "<<v[x+i]<<" "<<v[i];
+}cout<<'\n';
+}
+else{
+    frs(i,1,x){
+        cout<<" "<<v[x+i]<<" "<<v[i];
     }
+    cout<<" "<<v[x]<<" "<<v[0]<<'\n';
+}
 }
 
-
-
-int main(){
+int32_t main(){
 fastio;
-lli x;cin>>x;vec(v,x);fr(i,x){cin>>v[i];}
-lli low=0,high=x-1;
-quick(v,low,high);
-for(auto i : v){
-    cout<<i<<" ";
+lli tt;cin>>tt;
+while(tt--){
+solve();
 }
 }

@@ -1,3 +1,5 @@
+//Author: sandeep172918
+//Date: 2025-03-07 13:17
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -8,7 +10,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n) vector<lli>v(n)
 #define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
-#define take(lli,x) lli x;cin>>x
+#define take(x) lli x;cin>>x
 #define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
@@ -28,28 +30,37 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,k;cin>>n>>k;get(v,n);
-vector<lli>temp;
+lli n,m,xa,ya,xb,yb;cin>>n>>m>>xa>>ya>>xb>>yb;
+lli x=abs(xa-xb),y=abs(ya-yb);string ans="";
+if(x&1){  //alice or draw;;;
+ 
+  if(xa>=xb) ans="Draw";
+  else{
+    // ans="LODE";
+    if(y>=x-1)ans="Draw";
+    else if(yb>ya && m>yb)ans="Draw";
+    else if(yb<ya && yb>1) ans="Draw";
+    else if(ya==yb && (yb>3 || (m-yb)>1))ans="Draw";
+    else ans="Alice";
 
-
-fr(j,n-1){
-    
-    srt(v);
-    fr(i,n-j-1){
-      temp.push_back(abs(v[i]-v[i+1]));
-    }
-    srt(temp);
-    k--;
-    if(k==0){
-        cout<<*temp.begin()<<'\n';return;
-    }
-    lli x=temp.size();
-    v.resize(x);
-    v=temp;
-    temp.clear();
+  }
+}else{  //bob or draw;;;;
+  if(xa>=xb) ans="Draw";
+  else{
+       lli k=x/2;//number of moves
+      //  if(ya>yb)ans="Draw";
+      //  else{
+        //  if(y<=x)ans="Bob"; //concern needed
+        //  else ans="Draw";
+        if(y>=x)ans="Draw";
+        else if(ya>yb && m>ya)ans="Draw";
+        else if(ya<yb && ya>1) ans="Draw";
+        else if(ya==yb && (ya>3 || (m-ya)>1))ans="Draw";
+        else ans="Bob";
+       
+  }
 }
-cout<<*temp.begin()<<'\n';
-
+cout<<ans<<'\n';
 }
 
 int32_t main(){

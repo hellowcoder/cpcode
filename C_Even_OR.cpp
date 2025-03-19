@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-03-17 17:29
+//Date: 2025-03-18 20:56
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -30,13 +30,33 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
+lli x;cin>>x;get(v,x);
 
+lli ans=0;
+if(x&1){
+   vec(suff,x);
+   vec(pre,x);
+   pre[0]=0;
+   frs(i,1,x){
+     pre[i]=pre[i-1]|v[i];
+   }
+   suff[x-1]=0;
+   for(lli i=x-2;i>=0;i--){
+    suff[i]=suff[i+1]|v[i];
+   }
+   fr(i,x){
+    ans=max(ans,pre[i]|suff[i]);
+   }
+}
+else{
+    fr(i,x){
+        ans|=v[i];
+    }
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-03-17 17:29
+//Date: 2025-03-18 20:31
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -30,13 +30,23 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
+take(x);get(v,x);
+lli sum=accumulate(all(v),0LL);
+if(x%2==0){
+   lli req=x/2;
+   //cout<<sum<<'\n';
+if(sum==req)cout<<"TIE\n";
 
+else if(sum>req)cout<<"BOB\n";
+else cout<<"ALICE\n";
+}
+else{
+    if(sum>x/2)cout<<"BOB\n";
+else cout<<"ALICE\n";
+}
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

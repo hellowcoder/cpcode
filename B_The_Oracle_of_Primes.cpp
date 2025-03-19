@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-03-17 17:29
+//Date: 2025-03-18 20:39
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -28,13 +28,34 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
-
-void solve(){
-
-}
+vector<lli>prime(1e6,1);
+vector<lli>printi;
+void primee(vector<lli>& prime){    //nlog(log(n))  prime harmonic series...
+    for(lli i=2;i*i<=1e6;i++){
+      if(prime[i]){
+         for(lli j=i*i;j<=1e6;j+=i)
+         prime[j]=0;
+      }
+    }
+ }
+ 
+ 
+ void solve(){
+    lli x;cin>>x;
+   // lli k=print.size();
+    cout<<*lower_bound(printi.begin(),printi.end(),x)<<'\n';
+ }
 
 int32_t main(){
-fastio;
+    fastio;
+prime[0]=prime[1]=0;
+primee(prime);
+frs(i,2,1e6){
+    if(prime[i]){
+            printi.psb(i);
+        }
+    }
+
 lli tt;cin>>tt;
 while(tt--){
 solve();

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-03-17 17:29
+//Date: 2025-03-17 20:19
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -30,8 +30,37 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
+lli n,k;cin>>n>>k;get(v,n);
+lli sum=0;
+
+if(k!=1){
+    rsrt(v);
+    fr(i,k+1)sum+=v[i];
+}
+else{
+    lli index=0,check=v[0];
+    frs(i,1,n){
+        if(v[i]>check){
+            index=i;
+            check=v[i];
+        }
+    }
+    sum+=v[index];
+    if(index==0){
+        sum+=*max_element(v.begin()+1,v.end());
+    }
+    else if(index==n-1){
+        sum+=*max_element(v.begin(),v.end()-1);
+    }
+    else{
+        sum+=max(v[0],v[n-1]);  //ye patani kyu
+    }
 
 }
+cout<<sum<<'\n';
+}
+
+
 
 int32_t main(){
 fastio;

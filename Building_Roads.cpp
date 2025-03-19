@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-03-17 17:29
+//Date: 2025-03-15 17:43
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -29,14 +29,45 @@
 using namespace std;
 const int MOD=1e9+7;
 
+void dfs(lli node,vector<vector<lli>>&adj,vector<lli>&vis,vector<lli>&conn,lli key){
+    conn[node]=key;
+    vis[node]=1;
+    for(auto & i : adj[node]){
+        if(!vis[i]){
+            dfs(i,adj,vis,conn,key);
+        }
+    }
+}
+
 void solve(){
+lli n,m;cin>>n>>m;
+vector<vector<lli>>adj(n+1);
+fr1(i,m){
+    lli a,b;cin>>a>>b;
+    adj[a].psb(b);
+    adj[b].psb(a);
+}
+lli key=0;
+vector<lli>vis(n+1,0),conn(n+1);
+fr1(i,n){
+    if(!vis[i]){
+        key++;
+        dfs(i,adj,vis,conn,key);
+       
+    }
+}
+cout<<key-1<<'\n';
+vector<lli>check(key+1);
+fr1(i,n){
+    check[conn[i]]=i;
+}
+fr1(i,key-1){
+    cout<<check[i]<<" "<<check[i+1]<<'\n';
+}
 
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

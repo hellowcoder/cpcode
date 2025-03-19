@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-03-17 17:29
+//Date: 2025-03-18 21:07
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -30,13 +30,56 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-
+lli x,m,c;cin>>x>>m>>c;
+get(v,x);
+//vec2(pre,x+1,x);
+lli a=0,b=0;
+vector<lli>p(x+1);
+p[0]=0;
+fr(i,x){
+    if(v[i]<m)a++;
+    if(v[i]>m)b++;
+    p[i+1]=a-b;
+}
+// fr(i,x+1)cout<<p[i]<<" ";
+// cout<<'\n';
+// fr(i,x+1){
+//    pre[i]=v;
+   
+//    pre[i].insert(pre[i].begin()+i,m);
+// }
+// fr(i,x+1){
+//     fr(j,x+1){
+//         cout<<pre[i][j]<<" ";
+//     }cout<<'\n';
+// }
+lli count=0;
+fr(i,x+1){
+    lli k=p[i];
+    if(c>m)k--;
+    else if(m>c)k++;
+    a=0,b=0;
+    if(k>0)count++;
+    k=p[i];
+    v.insert(v.begin()+i,m);
+    fr(j,x+1){
+        if(j<i){
+            if(c>m)k--;
+            else if(m>c)k++;
+        }
+       
+        if(v[j]<c)a++;
+        if(v[j]>c)b++;
+        lli ch=a-b;
+        if(k>ch)count++;
+        k=p[i];
+    }
+    v.erase(v.begin()+i);
+}
+cout<<count<<'\n';
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-03-17 17:29
+//Date: 2025-03-16 16:10
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -30,7 +30,28 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
+lli x,n,m,x1;cin>>x>>n>>m;
+x1=x;
+fr(i,m){
+    x1=(x1+1)/2;
+    if(x1<=1)break;
+}
+fr(i,n){
+    x1=(x1)/2;
+    if(x1<=0)break;
+}
 
+cout<<x1<<" ";
+x1=x;
+fr(i,n){
+    x1=(x1)/2;
+    if(x1<=0)break;
+}
+fr(i,m){
+    x1=(x1+1)/2;
+    if(x1<=1)break;
+}
+cout<<x1<<'\n';
 }
 
 int32_t main(){

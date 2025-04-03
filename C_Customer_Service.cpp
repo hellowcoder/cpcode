@@ -62,12 +62,12 @@ for(lli j=x-1;j>=0;j--){
    prefix[j]=mex;
     if(count==1){
           fr(l,x){
-        pre[index][l]=1e18;
+        pre[index][l]=1e16;
     }
     }
     else{
       fr(l,x){
-        pre[index2][l]=1e18;
+        pre[index2][l]=1e16;
     }
     }
 }

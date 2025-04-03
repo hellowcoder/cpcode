@@ -55,3 +55,10 @@ while(tt--){
 solve();
 }
 }
+
+
+// fr(i,x){
+//     fr(j,y){
+//         cin>>v[i][j];
+//     }
+// }

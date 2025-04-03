@@ -26,54 +26,36 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
-
-
-
-void solve() {
-    lli x, y;
-    cin >>x>>y;
-    
-    vector<vector<lli>> a(x, vector<lli>(y));
-    vector<vector<lli>> b(x, vector<lli>(y));
-    vector<lli> rowXor(x, 0), colXor(y, 0);
-
-    
-    fr(i, x) {
-        fr(j, y) {
-            cin >> a[i][j];
-            rowXor[i] ^= a[i][j];  
-            colXor[j] ^= a[i][j];  
-        }
-    }
-
-    fr(i, x) fr(j, y) cin >> b[i][j];
-
-   
-    fr(i, x) {
-        fr(j, y) {
-            if (a[i][j] != b[i][j]) {
-                // If b[i][j] == 0, rowXor[i] and colXor[j] must be 0
-                if (b[i][j] == 0 && (rowXor[i] || colXor[j])) {
-                    cout << "No\n";
-                    return;
-                }
-                // If b[i][j] == 1, rowXor[i] or colXor[j] must be 1
-                if (b[i][j] == 1 && (!rowXor[i] && !colXor[j])) {
-                    cout << "No\n";
-                    return;
-                }
-            }
-        }
-    }
-
-    cout << "Yes\n";
+vector<lli>pre(101,0);
+void solve(){
+lli x,k;cin>>x>>k;vector<string>v;
+fr(i,x){
+   string s;cin>>s;
+   v.psb(s);
+  lli len=s.size();
+  pre[len]++;
 }
+// fr(i,10){
+//     cout<<pre[i]<<'\n';
+// }
+string a;cin>>a;lli check=a.size();
+bool boli=f
+lli sum=0;
+for(lli i=0;i<check;i++){
+    sum+=pre[i];
+}
+lli m=sum+1;
+lli mini=m+(m/k)*7;
+cout<<mini;
+lli maxi=sum+pre[check];
 
+maxi+=(maxi/k)*7;
+cout<<" "<<maxi<<'\n';
 
-
-
+}
 
 int32_t main(){
 fastio;
+
 solve();
 }

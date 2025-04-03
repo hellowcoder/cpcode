@@ -31,27 +31,9 @@ const int MOD=1e9+7;
 
 void solve(){
 lli x;cin>>x;get(v,2*x);
-srt(v);
-// vec(vc,2*x);
-// vc=v;
-// srt(vc);
+rsrt(v);
 lli sum=0;
-fr(i,x){
-sum+=(v[x+i]-v[i]);
-}
-cout<<sum;
-if(sum!=v[x]){
 
-fr(i,x){
-  cout<<" "<<v[x+i]<<" "<<v[i];
-}cout<<'\n';
-}
-else{
-    frs(i,1,x){
-        cout<<" "<<v[x+i]<<" "<<v[i];
-    }
-    cout<<" "<<v[x]<<" "<<v[0]<<'\n';
-}
 }
 
 int32_t main(){

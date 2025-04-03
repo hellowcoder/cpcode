@@ -35,7 +35,7 @@ bool check(vector<pair<lli,lli>>&v,lli mid){
   for(lli i=x-2;i>=0;i--){
     left-=mid;right+=mid; //range of transversal
     if(v[i].ss<left  || v[i].ff>right)return false;
-    left=max(left,v[i].ff);
+    left=max(left,v[i].ff);  //compressing transversal;;;;;;
     right=min(right,v[i].ss);
   }
   return true;

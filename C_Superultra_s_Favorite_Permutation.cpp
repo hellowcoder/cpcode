@@ -1,5 +1,4 @@
-// Author: sandeep172918
-// Date: 2024-11-18 01:20:34
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)

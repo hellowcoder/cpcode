@@ -64,26 +64,28 @@ void print(){
 void solve(){
     lli x;
     cin >> x;
-    vector<lli> ans(x + 1, 0);
-    ans[0]=100000;
-    while(count(all(ans),0)!=1) {
-    lli low = lower_bound(all(ans),0)-ans.begin();
-    lli high = upper_bound(all(ans),0)-ans.begin();
-    high--;
-    lli i=low,j=high;
-    while(low < high){
-        lli sum = low + high;
-        if(prime[sum]){
-            ans[i] = high;
-            ans[j] = low;
-            low++;
-            i++;
-            j--;
-            high--;
-        } else {
-            low++;
-        }
-    }
+    // vector<lli> ans(x + 1, 0);
+    // ans[0]=-1;
+    // while(count(all(ans),0)!=1) {
+    // lli low = lower_bound(all(ans),0)-ans.begin();
+    // lli high = upper_bound(all(ans),0)-ans.begin();
+    // high--;
+    // lli i=low,j=high;
+    // while(low < high){
+    //     lli sum = low + high;
+    //     if(prime[sum]){
+    //         ans[i] = high;
+    //         ans[j] = low;
+    //         low++;
+    //         i++;
+    //         j--;
+    //         high--;
+    //     } else {
+    //         low++;
+    //     }
+    // }
+    
+
 }
 
    

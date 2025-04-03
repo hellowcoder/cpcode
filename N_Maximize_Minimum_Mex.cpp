@@ -27,6 +27,16 @@
 using namespace std;
 const int MOD=1e9+7;
 
+void dfs(vector<vector<int>>& adj,vector<int>&df,vector<int>&visited,int node){
+    visited[node]=1;
+    df.push_back(node);
+    for(auto &i : adj[node]){
+        if(!visited[i]){
+            dfs(adj,df,visited,i);
+        }
+    }
+}
+
 void solve(){
 lli x;cin>>x;
 vector<lli>adj[x];
@@ -37,12 +47,7 @@ fr(i,x-1){
     adj[b].psb(a);
 }
 lli c=adj[0].size();lli co=1;
-fr(i,x){
-    if(find(adj[i].begin(),adj[i].end(),co)==adj[i].end()){
-        break;
-    }
-    else co++;
-}
+
 frs(i,2,x+1){
     if(i==2)cout<<co<<" ";
     else if(i>=3 && i<=c+1){

@@ -28,9 +28,9 @@ using namespace std;
 const int MOD=1e9+7;
 
 
-lli meme(vector<lli>&v,lli l,lli x,lli check){
+lli meme(vector<lli>&v,lli l,lli x){
     if(l<=x) return v[l];
-    return (l&1LL)?check:check^meme(v,l/2,x,check);
+    return 
 }
 
 void solve(){
@@ -41,9 +41,8 @@ frs(i,1,x+1){
    pre[i]=pre[i-1]^v[i];
 }
 lli check=pre[x];
-lli precl=(x&1LL) ? check : check^pre[x/2];
-//l/=2;
-lli ans=meme(pre,l,x,precl);
+
+lli ans=meme(pre,l,x);
 cout<<ans<<'\n';
 }
 

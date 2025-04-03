@@ -30,7 +30,7 @@
 using namespace std;
 const int MOD=1e9+7;
 lli inf=1e18;
-vec2(cost,60,60);
+vec2(cost,60,60);   //dp[i][j]=2^k+min(dp[i-k][j],dp[i][j-k])
 
 void precal(){
    fr(i,60){

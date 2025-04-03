@@ -48,8 +48,9 @@ get(v,n);         //if sorted ans=n+ max(equal seq)*t-1
 vec(tem,n);tem=v;srt(tem);
 map<lli,lli>m;
 fr(i,n){
-    
+    m[tem[i]]++;
 }
+
 
 cout<<lis(v,n);
 

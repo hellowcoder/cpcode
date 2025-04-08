@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-04-03 22:46
+//Date: 2025-04-04 21:03
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -8,8 +8,10 @@
 #define uint unsigned long long int
 #define srt(v) sort(v.begin(),v.end())
 #define rsrt(v) sort(v.rbegin(),v.rend())
-#define vec(v,n) vector<lli>v(n)
+#define vec(v,n,k) vector<lli>v(n,k)
+#define vect(v) vector<lli>v
 #define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
+#define pr pair<lli,lli>
 #define take(x) lli x;cin>>x
 #define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
@@ -30,21 +32,23 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,m;cin>>n>>m;get(v,m);srt(v);
-lli ans=0;
-map<lli,lli>ma;
-fr(i,m)ma[v[i]]++;
-for(auto &i:ma){
-    lli check=0;
-    lli k=i.ss;
-    while(k>=check){
-      check+=2;
-      k--;
+string s;cin>>s;//priority_queue<lli>pq;
+lli x=s.size();
+lli extra=0,op=0;
+fr(i,s.size()/2){
+    lli k=s[i]-s[s.size()-i-1];
+    k=abs(k);
+    lli check=min(26-k,k);
+   if(k&1){
+     op+=check+1;
+     extra++;
+
     }
-    k++;
-    ans=max(ans,k);
+    else op+=check;
+  
 }
-cout<<ans<<'\n';
+if((op-extra) %2==0  || x%2==1)cout<<max(0LL,(op-extra+1)/2)<<'\n';
+else cout<<"-1\n";
 }
 
 int32_t main(){

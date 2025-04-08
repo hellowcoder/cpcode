@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-04-03 22:46
+//Date: 2025-04-08 18:17
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -8,10 +8,12 @@
 #define uint unsigned long long int
 #define srt(v) sort(v.begin(),v.end())
 #define rsrt(v) sort(v.rbegin(),v.rend())
-#define vec(v,n) vector<lli>v(n)
+#define vec(v,n,k) vector<lli>v(n,k)
+#define vect(v) vector<lli>v
 #define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
+#define pr pair<lli,lli>
 #define take(x) lli x;cin>>x
-#define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
+#define get(v,n) vec(v,n,0);fr(i,n)cin>>v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define vin(a) for(auto &i:a) cin>>i
@@ -29,22 +31,29 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void solve(){
-lli n,m;cin>>n>>m;get(v,m);srt(v);
-lli ans=0;
-map<lli,lli>ma;
-fr(i,m)ma[v[i]]++;
-for(auto &i:ma){
-    lli check=0;
-    lli k=i.ss;
-    while(k>=check){
-      check+=2;
-      k--;
-    }
-    k++;
-    ans=max(ans,k);
+void dfs(lli k,vector<vector<lli>>&adj,set<lli>&s){
+    s.insert(k);
+    for(lli &i:adj[k])
+    if(s.find(i)==s.end())
+        dfs(i,adj,s);
+    
 }
-cout<<ans<<'\n';
+
+void solve(){
+lli x;cin>>x;get(a,x);get(b,x);
+vector<vector<lli>>adj(x+1);
+set<lli>s;
+fr(i,x){
+    adj[i+1].psb(a[i]);
+    adj[a[i]].psb(i+1);
+}
+fr(i,x){
+    if(s.find(b[i])==s.end()){
+        dfs(b[i],adj,s);
+    }
+    cout<<s.size()<<" ";
+}
+cout<<'\n';
 }
 
 int32_t main(){

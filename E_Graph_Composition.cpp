@@ -14,6 +14,7 @@
 #define mne(v)  *min_element(v.begin(),v.end())
 #define vin(a) for(auto &i:a) cin>>i
 #define psb(a) push_back(a)
+#define pr pair<lli,lli>
 #define ppb pop_back()
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
@@ -78,7 +79,30 @@ public:
 
 
 void solve(){
+lli x,m,n;cin>>x>>m>>n;vector<pr>a(m),b(n);
+fr(i,m){
+cin>>a[i].ff>>a[i].ss;
+}
+fr(i,n){
+    cin>>b[i].ff>>b[i].ss;
+}
+UnionFind graph1(x+1);UnionFind graph2(x+1);
+lli ans=0;
 
+fr(i,n){
+    graph2.join(b[i].ff,b[i].ss);
+}
+fr(i,m){
+    if(graph2.connected(a[i].ff,a[i].ss)){
+        graph1.join(a[i].ff,a[i].ss);
+    }else ans++;
+}
+set<lli>s1,s2;  //connecte compo
+fr1(i,x){
+  s1.insert(graph1.find(i));
+  s2.insert(graph2.find(i));
+}
+cout<<ans+s1.size()-s2.size()<<'\n';
 }
 
 int main(){

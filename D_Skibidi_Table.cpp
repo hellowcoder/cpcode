@@ -37,8 +37,8 @@ lli find(lli n,lli x,lli y){
         if(x==2 && y==1)return 3;
         return 4;
     }
-    lli a =1LL<<(n-1);
-    lli b =1LL<<(2*(n-1));
+    lli a =1LL<<(n-1); //coordinate div into 4 
+    lli b =1LL<<(2*(n-1));  //total numbers upto upper left  gap like 2,6,10,14
     if(x<=a && y<=a) return find(n-1,x,y);
     if(x>a && y>a) return b+find(n-1,x-a,y-a);
     if(x>a && y<=a) return 2*b+find(n-1,x-a,y);
@@ -52,21 +52,21 @@ pr find2(lli n,lli k) {
         if(k==3)return {2,1};
         return {1,2};
     }
-    lli a=1LL<<(n-1);
-    lli b=1LL<<(2*(n-1));
+    lli a=1LL<<(n-1); //coordinate div into 4
+    lli b=1LL<<(2*(n-1));  //total numbers upto upper left
     if(k<=b){
-        pr p = find2(n-1,k);
+        pr p=find2(n-1,k);
         return {p.ff,p.ss};
     }
-    if(k<= 2*b) {
-        pr p=find2(n-1,k- b);
+    if(k<=2*b){
+        pr p=find2(n-1,k-b);
         return {p.ff+a,p.ss+a};
     }
-    if(k<=3*b) {
-        pr p = find2(n-1,k-2*b);
+    if(k<=3*b){
+        pr p=find2(n-1,k-2*b);
         return {p.ff+a,p.ss};
     }
-    pr p = find2(n-1,k-3*b);
+    pr p=find2(n-1,k-3*b);
     return {p.ff,p.ss+a};
 }
 void solve(){

@@ -13,7 +13,7 @@
 #define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
 #define pr pair<lli,lli>
 #define take(x) lli x;cin>>x
-#define get(v,n) vec(v,n,0);fr(i,n)cin>>v[i]
+#define get(v,n) vec(v,n,0);fr(i,n){cin>>v[i];v[i]--;}
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define vin(a) for(auto &i:a) cin>>i
@@ -32,17 +32,39 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli x;cin>>x;get(v,x);get(v1,x);
+lli x;cin>>x;get(v,x) 
+get(v1,x)
 map<lli,lli>m;lli count=0,index=-1;
-fr(i,x){
+fr(i,x){                                                                
     m[v[i]]=v1[i];
-    if(v[i]==v1[i]){count++;
-        index=i;}
+    if(v[i]==v1[i]){
+        count++;
+        index=i;
+    }
 }
 fr(i,x){
-    if(m[v1[i]]!=v[i] || count>1){cout<<"-1\n";return;}
+    if(m[v1[i]]!=v[i]){cout<<"-1\n";return;}
 }
+vec(pre,x,-1);  //it will give me index where i was present earlier....
+fr(i,x){
+    pre[v[i]]=i;
+}
+vec(pos,x,-1);  //
+vector<bool>boli(x,false);
+if(x&1){
+    if(count!=1){cout<<"-1\n";return;}
+    pos[x/2]=index;
+    fr(i,x){
+        if(pos[i]!=-1){
+            
+        }
+    }
+ 
+ }
+else{
+if(!count){cout<<"-1\n";return;}
 
+ }
 }
 
 int32_t main(){

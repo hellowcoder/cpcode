@@ -30,7 +30,7 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli n,m;cin>>n>>m;get(v,m);srt(v);
+lli n,m;cin>>n>>m;get(v,m);
 lli ans=0;
 map<lli,lli>ma;
 fr(i,m)ma[v[i]]++;

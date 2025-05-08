@@ -28,21 +28,37 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
+//binary search lagale bete
+
+ bool check(lli mid,vector<lli>&fre){
+   lli extra=0,need_for_extra=0;
+   fr(i,fre.size()){
+    if(fre[i]<=mid){
+      extra+=(mid-fre[i])/2;  //spare time so that they can contribute to others
+    }
+    else
+     need_for_extra+=(fre[i]-mid);
+   }
+   return extra>=need_for_extra;
+ }
 
 void solve(){
 lli n,m;cin>>n>>m;get(v,m);
 lli ans=0;
-map<lli,lli>ma;
-fr(i,m)ma[v[i]]++;
-for(auto &i:ma){
-    lli check=0;
-    lli k=i.ss;
-    while(k>=check){
-      check+=2;
-      k--;
-    }
-    k++;
-    ans=max(ans,k);
+//map<lli,lli>ma;
+vec(fre,n);
+fr(i,m){
+  v[i]--;
+  fre[v[i]]++;
+}
+lli low=0,high=2*m;
+while(low<=high){
+  lli mid=(low+high)/2;
+   if(check(mid,fre)){
+     ans=mid;
+     high=mid-1;
+   }else low=mid+1;
+
 }
 cout<<ans<<'\n';
 }

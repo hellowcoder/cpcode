@@ -15,7 +15,7 @@
 #define ppb pop_back()
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
-#define sz(v) (lli)(v.size())
+#define sz(v) (lli)(v.size())++
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<
 #define no cout<<

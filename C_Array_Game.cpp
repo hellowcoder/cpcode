@@ -29,31 +29,31 @@ const int MOD=1e9+7;
 
 void solve(){
 lli n,k;cin>>n>>k;get(v,n);
-vector<lli>temp;
-
-
-fr(j,n-1){
-    
-    srt(v);
-    fr(i,n-j-1){
-      temp.push_back(abs(v[i]-v[i+1]));
-    }
-    srt(temp);
-    k--;
-    if(k==0){
-        cout<<*temp.begin()<<'\n';return;
-    }
-    lli x=temp.size();
-    v.resize(x);
-    v=temp;
-    temp.clear();
+//map<lli,lli>m;
+if(k>=3){
+  std::cout<<"0\n";return;
 }
-cout<<*temp.begin()<<'\n';
+srt(v);
+lli ans=v[0];
+fr(i,n-1){
+  ans=min(ans,v[i+1]-v[i]);
+}
+if(k>=2){
+  fr(i,n){
+    frs(j,i+1,n){
+      lli check=v[j]-v[i];
+      lli it = lower_bound(all(v),check)-v.begin();
+      if(it<n)ans=min(ans,-check+v[it]);   //age wale se check 
+      if(it>0)ans=min(ans,check-v[it-1]);  // pichhe wale se check
+    }
+  }
+}
+std::cout<<ans<<'\n';
 
 }
 
 int32_t main(){
-fastio;
+//fastio;
 lli tt;cin>>tt;
 while(tt--){
 solve();

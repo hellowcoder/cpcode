@@ -1,5 +1,6 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-05-12 18:46
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
@@ -29,33 +30,42 @@
 using namespace std;
 const int MOD=1e9+7;
 
+//binary search lagale bete
 void solve(){
 lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
+get(a,x);get(b,x);
+vector<pr>p(x);
+fr(i,x){
+    p[i]={b[i],a[i]};
 
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
 }
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
+sort(p.begin(),p.end(), [](const pair<lli,lli>& a, const pair<lli,lli>& b) {
+        if (a.first != b.first)
+            return a.first < b.first; // increasing order of first
+        return a.second > b.second;   // decreasing order of second if first is same
+    });
+
+vec(maxi,x,0);
+maxi[0]=p[0].ss;
+frs(i,1,x-1){
+    maxi[i]=max(maxi[i-1],p[i].ss);
 }
-cout<<"! "<<low<<'\n';
+// if(maxi[0]<=p[0].ff){
+//     cout<<maxi[0]<<'\n';
+//     return;
+// }
+
+lli s=p[x-1].ff;
+rfr(i,x-2,0){
+if(s>maxi[i+1]){
+    cout<<maxi[i+1]<<'\n';
+    return;
+}
+s+=p[i].ff;
+}
+cout<<min(s,maxi[0])<<'\n';
+
+
 }
 
 int32_t main(){

@@ -1,5 +1,6 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-05-12 18:33
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
@@ -29,33 +30,34 @@
 using namespace std;
 const int MOD=1e9+7;
 
+//binary search lagale bete
 void solve(){
-lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
+lli n,a,b;cin>>n>>a>>b;
+if(a && b){
+    cout<<"-1\n";
+    return;
+}
+if(!a && !b){
+    cout<<"-1\n";
+    return;
+}
+lli c=a+b;
+if((n-1)%c==0){
+    lli co=0,w=1;
+    frs(i,1,n-1){
+        co++;
+       cout<<w<<" ";
+       if(co%c==0){
+        w=i+2;
+        co=0;
+       }
 
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
+    }
+    cout<<'\n';
+}else{
+    cout<<"-1\n";
 }
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
-}
-cout<<"! "<<low<<'\n';
+
 }
 
 int32_t main(){

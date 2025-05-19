@@ -1,6 +1,9 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-05-16 07:45
+
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -28,40 +31,33 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
+using namespace __gnu_pbds;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
+//binary search lagale bete
 void solve(){
-lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
-
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
+lli x,k;cin>>x;
+map<lli,lli,greater<lli>>m;
+fr(i,x*x){
+cin>>k;
+m[k]++;
 }
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
+vect(ans);
+for(auto &it:m){
+    while(it.ss>0){
+       it.ss--;
+       fr(i,ans.size()){
+        m[__gcd(it.ff,ans[i])]-=2;
         }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
+       ans.psb(it.ff);
+    }
 }
-cout<<"! "<<low<<'\n';
+out(ans,ans.size())<<" ";
+cout<<'\n';
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

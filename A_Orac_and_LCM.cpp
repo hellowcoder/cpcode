@@ -33,9 +33,17 @@ const int MOD=1e9+7;
 //binary search lagale bete
 void solve(){
 lli x;cin>>x;get(v,x);
-lli ans=lcm(v[0],v[1]);
+vec(suff,x,0);
+suff[x-1]=v[x-1];
+rfr(i,x-2,0){
+    suff[i]=gcd(suff[i+1],v[i]);
+}
 
-cout<<ans<<" ";
+lli ans=lcm(v[0],suff[1]);
+frs(i,1,x-2){
+ ans=gcd(ans,lcm(v[i],suff[i+1]));
+}
+cout<<ans;
 }
 
 int32_t main(){

@@ -1,9 +1,10 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-04-26 15:42
+
 #include <bits/stdc++.h>
 #define lli long long int
-#define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
+#define fr(i,n) for(lli i=0;i<n;i++)
 #define rfr(i,b,a) for(lli i=b;i>=a;i--)
 #define srt(v) sort(v.begin(),v.end())
 #define rsrt(v) sort(v.rbegin(),v.rend())
@@ -12,8 +13,8 @@
 #define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
 #define pr pair<lli,lli>
 #define take(x) lli x;cin>>x
-#define get(v,n) vec(v,n,0);frs(i,0,n-1)cin>>v[i]
-#define out(v,n) frs(i,0,n-1)cout<<v[i]
+#define get(v,n) vec(v,n,0);fr(i,0,n-1)cin>>v[i]
+#define out(v,n) fr(i,0,n-1)cout<<v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -28,40 +29,34 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
-
+lli hashed(string s,lli st){
+ lli ans=1;
+ fr(i,s.size()){
+  ans*=((s[i]-'a'+1)*(1LL<<st));
+   st--;
+ }
+ return ans;
+}
+bool rabin(string text,string k){
+    lli n=text.size();
+    lli m=k.size();
+    lli pre=hashed(k,n-1);
+    fr(i,n-m){
+        string sub=text.substr(i,m);
+        lli check=hashed(sub,n-1);
+        if(check==pre){
+           if(sub==k)return true;
+            
+        }
+    }
+return false;
+}
 void solve(){
-lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
-
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
-}
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
-}
-cout<<"! "<<low<<'\n';
+string k,text;cin>>text>>k;
+cout<<bool(rabin(text,k))<<'\n';
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

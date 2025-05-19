@@ -1,5 +1,6 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-04-26 23:05
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
@@ -30,38 +31,48 @@ using namespace std;
 const int MOD=1e9+7;
 
 void solve(){
-lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
 
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
 }
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
+
+
+class Solution {
+private:
+  int cal(vector<int>&v,int mid){
+    int total=1;
+    int page=0;
+    for(int i=0;i<v.size();i++){
+        if(page+v[i]<=mid){
+            page+=v[i];
         }else{
-            high=mid;
+            total++;
+            page=v[i];
         }
-}
-cout<<"! "<<low<<'\n';
-}
+    }
 
+    return total;
+  }    
+public:
+    int splitArray(vector<int>& v, int k) {
+     int n=v.size();
+     int low=*max_element(v.begin(),v.end());
+     int high=accumulate(v.begin(),v.end(),0);
+     int ans=0;
+     while(low<=high){
+        int mid=low+(high-low)/2;
+        if(cal(v,mid)>k){
+            low=mid+1;
+        
+        }else{
+           high=mid-1;
+        }
+     }
+     return low;
+    }
+};
 int32_t main(){
-fastio;
-lli tt;cin>>tt;
-while(tt--){
-solve();
-}
-}
+    fastio;
+    lli tt;cin>>tt;
+    while(tt--){
+    solve();
+    }
+    }

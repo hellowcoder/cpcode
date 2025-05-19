@@ -1,6 +1,9 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-05-17 22:19
+
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -28,34 +31,17 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
+using namespace __gnu_pbds;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
+//binary search lagale bete
 void solve(){
 lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
-
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
+if(x&1)cout<<"-1\n";
+else{
+    cout<<"1 "<<x/2<<'\n';
 }
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
-}
-cout<<"! "<<low<<'\n';
 }
 
 int32_t main(){

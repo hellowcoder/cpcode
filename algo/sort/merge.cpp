@@ -1,5 +1,6 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-04-26 16:55
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
@@ -29,33 +30,42 @@
 using namespace std;
 const int MOD=1e9+7;
 
-void solve(){
-lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
+void merge_merge(vector<lli>&v,lli low,lli mid,lli high,lli& c){
+  //cout<<low<<" "<<mid<<" "<<high<<'\n';
+  lli i=low,j=mid+1;
+  vect(temp);
+  while(i<=mid && j<=high){
+     if(v[i]<=v[j])temp.psb(v[i++]);
+     else {
+      temp.psb(v[j++]);
+            c+=(mid-i+1);  //modified to count number of inversion.....
+     }
+  }
+  while(i<=mid)temp.psb(v[i++]);
+  while(j<=high)temp.psb(v[j++]);
+  i=low;
+  for(lli &it:temp){
+    //cout<<it<<" ";
+    v[i++]=it;
+  }//cout<<'\n';
+}
 
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
+void merge_split(vector<lli>&v,lli low,lli high,lli& c){
+    if(low==high)return;
+    lli mid=(low+high)/2;
+    merge_split(v,low,mid,c); // these are not actually splitting.................... from them i only need mid
+    merge_split(v,mid+1,high,c);
+    merge_merge(v,low,mid,high,c);
 }
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
-}
-cout<<"! "<<low<<'\n';
+
+void solve(){
+lli x;cin>>x;get(v,x);
+lli low=0,high=x-1;
+lli count_inv=0;
+merge_split(v,low,high,count_inv);
+//fr(i,x)cout<<v[i]<<" ";
+
+cout<<count_inv<<'\n';
 }
 
 int32_t main(){

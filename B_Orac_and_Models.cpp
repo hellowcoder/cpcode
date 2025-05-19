@@ -1,5 +1,6 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-05-09 10:48
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
@@ -29,34 +30,24 @@
 using namespace std;
 const int MOD=1e9+7;
 
+//binary search lagale bete
 void solve(){
 lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
 vec(v,x+1,0);
 frs(i,1,x)cin>>v[i];
+vec(dp,x+1,1);
+for(lli i=1;i<=x;i++){
+     
+    for(lli j=i*2;j<=x;j+=i){
+        if(v[j]>v[i]){
+            dp[j]=max(dp[j],dp[i]+1);
+        }
+       }
+    }
+//frs(i,1,x)cout<<dp[i]<<" ";  
+cout<<mxe(dp)<<'\n';
+}
 
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
-}
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
-}
-cout<<"! "<<low<<'\n';
-}
 
 int32_t main(){
 fastio;

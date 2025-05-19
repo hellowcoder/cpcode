@@ -1,5 +1,6 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-05-12 09:29
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
@@ -28,40 +29,30 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
-
+vector<lli>dp(55,0);  //dp[i]==2^i-1
+void dpp(){
+    fr(i,50){
+        dp[i]=i*((1LL<<(i-1)));
+    }
+}
+//binary search lagale bete
 void solve(){
 lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
+lli ans=0;
+while(x){
+lli check=log2(x);
+//ans+=check*(1LL<<(check-1));
+ans+=dp[check];
+check=1LL<<check;
+ans+=(x-check+1);
+x-=check;
+}
+cout<<ans;
+}
 
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
-}
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
-}
-cout<<"! "<<low<<'\n';
-}
 
 int32_t main(){
+    dpp();
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

@@ -1,5 +1,6 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-05-11 21:12
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
@@ -9,7 +10,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n,k) vector<lli>v(n,k)
 #define vect(v) vector<lli>v
-#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
+#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y,0));
 #define pr pair<lli,lli>
 #define take(x) lli x;cin>>x
 #define get(v,n) vec(v,n,0);frs(i,0,n-1)cin>>v[i]
@@ -29,33 +30,47 @@
 using namespace std;
 const int MOD=1e9+7;
 
+//binary search lagale bete
+void print(lli row,lli col,lli& fill,lli n,vector<vector<lli>>&v,vector<vector<bool>>&booli){
+    
+    while(col <n && booli[row][col]){
+        v[row][col]=fill++;booli[row][col]=false;
+        col++;
+    }
+    row++;col--;
+    while(row<n && booli[row][col]){
+        v[row][col]=fill++;booli[row][col]=false;
+        row++;
+    }
+    row--;col--;
+    while(col>=0 && booli[row][col]){
+        v[row][col]=fill++;booli[row][col]=false;
+        col--;
+    }
+    col++;row--;
+    while(row>=0 && booli[row][col]){
+        v[row][col]=fill++;booli[row][col]=false;
+        row--;
+    }
+    //row++;col++;
+    //cout<<"*"<<row<<"*"<<col<<'\n';
+   
+    
+}  
 void solve(){
 lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
-
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
+vec2(v,x,x);
+vector<vector<bool>>booli(x,vector<bool>(x,true));
+lli fill=0;
+fr(i,x){
+    print(i,i,fill,x,v,booli);
 }
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
+lli check=x*x-1;
+fr(i,x){
+    fr(j,x){
+        cout<<check-v[i][j]<<" ";
+    }cout<<'\n';
 }
-cout<<"! "<<low<<'\n';
 }
 
 int32_t main(){

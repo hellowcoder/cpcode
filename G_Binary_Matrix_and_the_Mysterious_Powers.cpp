@@ -1,5 +1,6 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-05-12 20:02
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
@@ -9,7 +10,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n,k) vector<lli>v(n,k)
 #define vect(v) vector<lli>v
-#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
+#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y,0));
 #define pr pair<lli,lli>
 #define take(x) lli x;cin>>x
 #define get(v,n) vec(v,n,0);frs(i,0,n-1)cin>>v[i]
@@ -22,40 +23,61 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
-void solve(){
-lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
+//binary search lagale bete
+void print(vector<vector<lli>>v,lli x,lli layer){
+    fr(i,x){
 
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
-}
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
+        lli c=0;
+        if(i<layer)c=1;
+        fr(j,x){
+            cout<<c-v[i][j]<<" ";
         }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
+        cout<<'\n';
+    }
 }
-cout<<"! "<<low<<'\n';
+void solve(){
+lli x,k;cin>>x>>k;
+vec2(v,x,x);
+lli layer=0;
+lli a=1;
+map<lli,lli>m;
+while(a<1001){
+    m[4*a*a]++;
+    a++;
+}
+if(k%x==0){
+    layer=k/x;
+    yes;
+    print(v,x,layer);
+
+}else{
+    if(m[k]){
+        yes;
+        fr(i,sqrt(k))
+        fr(j,sqrt(k))
+        v[i][j]=1;
+        fr(i,x){
+            fr(j,x)cout<<v[i][j]<<" ";
+            cout<<'\n';  
+        }      
+    }
+    else{
+        fr(i,1000){
+            bool boli=false;
+            fr(j,1000){
+                
+            }
+        }
+    }
+
+}
 }
 
 int32_t main(){

@@ -1,5 +1,6 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-05-10 20:30
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
@@ -22,40 +23,28 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define tom cout<<"Tom\n"
+#define  jerr cout<<"Jerry\n"
 #define ff first
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
 
+//binary search lagale bete
 void solve(){
-lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
-
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
+lli x,k;cin>>x>>k;get(v,x);
+lli sum=accumulate(all(v),0LL);
+lli a=mxe(v),b=mne(v);
+lli check=a-b;
+lli c=count(all(v),a);
+if(check>k+1){
+    jerr;return;
 }
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
+if(check==k+1  && c>=2){
+    jerr;return;
 }
-cout<<"! "<<low<<'\n';
+if(sum&1)tom;
+else jerr;
 }
 
 int32_t main(){

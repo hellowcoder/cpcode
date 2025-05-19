@@ -1,6 +1,9 @@
 //Author: sandeep172918
-//Date: 2025-05-01 09:17
+//Date: 2025-05-14 13:28
+
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -27,35 +30,36 @@
 #define ff first
 #define ss second
 using namespace std;
+using namespace __gnu_pbds;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+
+
+
 const int MOD=1e9+7;
 
+//binary search lagale bete
 void solve(){
-lli x;cin>>x;
-lli check;
-vec(pre,x+1,0);
-vec(v,x+1,0);
-frs(i,1,x)cin>>v[i];
+ordered_set<lli>os;
+os.insert(1);
+os.insert(2);
+os.insert(10);
 
-frs(i,1,x){
-    pre[i]=pre[i-1]+v[i];
+cout<<*os.find_by_order(0)<<'\n';  // 1st element;
+cout<<*os.find_by_order(3)<<'\n'; //4th elemt   it will output 0 as there are no 4th elemnt 
+
+cout<<os.order_of_key(5)<<'\n'; // number of lement less than 5
+
+cout<<*os.lower_bound(2)<<'\n';
+
+cout<<*os.upper_bound(2)<<'\n';
+
+os.erase(2);
+
+for(auto &it:os){
+    cout<<it<<'\n';
 }
-lli low=1,high=x;
-while(low<high){
-        lli mid=(low+high)/2;
-        cout<<"? "<<mid-low+1<<" ";
-        frs(i,low,mid){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-       // cout.flush();
-        cin>>check;
-        if(check==(pre[mid]-pre[low-1])){
-            low=mid+1;
-        }else{
-            high=mid;
-        }
-}
-cout<<"! "<<low<<'\n';
 }
 
 int32_t main(){

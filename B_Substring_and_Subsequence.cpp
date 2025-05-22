@@ -35,10 +35,10 @@ string a,b;cin>>a>>b;
 //a is substring b is sunsequence  min len of string required to make both
 lli n=a.size(),m=b.size();
 lli c=0,ans=0;
-fr(st,n){
+fr(st,m){
     lli i=st,j=0;
-    while(i<n && j<m){
-      if(a[i]==b[j]){
+    while(i<m && j<n){
+      if(b[i]==a[j]){
         i++;
       }
       j++;

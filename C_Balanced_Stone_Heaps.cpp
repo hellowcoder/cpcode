@@ -1,3 +1,6 @@
+//Author: sandeep172918
+//Date: 2025-05-21 00:18
+
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -33,8 +36,29 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //binary search lagale bete
-void solve(){
+bool check(lli mid,vector<lli>v){
+    vector<lli>temp=v;
+ rfr(i,v.size()-1,2){
+    if(v[i]<mid) return false;
+    lli k=min(v[i]-mid,temp[i])/3;
+    v[i]-=k*3;
+    v[i-1]+=k;
+    v[i-2]+=2*k;
+ }
+ return  !(v[0]<mid || v[1]<mid);
+}
 
+void solve(){
+lli x;cin>>x;get(v,x);
+lli low=mne(v);
+lli high=mxe(v);
+while(low<=high){
+    lli mid=(low+high)/2;
+    if(check(mid,v)){
+        low=mid+1;
+    }else high=mid-1;
+}
+cout<<low-1<<'\n';
 }
 
 int32_t main(){

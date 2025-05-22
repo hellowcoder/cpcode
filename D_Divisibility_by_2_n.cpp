@@ -1,52 +1,80 @@
-// Author: sandeep172918
-// Date: 2024-11-23 16:10:01
+//Author: sandeep172918
+//Date: 2025-05-21 07:29
+
 #include <bits/stdc++.h>
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
 #define lli long long int
-#define fr(i,n) for(lli i=0;i<(n);i++)
-#define frs(i,s,n) for(lli i=s;i<(n);i++)
-#define fr1(i,n) for(lli i=1;i<=(n);i++)
-#define uint unsigned long long int
+#define fr(i,n) for(lli i=0;i<n;i++)
+#define frs(i,a,b) for(lli i=a;i<=b;i++)
+#define rfr(i,b,a) for(lli i=b;i>=a;i--)
 #define srt(v) sort(v.begin(),v.end())
 #define rsrt(v) sort(v.rbegin(),v.rend())
-#define vec(v,n) vector<lli>v(n)
-#define vec2(v,n) vector<vector<lli>>v(n)
+#define vec(v,n,k) vector<lli>v(n,k)
+#define vect(v) vector<lli>v
+#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
+#define pr pair<lli,lli>
+#define take(x) lli x;cin>>x
+#define get(v,n) vec(v,n,0);frs(i,0,n-1)cin>>v[i]
+#define out(v,n) frs(i,0,n-1)cout<<v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
+#define psb(a) push_back(a)
+#define ppb pop_back()
+#define all(v) v.begin(),v.end()
+#define rall(v) v.rbegin(),v.rend()
+#define sq(x) sqrtl(x)
+#define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
+#define yes cout<<
+#define no cout<<
+#define ff first
+#define ss second
 using namespace std;
 const int MOD=1e9+7;
-int main(){
-lli tt; //number of test cases.
-cin >>tt;
- 
-while(tt--){
-lli x;cin>>x;vec(v,x);fr(i,x){cin>>v[i];}lli current=0;
+// using namespace __gnu_pbds;
+// template <typename T>
+// using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+lli check(lli x){
+  
+    return __builtin_ctzll(x);
+}
+
+//binary search lagale bete
+void solve(){
+lli x;cin>>x;
+vec(v,x+1,0);
+frs(i,1,x)cin>>v[i];
+lli sum=0;
+frs(i,1,x){
+   
+  sum+=check(v[i]);
+   // cout<<check(a)<<" ";
+    if(sum>=x){
+        cout<<"0\n";
+        return;
+    }
+}
+vector<lli>b(x);
 fr(i,x){
-    lli k=v[i];
-   while((k&1)==0){
-    current++;
-    k/=2;
-   }
+    b[i]=check(i+1);
 }
-lli large= (int)log2(x);
-lli result=0;int flag=0;
-if(current>=x){
-    cout<<"0"<<endl;
-}else{
-    while(current<x){
-        if(large<=0){
-            flag=1;
-            break;
-        }
-        current+=large;
-        result++;
-        large--;
-    }
-    if(flag){
-        cout<<"-1"<<endl;
-    }else{
-        cout<<result<<endl;
+rsrt(b);
+fr(i,x){
+    sum+=b[i];
+    if(sum>=x){
+        cout<<i+1<<'\n';
+        return;
     }
 }
+cout<<"-1\n";
+
 }
- 
+
+int32_t main(){
+fastio;
+lli tt;cin>>tt;
+while(tt--){
+solve();
+}
 }

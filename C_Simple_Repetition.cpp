@@ -30,17 +30,17 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
-void primee(vector<lli>& prime ,lli x){    //nlog(log(n))  prime harmonic series...
-    for(lli i=2;i*i<=x;i++){
-      if(prime[i]){
-         for(lli j=i*i;j<=x;j+=i)
-         prime[j]=0;
-      }
-    }
- }
+// void primee(vector<lli>& prime ,lli x){    //nlog(log(n))  prime harmonic series...
+//     for(lli i=2;i*i<=x;i++){
+//       if(prime[i]){
+//          for(lli j=i*i;j<=x;j+=i)
+//          prime[j]=0;
+//       }
+//     }
+//  }
 void solve(){
 lli x,k;cin>>x>>k;
-if(k==1){
+if(k==1){  //just directly check
     if(x<2)no;
     else{
         for(lli i=2;i*i<=x;i++){

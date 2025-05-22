@@ -1,3 +1,6 @@
+//Author: sandeep172918
+//Date: 2025-05-21 07:39
+
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -9,7 +12,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n,k) vector<lli>v(n,k)
 #define vect(v) vector<lli>v
-#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
+#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y,0));
 #define pr pair<lli,lli>
 #define take(x) lli x;cin>>x
 #define get(v,n) vec(v,n,0);frs(i,0,n-1)cin>>v[i]
@@ -34,6 +37,34 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
+lli x,k;cin>>x>>k;
+string s,s2;cin>>s>>s2;
+vec2(v,x+1,26);
+vec2(v2,x+1,26);
+fr(i,x){
+   fr(j,26){
+    
+     v[i+1][j]=(v[i][j]+ (s[i]-'a'==j));
+     v2[i+1][j]=(v2[i][j]+ (s2[i]-'a'==j));
+       }
+}
+// fr(i,26){
+//     cout<<v[4][i]<<" ";
+   
+// }cout<<'\n';
+// fr(i,26) cout<<v2[4][i]<<" ";
+// cout<<'\n';
+while(k--){
+lli l,r;cin>>l>>r;
+l--;
+lli sum=0,ans=0;
+fr(i,26){
+    sum=(v[r][i]-v[l][i]);
+    sum-=(v2[r][i]-v2[l][i]);
+    if(sum>0)ans+=sum;
+}
+cout<<ans<<'\n';
+}
 
 }
 

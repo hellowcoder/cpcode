@@ -44,39 +44,41 @@ void printi(){
   frs(i,1,1000){
     rfr(j,i,1){
         lli k=i+i/j;
-        if(k<1000){
+        if(k<=1000){
             pre[k]=min(pre[k],pre[i]+1);
         }
     }
   }
 }
 
-lli maxi(lli ind,lli w,vector<lli>&weight,vector<lli>&val,vector<vector<lli>>&dp){
-    if(ind==0){
-        if(weight[ind]<=w)return val[ind];
-        else return 0;
-    }
-    if(dp[ind][w]!=-1)return dp[ind][w];
+lli knapsack(lli W,vector<lli>&weight,vector<lli>&val){  //dp =0;
+    lli n=weight.size();
+    vec(dp,W+1,0);
+ 
+
+    fr(ind,n){
+      rfr(w,W-weight[ind],0){
+
     lli pick=INT_MIN;
-    lli non_pick=maxi(ind-1,w,weight,val,dp);
-    if(weight[ind]<=w)pick=val[ind]+maxi(ind-1,w-weight[ind],weight,val,dp);
-    return dp[ind][w]=max(pick,non_pick);
-    
+    lli non_pick=0+dp[w+weight[ind]];
+    if(w>=weight[ind])
+       pick= val[ind]+dp[w];
+
+
+    dp[w+weight[ind]]=max(pick,non_pick);
+        }
+    }
+    return mxe(dp);
 }
+
 
 void solve(){
 lli x,k;cin>>x>>k;
-vec(b,x,0);
-fr(i,x){
-    cin>>b[i];
-   b[i]=pre[b[i]];
-  // cout<<b[i]<<" ";
-
-}
-get(c,x);
-//cout<<'\n';
-vec2(dp,x,k+1);
-cout<<maxi(x-1,k,b,c,dp)<<'\n';
+lli sum=0;
+get(b,x);get(c,x);
+fr(i,x)b[i]=pre[b[i]],sum+=b[i];
+k=min(k,sum);
+cout<<knapsack(k,b,c)<<'\n';
 }
 
 int32_t main(){

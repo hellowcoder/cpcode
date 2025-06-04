@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-05-31 21:32
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -30,22 +30,40 @@
 #define ff first
 #define ss second
 using namespace std;
-const int MOD=1e9+7;
+const int MOD=1e9;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //binary search lagale bete
 void solve(){
+lli x,k;cin>>x>>k;
 
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
-    }
+vec(v,x+1,0);
+frs(i,1,x)cin>>v[i];
+
+vec2(a,k,3);
+fr(i,k){
+    cin>>a[i][0]>>a[i][1]>>a[i][2];
 }
 
+auto ans=v;
+rfr(i,k-1,0){
+   lli t=ans[a[i][2]];
+   ans[a[i][2]]=0;
+  ans[a[i][0]]=max(ans[a[i][0]],t);
+  ans[a[i][1]]=max(ans[a[i][1]],t);
+
+}
+auto temp=ans;
+fr(i,k){
+  temp[a[i][2]]=min(temp[a[i][0]],temp[a[i][1]]);
+}
+if(temp==v){
+    frs(i,1,x)cout<<ans[i]<<" ";
+    cout<<'\n';
+}
+else cout<<"-1\n";
 }
 
 int32_t main(){

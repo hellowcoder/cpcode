@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-05-26 20:37
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,15 +37,13 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
-
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
-    }
+lli x;cin>>x;get(v,x);
+stack<lli>st;
+st.push(v[0]);
+frs(i,1,x-1){
+    if(v[i]-st.top()>=2)st.push(v[i]);
 }
-
+cout<<st.size()<<'\n';
 }
 
 int32_t main(){

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-05-30 07:16
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -25,8 +25,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define ff first
 #define ss second
 using namespace std;
@@ -37,15 +37,51 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
+lli n,m,k;cin>>n>>m>>k;
+lli x,y;cin>>x>>y;
+// chess khelele bkl
 
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
+vector<pr>p(k);
+fr(i,k)cin>>p[i].ff>>p[i].ss;
+
+fr(i,k){
+    if((x+y)%2 ==  (p[i].ff+p[i].ss)%2){
+        no;
+        return;
     }
 }
-
+yes;
+// vector<pr>dir;
+// // if(x+1<=n)dir.push_back({x+1,y});
+// // if(x-1>0)dir.push_back({x-1,y});
+// // if(y+1<=m)dir.push_back({x,y+1});
+// // if(y-1>0)dir.push_back({x,y-1});
+// vector<lli>xd={0,0,-1,+1};
+// vector<lli>yd={1,-1,0,0};
+// fr(i,4){
+//        lli newx=x+xd[i];
+//        lli newy=y+yd[i];
+//        if(newx<=n  && newy<=m  && newx>0  && newy>0)dir.push_back({newx,newy});   
+// }
+// lli g=dir.size();
+// vector<lli>d(g,1);
+// //fr(i,g)cout<<dir[i].ff<<dir[i].ss<<'\n';
+// fr(i,k){
+//     fr(j,4){
+//        lli newx=p[i].ff+xd[j];
+//        lli newy=p[i].ss+yd[j];
+//        if(newx<=n  && newy<=m  && newx>0  && newy>0){
+//          pr z={newx,newy};
+//           fr(a,g){
+//              if(z==dir[a]){
+//                d[a]=0;
+//              }
+//           }
+//        }
+//     }
+// }
+// if(accumulate(all(d),0LL)==0)no;
+// else yes;
 }
 
 int32_t main(){

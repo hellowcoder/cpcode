@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-05-26 09:16
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -35,17 +35,61 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-//binary search lagale bete
-void solve(){
-
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
-    }
+void merge_merge(vector<lli>&v,lli low,lli mid,lli high,lli& c){
+  //cout<<low<<" "<<mid<<" "<<high<<'\n';
+  lli i=low,j=mid+1;
+  vect(temp);
+  while(i<=mid && j<=high){
+     if(v[i]<=v[j])temp.psb(v[i++]);
+     else {
+      temp.psb(v[j++]);
+            c+=(mid-i+1);  //modified to count number of inversion.....
+     }
+  }
+  while(i<=mid)temp.psb(v[i++]);
+  while(j<=high)temp.psb(v[j++]);
+  i=low;
+  for(lli &it:temp){
+    //cout<<it<<" ";
+    v[i++]=it;
+  }//cout<<'\n';
 }
 
+void merge_split(vector<lli>&v,lli low,lli high,lli& c){
+    if(low==high)return;
+    lli mid=(low+high)/2;
+    merge_split(v,low,mid,c); // these are not actually splitting.................... from them i only need mid
+    merge_split(v,mid+1,high,c);
+    merge_merge(v,low,mid,high,c);
+}
+//binary search lagale bete
+void solve(){
+lli x;cin>>x;get(v,x);
+lli c1=0,c2=0;
+lli low=0,high=x-1;
+auto a=v;
+auto b=v;
+merge_split(a,low,high,c1);
+fr(i,x){
+    if(v[i]==(1-1)){
+        v[i]=1;
+        break;
+    }
+
+}
+low=0,high=x-1;
+merge_split(v,low,high,c2);
+c1=max(c1,c2);
+lli c3=0;
+rfr(i,x-1,0){
+    if(b[i]==1){
+        b[i]=0;
+        break;
+    }
+}
+low=0,high=x-1;
+merge_split(b,low,high,c3);
+cout<<max(c1,c3)<<'\n';
 }
 
 int32_t main(){

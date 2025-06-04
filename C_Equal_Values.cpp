@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-06-04 22:09
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -29,6 +29,7 @@
 #define no cout<<
 #define ff first
 #define ss second
+#define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
 using namespace __gnu_pbds;
@@ -37,15 +38,25 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
-
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
+lli x;cin>>x;
+vec(v,x+1,0);
+frs(i,1,x)cin>>v[i];
+lli i=1;
+lli ans=1e18;
+while(i<=x){
+    lli k=i;
+    lli left=i-1;
+    lli right=x-i;
+    i++;
+    while(i<=x && v[i]==v[k]){
+      right--;
+      i++;
     }
+    //cout<<left<<" "<<right<<'\n';
+    ans=min(ans,left*v[k]+right*v[k]);
+    
 }
-
+cout<<ans<<'\n';
 }
 
 int32_t main(){

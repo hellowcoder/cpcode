@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-05-24 20:43
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -16,7 +16,7 @@
 #define pr pair<lli,lli>
 #define take(x) lli x;cin>>x
 #define get(v,n) vec(v,n,0);frs(i,0,n-1)cin>>v[i]
-#define out(v) frs(i,0,v.size()-1)cout<<v[i]
+#define out(v,n) frs(i,0,n-1)cout<<v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -37,15 +37,32 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
-
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
+lli x;cin>>x;
+get(v,x);
+vector<pr>p(x);
+fr(i,x)cin>>p[i].ff>>p[i].ss;
+lli curr=0;
+fr(i,x){
+    if(v[i]==0){
+        if(curr>=p[i].ff  && curr<=p[i].ss)continue;
+        else{
+            cout<<"-11\n";
+            return;
+        }
     }
-}
+    if(curr>=p[i].ff  && curr<=p[i].ss)v[i]=0;
+    else if(curr+1>=p[i].ff  && curr+1<=p[i].ss){
+        curr++;
+        v[i]=1;
+    }
+    else{
+        cout<<"-1\n";
+        return;
+    }
 
+}
+out(v,x)<<" ";
+cout<<'\n';
 }
 
 int32_t main(){

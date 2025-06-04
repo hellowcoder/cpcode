@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-06-03 10:41
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -29,6 +29,7 @@
 #define no cout<<
 #define ff first
 #define ss second
+#define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
 using namespace __gnu_pbds;
@@ -37,15 +38,36 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
-
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
-    }
+lli n,m;cin>>n>>m;
+vector<pr>v(m);
+fr(i,m){
+    cin>>v[i].ff;
+    v[i].ss=i+1;
 }
-
+srtp(v);
+stack<lli>st;
+lli ans=0;
+lli curr=0;
+fr(i,m){
+ lli k=v[i].ss;
+ if(st.empty()){
+    st.push(k);
+    ans+=curr;
+    continue;
+ }
+ if(k< st.top()){
+    ans+=curr;
+    st.push(k);
+ }else{
+    while(!st.empty() && st.top()<k){
+        curr++;
+        st.pop();
+    }
+    ans+=curr;
+    st.push(k);
+ }
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){

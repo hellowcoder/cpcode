@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-05-24 20:25
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -25,8 +25,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define ff first
 #define ss second
 using namespace std;
@@ -37,14 +37,19 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
+string s;cin>>s;
 
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
-    }
+lli count=0;
+lli c=0;
+fr(i,s.size()){
+if(s[i]==')'){
+  c--;
+  if(c==0)count++;
+}else c++;
 }
+//cout<<count;
+if(count==1)no;
+else yes;
 
 }
 

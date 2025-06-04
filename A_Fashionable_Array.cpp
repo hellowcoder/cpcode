@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-05-24 20:16
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -16,7 +16,7 @@
 #define pr pair<lli,lli>
 #define take(x) lli x;cin>>x
 #define get(v,n) vec(v,n,0);frs(i,0,n-1)cin>>v[i]
-#define out(v) frs(i,0,v.size()-1)cout<<v[i]
+#define out(v,n) frs(i,0,n-1)cout<<v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -37,14 +37,24 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
-
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
-    }
+lli x;cin>>x;get(v,x);
+srt(v);
+auto a=v;
+fr(i,x)a[i]%=2;
+lli ans=0;
+lli c,c2,c3;
+c=c2=c3=0;
+fr(i,x){
+    if(a[i]==a.back())break;
+    c++;
 }
+rfr(i,x-1,0){
+    if(a[i]==a[0])break;
+    c2++;
+}
+ans=min(c,c2);
+cout<<ans<<'\n';
+
 
 }
 

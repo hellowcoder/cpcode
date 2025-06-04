@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-05-31 20:44
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -36,16 +36,47 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //binary search lagale bete
-void solve(){
-
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
+void bfs(vector<lli>&dist,vector<lli>&un){
+    queue<lli>q;
+    for(auto &it:un){
+        dist[it]=0;
+        q.push(it);
     }
+
+    while(!q.empty()){
+            lli check=q.front();
+            q.pop();
+            for(auto &x:un){
+                lli n=__gcd(check,x);
+                if(dist[n]>dist[check]+1){
+                    dist[n]=dist[check]+1;
+                    q.push(n);
+                }
+            }
+        }
 }
 
+void solve(){
+lli x;cin>>x;
+get(v,x);
+lli c=v[0];
+frs(i,1,x-1){
+    c=__gcd(c,v[i]);
+}
+if(count(all(v),c)>0){
+    cout<<x-count(all(v),c)<<'\n';
+    return;
+}
+vector<lli>uni,dist(5001,1e18);
+srt(v);
+uni.psb(v[0]);
+frs(i,1,x-1){
+    if(v[i]!=v[i-1]){
+    uni.psb(v[i]);
+    }
+}
+bfs(dist,uni);
+cout<<dist[c]+(x-1)<<'\n';
 }
 
 int32_t main(){
@@ -55,3 +86,5 @@ while(tt--){
 solve();
 }
 }
+
+ 

@@ -1,5 +1,12 @@
+// Problem: C. Paint the Array
+// Contest: Codeforces - Codeforces Round 760 (Div. 3)
+// URL: https://codeforces.com/contest/1618/problem/C
+// Memory Limit: 256 MB
+// Time Limit: 2000 ms
+// Author: $sandeep172918
+
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-06-03 08:12
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,15 +44,9 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
-
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
-    }
-}
-
+lli x;cin>>x;
+get(v,x);
+cout<<"hi\n";
 }
 
 int32_t main(){
@@ -55,3 +56,4 @@ while(tt--){
 solve();
 }
 }
+

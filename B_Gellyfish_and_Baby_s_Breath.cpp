@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-05-31 20:19
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -30,22 +30,45 @@
 #define ff first
 #define ss second
 using namespace std;
-const int MOD=1e9+7;
+const int MOD=998244353;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //binary search lagale bete
-void solve(){
-
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
+lli power(lli x,lli y,lli p=MOD) {
+    lli res=1;
+    x=x%p;
+    while (y>0) {
+        if (y&1) res=(res * x)% p;
+        x = (x * x)% p;
+        y >>= 1;
     }
+    return res%p;
 }
-
+void solve(){
+lli x;cin>>x;
+get(p,x);
+get(q,x);
+lli max1=p[0];
+lli max2=q[0];
+lli max1i=0;
+lli max2i=0;
+cout<<(power(2,p[0])+power(2,q[0]))%MOD<<" ";
+frs(i,1,x-1){
+  if(p[i]>max1){
+    max1=p[i];
+    max1i=i;
+  }
+  if(q[i]>max2){
+    max2=q[i];
+    max2i=i;
+  }
+  lli option1 = (power(2,p[max1i])+power(2,q[i-max1i]))%MOD;
+  lli option2 = (power(2,p[max2i])+power(2,q[i-max2i]))%MOD;
+  cout<<max(option1,option2)<<" ";
+}
+cout<<'\n';
 }
 
 int32_t main(){

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-06-04 21:51
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -29,6 +29,7 @@
 #define no cout<<
 #define ff first
 #define ss second
+#define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
 using namespace __gnu_pbds;
@@ -36,20 +37,31 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //binary search lagale bete
-void solve(){
-
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
+vector<lli>pre(11);
+void pri(){
+    pre[1]=1;
+    pre[2]=2;
+    frs(i,3,10){
+        pre[i]=pre[i-1]+pre[i-2];
     }
+} // 1 2 3 5 8 13 21 44 65 109
+void solve(){
+lli n,k;
+cin>>n>>k;
+while(k--){
+    lli w,l,h;cin>>w>>l>>h;
+    lli a=pre[n];
+    lli b=pre[n-1];
+    b+=a;
+    cout<<(w>=a  && l>=a  && h>=a && (l>=b  || w>=b  || h>=b));
+    
 }
-
+cout<<'\n';
 }
 
 int32_t main(){
 fastio;
+pri();
 lli tt;cin>>tt;
 while(tt--){
 solve();

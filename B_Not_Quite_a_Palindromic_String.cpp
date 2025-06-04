@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-05-26 20:13
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -25,8 +25,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define ff first
 #define ss second
 using namespace std;
@@ -37,15 +37,30 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
+lli x,k;cin>>x>>k;
+string s;cin>>s;
+lli a=count(all(s),'0');
+lli b=x-a;
+//cout<<a<<" "<<b<<'\n';
+lli c=max(a,b);
+lli d=min(a,b);
+lli e=c-d;
+e/=2;
+e-=k;
 
-vector<lli>pre(n,vector<lli>(32));
-fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
-    }
+if(e==0)yes;
+else if(e>0){
+  no;
+}else{
+  e=abs(e);
+  if(e%2==0  && d>=(e/2))yes;
+  else no;
 }
-
+// if(c<0){
+//     no;return;
+// }
+// if(c==d)yes;
+// else no;
 }
 
 int32_t main(){

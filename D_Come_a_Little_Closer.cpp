@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-25 23:37
+//Date: 2025-05-26 20:50
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,14 +37,53 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
+lli n;cin>>n;
 
-vector<lli>pre(n,vector<lli>(32));
+map<lli,lli>xm,ym;
+vec(x,n,0);
+vec(y,n,0);
 fr(i,n){
-    fr(j,32){
-        lli k=(1<<j)&v[i];
-        pre[i][j]=pre[i-1][j]+k;
-    }
+ cin>>x[i]>>y[i];
+ xm[x[i]]++;
+ ym[y[i]]++;
 }
+auto xc=x;
+auto yc=y;
+if(n==1){
+    cout<<"1\n";
+    return;
+}
+rsrt(xc);rsrt(yc);
+lli ans=(xc[0]-xc[n-1]+1)*(yc[0]-yc[n-1]+1);
+//cout<<ans<<" ";
+fr(i,n){
+    
+    lli x1,y1,x2,y2;
+    if(x[i]==xc[0]  && xm[x[i]]==1){
+      x1=xc[1];
+    }else x1=xc[0];
+
+    if(x[i]==xc[n-1]  && xm[x[i]]==1){
+      x2=xc[n-2];
+    }else x2=xc[n-1];
+
+    if(y[i]==yc[0]  && ym[y[i]]==1){
+      y1=yc[1];
+    }else y1=yc[0];
+
+     if(y[i]==yc[n-1]  && ym[y[i]]==1){
+      y2=yc[n-2];
+    }else y2=yc[n-1];
+
+    lli area=(x1-x2+1)*(y1-y2+1);
+
+   if(area==n-1){
+    area+=min(x1-x2+1,y1-y2+1);  // making a thin  strip  for that monstre
+   }
+
+    ans=min(ans,area);
+}
+cout<<ans<<'\n';
 
 }
 

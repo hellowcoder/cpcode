@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-04 23:00
+//Date: 2025-06-05 22:44
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,57 +37,53 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //binary search lagale bete
+lli two(lli x){
+    lli a=0;
+    while(x%2==0){
+        a++;
+        x/=2;
+    }
+    return a;
+}
+lli five(lli x){
+    lli a=0;
+    while(x%5==0){
+        a++;
+        x/=5;
+    }
+    return a;
+}
+lli power(lli x,lli y) {
+    lli res=1;
+   // x=x%p;
+    while (y>0) {
+        if (y&1) res=(res * x);
+        x = (x * x);
+        y >>= 1;
+    }
+    return res;
+}
 void solve(){
 lli n,k;cin>>n>>k;
-//get(v,k)
-string s;cin>>s;
-lli ba=0,cb=0,ca=0,bc=0;
-lli bca=0;
-lli cba=0;
-char x,y;
-fr(i,k){
-    cin>>x>>y;
-    if(x=='b' && y=='a'){
-        ba++;
-        if(cb>cba)cba++;
+//get(v,k);
+lli tw=two(n),fv=five(n);
+lli ans=1;
+while(true){
+    if(tw>fv && ans*5<=k){
+        ans*=5;
+        fv++;
     }
-    if(x=='c' && y=='a'){
-        ca++;
-        if(bc>bca)bca++;
-    }
-    if(x=='c' && y=='b')cb++;
-    if(x=='b' && y=='c')bc++;
+    else if(fv>tw && ans*2<=k){
+        ans*=2;
+        tw++;
+    }else if(fv==tw && ans*10<=k){
+        ans*=10;
+        tw++;
+        fv++;
+    }else break;
 }
-//cout<<ba<<" "<<cb<<" "<<ca<<" "<<bc<<" "<<bca<<" "<<cba<<'\n';
-fr(i,n){ 
- if(s[i]=='b'){
-  if(ba>0){
-    ba--;
-    s[i]='a';
-  }else if(bc>0  && ca>0 && bca>0){
-    bc--;
-    ca--;
-    bca--;
-    s[i]='a';
-  }
- }
- if(s[i]=='c'){
-  if(ca>0){
-    ca--;
-    s[i]='a';
-  }else if(cb>0 && ba>0 && cba>0){
-    cb--;
-    ba--;
-    cba--;
-    s[i]='a';
-  }else if(cb>0){
-    s[i]='b';
-    cb--;
-  }
- }
-}
-cout<<s<<'\n';
 
+cout<<(k/ans)*ans*n<<'\n';
 }
 
 int32_t main(){

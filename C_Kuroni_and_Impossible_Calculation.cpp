@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-04 23:00
+//Date: 2025-06-06 20:16
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,61 +39,22 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 //binary search lagale bete
 void solve(){
 lli n,k;cin>>n>>k;
-//get(v,k)
-string s;cin>>s;
-lli ba=0,cb=0,ca=0,bc=0;
-lli bca=0;
-lli cba=0;
-char x,y;
-fr(i,k){
-    cin>>x>>y;
-    if(x=='b' && y=='a'){
-        ba++;
-        if(cb>cba)cba++;
+get(v,n);
+if(n>k)cout<<"0\n";
+else {
+lli ans=1;
+fr(i,n){
+    frs(j,i+1,n-1){
+        lli x= abs(v[i]-v[j])%k;
+        ans%=k;
+        ans=(x*ans)%k;
     }
-    if(x=='c' && y=='a'){
-        ca++;
-        if(bc>bca)bca++;
-    }
-    if(x=='c' && y=='b')cb++;
-    if(x=='b' && y=='c')bc++;
 }
-//cout<<ba<<" "<<cb<<" "<<ca<<" "<<bc<<" "<<bca<<" "<<cba<<'\n';
-fr(i,n){ 
- if(s[i]=='b'){
-  if(ba>0){
-    ba--;
-    s[i]='a';
-  }else if(bc>0  && ca>0 && bca>0){
-    bc--;
-    ca--;
-    bca--;
-    s[i]='a';
-  }
- }
- if(s[i]=='c'){
-  if(ca>0){
-    ca--;
-    s[i]='a';
-  }else if(cb>0 && ba>0 && cba>0){
-    cb--;
-    ba--;
-    cba--;
-    s[i]='a';
-  }else if(cb>0){
-    s[i]='b';
-    cb--;
-  }
- }
+cout<<ans%k<<'\n';
 }
-cout<<s<<'\n';
-
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

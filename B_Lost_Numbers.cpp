@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-04 23:00
+//Date: 2025-06-06 15:46
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,63 +37,72 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //binary search lagale bete
-void solve(){
-lli n,k;cin>>n>>k;
-//get(v,k)
-string s;cin>>s;
-lli ba=0,cb=0,ca=0,bc=0;
-lli bca=0;
-lli cba=0;
-char x,y;
-fr(i,k){
-    cin>>x>>y;
-    if(x=='b' && y=='a'){
-        ba++;
-        if(cb>cba)cba++;
-    }
-    if(x=='c' && y=='a'){
-        ca++;
-        if(bc>bca)bca++;
-    }
-    if(x=='c' && y=='b')cb++;
-    if(x=='b' && y=='c')bc++;
-}
-//cout<<ba<<" "<<cb<<" "<<ca<<" "<<bc<<" "<<bca<<" "<<cba<<'\n';
-fr(i,n){ 
- if(s[i]=='b'){
-  if(ba>0){
-    ba--;
-    s[i]='a';
-  }else if(bc>0  && ca>0 && bca>0){
-    bc--;
-    ca--;
-    bca--;
-    s[i]='a';
-  }
- }
- if(s[i]=='c'){
-  if(ca>0){
-    ca--;
-    s[i]='a';
-  }else if(cb>0 && ba>0 && cba>0){
-    cb--;
-    ba--;
-    cba--;
-    s[i]='a';
-  }else if(cb>0){
-    s[i]='b';
-    cb--;
-  }
- }
-}
-cout<<s<<'\n';
+//vector<lli>v(7);
+// void check(lli n,lli i,lli j){
+// if(n%23==0){
+//  v[i]=23;
+//  v[j]=n/23;
+// }else if(n%7==0){
+//  v[i]=42;
+//  v[j]=n/42;
+// }else if(n%5==0){
+//  v[i]=15;
+//  v[j]=n/15;
+// }else{
+//     lli c=(lli)log2(n);
+//     if(c==5){
+//       v[i]=4;
+//       v[j]=8;
+//     }else if(c==6){
+//       v[i]=4;
+//       v[j]=16;
+//     }else{
+//         v[i]=16;
+//         v[j]=8;
+//     }
+// }
+// }
 
+void solve(){
+// lli n,k;cin>>n>>k;
+//get(v,k);
+vec(a,4,0);
+vec(v,6,0);
+v={4,8,15,16,23,42};
+cout<<"? 1 2\n";
+cout.flush();
+cin>>a[0];
+
+cout<<"? 2 3\n";
+cout.flush();
+cin>>a[1];
+
+cout<<"? 3 4\n";
+cout.flush();
+cin>>a[2];
+
+cout<<"? 4 5\n";
+cout.flush();
+cin>>a[3];
+lli n;
+while(true){
+    n=1;
+    fr(i,4){
+        if(v[i]*v[i+1] != a[i]){
+            n=0;
+        }
+    }
+    if(n)break;
+    next_permutation(all(v));
+}
+cout<<"! ";
+//next_permutation(all(v));
+out(v)<<" ";
+cout<<'\n';
+cout.flush();
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

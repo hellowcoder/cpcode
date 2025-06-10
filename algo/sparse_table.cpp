@@ -31,6 +31,42 @@ using namespace std;
 const int MOD=1e9+7;
 
 //binary search lagale bete
+class SparseTable {
+private:
+    vector<vector<lli>> st;
+    vector<lli> log2_values;
+    lli n, max_log;
+
+public:
+    SparseTable(const vector<lli>& input) {
+        n = input.size() - 1; // 1-indexed
+        max_log = log2(n) + 1;
+        st.assign(n + 1, vector<lli>(max_log, 1e18));
+        log2_values.assign(n + 1, 0);
+
+        // Precompute log2 values
+        for (lli i = 2; i <= n; ++i)
+            log2_values[i] = log2_values[i / 2] + 1;
+
+        // Initialize st[i][0]
+        for (lli i = 1; i <= n; ++i)
+            st[i][0] = input[i];
+          // Build Sparse Table
+        for (lli k = 1; k < max_log; ++k) {
+            for (lli i = 1; i + (1LL << (k - 1)) <= n; ++i) {
+                st[i][k] = min(st[i][k - 1], st[i + (1LL << (k - 1))][k - 1]);
+            }
+        }
+    }
+
+    lli query(lli l, lli r) {
+        lli len = r - l + 1;
+        lli k = log2_values[len];
+        return min(st[l][k], st[r - (1LL << k) + 1][k]);
+    }
+};
+
+
 void solve(){
 lli n,q;cin>>n>>q;
 vec(v,n+1,0);
@@ -65,6 +101,20 @@ while(q--){
 }
 
 }
+// void solve() {
+//     lli n, q;
+//     cin >> n >> q;
+//     vec(v, n + 1, 0);
+//     frs(i, 1, n) cin >> v[i];
+
+//     SparseTable st(v);
+
+//     while (q--) {
+//         lli a, b;
+//         cin >> a >> b;
+//         cout << st.query(a, b) << '\n';
+//     }
+// }
 
 int32_t main(){
 fastio;

@@ -54,8 +54,7 @@ vector<pr>a(n);
 fr(i,n){
     a[i]={v[i]+k,i};
 }
-srtp(a);
-reverse(all(a));
+rsrt(a); 
 auto c=v;
 fr(i,n){
     c=v;

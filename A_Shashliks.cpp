@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-14 15:21
+//Date: 2025-06-15 14:36
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,40 +38,35 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
-lli n,k;cin>>n>>k;
-get(v,n);
-map<lli,lli>m;
-set<pr>st;
-fr(i,k){
-    if(st.find({m[v[i]],v[i]}) != st.end()){
-        st.erase({m[v[i]],v[i]});
-    }
-    m[v[i]]--;
-    st.insert({m[v[i]],v[i]});
+lli k,a,b,x,y;cin>>k>>a>>b>>x>>y;
+//get(v,n);
+lli ans=0;
+pr a1={x,a};
+pr a2={y,b};
+pr a3,a4;
+a3=min(a1,a2);
+a4=max(a1,a2);
+ lli p1=0,p2=0;
+//cout<<a3.ff<<a3.ss;cout<<a4.ff<<a4.ss<<'\n';
+if(k>=a3.ss){
+    p1=(k-a3.ss)/a3.ff+1;
 }
-pr it=*st.begin();
-cout<<it.ss<<" ";
-
-frs(i,k,n-1){
-    if(st.find({m[v[i-k]],v[i-k]}) != st.end()){
-        st.erase({m[v[i-k]],v[i-k]});
-    }
-    m[v[i-k]]++;
-    st.insert({m[v[i-k]],v[i-k]});
-
-    if(st.find({m[v[i]],v[i]}) != st.end()){
-        st.erase({m[v[i]],v[i]});
-    }
-    m[v[i]]--;
-    st.insert({m[v[i]],v[i]});
-    
-    it=*st.begin();
-    cout<<it.ss<<" ";  
-
+k-=(p1*a3.ff);
+if(k>=a4.ss){
+    p2=(k-a4.ss)/a4.ff+1;
 }
+
+
+
+
+
+cout<<p1+p2<<'\n';
 }
 
 int32_t main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-14 15:21
+//Date: 2025-06-16 15:39
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,34 +40,23 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 void solve(){
 lli n,k;cin>>n>>k;
 get(v,n);
-map<lli,lli>m;
-set<pr>st;
+vec(fre,n+1,0);
+lli mex=0;
 fr(i,k){
-    if(st.find({m[v[i]],v[i]}) != st.end()){
-        st.erase({m[v[i]],v[i]});
-    }
-    m[v[i]]--;
-    st.insert({m[v[i]],v[i]});
+    if(v[i]>n)continue;
+    fre[v[i]]++;
+    while(fre[mex])mex++;
 }
-pr it=*st.begin();
-cout<<it.ss<<" ";
-
+cout<<mex<<" ";
 frs(i,k,n-1){
-    if(st.find({m[v[i-k]],v[i-k]}) != st.end()){
-        st.erase({m[v[i-k]],v[i-k]});
+    if(v[i]>n)continue;
+    fre[v[i]]++;
+    fre[v[i-k]]--;
+    if(fre[v[i-k]]==0 && v[i-k]<mex)mex=v[i-k];
+    else{
+        while(fre[mex])mex++;
     }
-    m[v[i-k]]++;
-    st.insert({m[v[i-k]],v[i-k]});
-
-    if(st.find({m[v[i]],v[i]}) != st.end()){
-        st.erase({m[v[i]],v[i]});
-    }
-    m[v[i]]--;
-    st.insert({m[v[i]],v[i]});
-    
-    it=*st.begin();
-    cout<<it.ss<<" ";  
-
+    cout<<mex<<" ";
 }
 }
 

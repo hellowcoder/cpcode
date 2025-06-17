@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-14 15:21
+//Date: 2025-06-15 22:36
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -25,8 +25,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
 #define ff first
 #define ss second
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
@@ -38,40 +38,19 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
-lli n,k;cin>>n>>k;
-get(v,n);
-map<lli,lli>m;
-set<pr>st;
-fr(i,k){
-    if(st.find({m[v[i]],v[i]}) != st.end()){
-        st.erase({m[v[i]],v[i]});
-    }
-    m[v[i]]--;
-    st.insert({m[v[i]],v[i]});
-}
-pr it=*st.begin();
-cout<<it.ss<<" ";
+lli w,h,a,b,x1,y1,x2,y2;
+cin>>w>>h>>a>>b>>x1>>y1>>x2>>y2;
+x1+=a;
+y1+=b;
+if((x2-x1)%a==0  || (y2-y1)%b==0)yes;
+else no;
 
-frs(i,k,n-1){
-    if(st.find({m[v[i-k]],v[i-k]}) != st.end()){
-        st.erase({m[v[i-k]],v[i-k]});
-    }
-    m[v[i-k]]++;
-    st.insert({m[v[i-k]],v[i-k]});
-
-    if(st.find({m[v[i]],v[i]}) != st.end()){
-        st.erase({m[v[i]],v[i]});
-    }
-    m[v[i]]--;
-    st.insert({m[v[i]],v[i]});
-    
-    it=*st.begin();
-    cout<<it.ss<<" ";  
-
-}
 }
 
 int32_t main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

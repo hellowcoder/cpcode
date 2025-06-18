@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-16 15:39
+//Date: 2025-06-17 20:24
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,39 +38,46 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
-lli n,k;cin>>n>>k;
-get(v,n);
-vec(a,n,0);
-set<lli>st;
-fr(i,n+1)st.insert(i);
-
-fr(i,k){
-    if(v[i]>=n)continue;
-    if(a[v[i]]==0)st.erase(v[i]);
-    a[v[i]]++;
-    
+lli n,m;cin>>n>>m;
+vec2(v,n,m);
+fr(i,n){
+    fr(j,m)
+     cin>>v[i][j];
 }
-cout<<*st.begin()<<" ";
-frs(i,k,n-1){
-    if(v[i]>=n){
-        cout<<*st.begin()<<" ";
-        continue;
+vector<lli>row(n),col(m);
+lli maxi=0;
+fr(i,n){
+    fr(j,m){
+        maxi=max(maxi,v[i][j]);
     }
-    if(v[i-k]<n){
-      a[v[i-k]]--;
-     if(a[v[i-k]]==0)st.insert(v[i-k]);
-    }
-    if(a[v[i]]== 0){
-      
-          st.erase(v[i]);
-      
-    }
-    a[v[i]]++;
-    cout<<*st.begin()<<" ";
 }
+lli total=0;
+fr(i,n){
+    fr(j,m){
+        if(v[i][j]==maxi){
+           v[i][j]=1;
+           row[i]++;
+           col[j]++;
+           total++;
+        }
+        else v[i][j]=0;
+    }
+}
+fr(i,n){
+    fr(j,m){
+        if(row[i]+col[j]-v[i][j]==total){
+            cout<<maxi-1<<'\n';
+            return;
+        }
+    }
+}
+ cout<<maxi<<'\n';
 }
 
 int32_t main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

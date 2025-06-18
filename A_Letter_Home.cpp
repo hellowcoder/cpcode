@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-16 15:39
+//Date: 2025-06-17 20:06
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,38 +39,19 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 //binary search lagale bete
 void solve(){
 lli n,k;cin>>n>>k;
-get(v,n);
-vec(a,n,0);
-set<lli>st;
-fr(i,n+1)st.insert(i);
-
-fr(i,k){
-    if(v[i]>=n)continue;
-    if(a[v[i]]==0)st.erase(v[i]);
-    a[v[i]]++;
-    
+lli a,b;
+fr(i,n){
+    cin>>b;
+    if(i==0)a=b;
 }
-cout<<*st.begin()<<" ";
-frs(i,k,n-1){
-    if(v[i]>=n){
-        cout<<*st.begin()<<" ";
-        continue;
-    }
-    if(v[i-k]<n){
-      a[v[i-k]]--;
-     if(a[v[i-k]]==0)st.insert(v[i-k]);
-    }
-    if(a[v[i]]== 0){
-      
-          st.erase(v[i]);
-      
-    }
-    a[v[i]]++;
-    cout<<*st.begin()<<" ";
-}
+cout<<a<<b;
+cout<<min(abs(a-k),(b-k))+(b-a)<<'\n';
 }
 
 int32_t main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

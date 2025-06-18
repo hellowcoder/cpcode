@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-16 15:39
+//Date: 2025-06-18 10:38
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -36,41 +36,32 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
+//max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
 void solve(){
-lli n,k;cin>>n>>k;
-get(v,n);
-vec(a,n,0);
-set<lli>st;
-fr(i,n+1)st.insert(i);
-
-fr(i,k){
-    if(v[i]>=n)continue;
-    if(a[v[i]]==0)st.erase(v[i]);
-    a[v[i]]++;
-    
+lli n,k;cin>>n;
+string s;cin>>s;
+vector<lli>pref(n+1);
+lli ans=0;
+fr(i,n){
+    pref[i+1]=pref[i]+(s[i]=='1'?1:-1);
 }
-cout<<*st.begin()<<" ";
-frs(i,k,n-1){
-    if(v[i]>=n){
-        cout<<*st.begin()<<" ";
-        continue;
-    }
-    if(v[i-k]<n){
-      a[v[i-k]]--;
-     if(a[v[i-k]]==0)st.insert(v[i-k]);
-    }
-    if(a[v[i]]== 0){
-      
-          st.erase(v[i]);
-      
-    }
-    a[v[i]]++;
-    cout<<*st.begin()<<" ";
+srt(pref);
+frs(i,1,n){
+  ans+=(i*(n-i+1));  //(a+b) part of max  i length ka occurence n-i+1 times
 }
+fr(i,n+1){
+    lli curr=pref[i]*i;
+    curr-=pref[i]*(n-i);  //abs(a-b) part 
+    ans+=curr;
+}
+cout<<ans/2<<'\n';
 }
 
 int32_t main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

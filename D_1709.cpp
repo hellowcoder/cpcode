@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-16 15:39
+//Date: 2025-06-17 20:56
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,39 +38,42 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //binary search lagale bete
 void solve(){
-lli n,k;cin>>n>>k;
-get(v,n);
-vec(a,n,0);
-set<lli>st;
-fr(i,n+1)st.insert(i);
-
-fr(i,k){
-    if(v[i]>=n)continue;
-    if(a[v[i]]==0)st.erase(v[i]);
-    a[v[i]]++;
-    
+lli n,k;cin>>n;
+get(a,n);
+get(b,n);
+vector<pr>ans;
+fr(j,n){
+    frs(i,0,n-2){
+        if(a[i]>a[i+1]){
+            swap(a[i],a[i+1]);
+            ans.push_back({1,i+1});
+        }
+    }
 }
-cout<<*st.begin()<<" ";
-frs(i,k,n-1){
-    if(v[i]>=n){
-        cout<<*st.begin()<<" ";
-        continue;
+fr(j,n){
+    frs(i,0,n-2){
+        if(b[i]>b[i+1]){
+            swap(b[i],b[i+1]);
+            ans.push_back({2,i+1});
+        }
     }
-    if(v[i-k]<n){
-      a[v[i-k]]--;
-     if(a[v[i-k]]==0)st.insert(v[i-k]);
+}
+fr(i,n){
+    if(a[i]>b[i]){
+        swap(a[i],b[i]);
+        ans.push_back({3,i+1});
     }
-    if(a[v[i]]== 0){
-      
-          st.erase(v[i]);
-      
-    }
-    a[v[i]]++;
-    cout<<*st.begin()<<" ";
+}
+cout<<ans.size()<<'\n';
+fr(i,ans.size()){
+    cout<<ans[i].ff<<" "<<ans[i].ss<<'\n';
 }
 }
 
 int32_t main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

@@ -39,14 +39,12 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 //binary search lagale bete
 void solve(){
 lli k,a,b,x,y;cin>>k>>a>>b>>x>>y;
-//get(v,n);
-lli ans=0;
-pr a1={x,a};
-pr a2={y,b};
-pr a3,a4;
+pr a1,a2,a3,a4;
+a1={x,a};
+a2={y,b};
 a3=min(a1,a2);
 a4=max(a1,a2);
- lli p1=0,p2=0;
+lli p1=0,p2=0;
 //cout<<a3.ff<<a3.ss;cout<<a4.ff<<a4.ss<<'\n';
 if(k>=a3.ss){
     p1=(k-a3.ss)/a3.ff+1;

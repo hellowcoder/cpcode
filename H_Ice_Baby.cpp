@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-04 22:28
+//Date: 2025-06-18 17:35
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -36,28 +36,31 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
+//max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
 void solve(){
-lli n,k;cin>>n>>k;get(v,k);
-srt(v);
-vec(a,n,0);
-auto b=a;
+lli n;cin>>n;
+multiset<lli>st;
+lli l,r;
 fr(i,n){
-    a[i]=v[i];
+    cin>>l>>r;
+    auto it = st.upper_bound(r);
+    if(it!= st.end())
+    st.erase(it);
+    st.insert(l);
+    cout<<st.size()<<" ";
 }
-rsrt(v);
-fr(i,n){
-    b[i]=v[i];
-}
+cout<<'\n';
 
-fr(i,n){
-    fr(j,6){
-        if(j%2){
-            cout<<b[i]<<" ";
-        }else cout<<a[i]<<" ";
-    }
-    cout<<'\n';
-}
+// exmaple 
+// 3 
+// 4 4 
+// 5 5 
+// 3 3 
+// we inserted 4 ans=1,
+// then 5 ans =2 and seq=4,5   
+// now for 3 we are delteing 4 now sequence is 5 3 
+// but but actually we have not used 3 we replace it(in our mind) with 4  so sequence will be 4 5 3
 }
 
 int32_t main(){

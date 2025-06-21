@@ -40,20 +40,14 @@ void solve(){
 lli n,a,b;cin>>n>>a>>b;
 lli max1=n/2;
 lli max2=max1-1;
-if(b>a)swap(a,b);
+
 if(n%2){
-     if(!(a+b<=max1+max2   ||  a<=max1  ||  b<=max2 )){
-        cout<<"-1\n";return;
-     }
-     cout<<"hi";
+  
 }
 else{
     max1--;
     max2=max1;
-     if(!(a+b<=max1+max2   ||  a<=max1  ||  b<=max2 )){
-        cout<<"-1\n";return;
-     }
-     cout<<"hi";
+    
 }
 }
 

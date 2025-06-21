@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-04 22:28
+//Date: 2025-06-18 22:20
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -36,34 +36,24 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
+//max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
 void solve(){
-lli n,k;cin>>n>>k;get(v,k);
-srt(v);
-vec(a,n,0);
-auto b=a;
-fr(i,n){
-    a[i]=v[i];
-}
-rsrt(v);
-fr(i,n){
-    b[i]=v[i];
-}
-
-fr(i,n){
-    fr(j,6){
-        if(j%2){
-            cout<<b[i]<<" ";
-        }else cout<<a[i]<<" ";
+lli n,k;cin>>n;
+get(v,n);
+vector<lli>fre(1e6+1);
+fr(i,n)fre[v[i]]++;
+rfr(i,1000000,1){
+    lli d=0;
+    for(lli j=i;j<=1000000;j+=i)d+=fre[j];
+    if(d>=2){
+        cout<<i;
+        return;
     }
-    cout<<'\n';
 }
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

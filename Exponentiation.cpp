@@ -34,8 +34,9 @@ int T; //number of test cases.
 cin >>T;
  
 while(T--){
-lli a,b;cin>>a>>b;
-cout<<power(a,b,MOD)<<endl;
+lli a,b,c;cin>>a>>b>>c;
+lli pw=power(b,c,MOD-1);
+cout<<power(a,pw,MOD)<<endl;
 }
  
 }

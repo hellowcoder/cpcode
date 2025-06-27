@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-23 11:54
+//Date: 2025-06-23 20:06
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -28,6 +28,7 @@
 #define yes cout<<"YES\n"
 #define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
+#define nl cout<<"\n"
 #define ff first
 #define ss second
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
@@ -40,27 +41,12 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
 void solve(){
-lli n,k;cin>>n>>k;
-get(v,n);
-vector<lli>maxi(n+1,-1e18);
-maxi[0]=0;
-fr(i,n){
-    lli sum=0;
-    frs(j,i,n-1){
-      sum+= v[j];
-      maxi[j-i+1]=max(maxi[j-i+1],sum);
-    }
-}
-vector<lli>ans(n+1,0);
-fr(i,n+1){
-    lli best=0;
-    fr(j,n+1){
-        best=max(best,maxi[j]+min(i,j)*k);
-    }
-    ans[i]=best;
-}
-out(ans)<<" ";
-cout<<'\n';
+lli a,x,y;cin>>a>>x>>y;
+//get(v,n);
+if(x>y)swap(x,y);
+if(x<=a && a<=y)no;
+else yes;
+
 }
 
 int32_t main(){

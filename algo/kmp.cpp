@@ -48,7 +48,9 @@ vector<lli> search(string text,string pattern){
 void solve(){
 string text,pat;cin>>text>>pat;
 vector<lli>v=search(text,pat);
-for(lli &i:v)cout<<i<<" ";
+//for(lli &i:v)cout<<i<<" ";
+vector<lli>a=kmp(text);
+for(lli &i:a)cout<<i<<" ";
 }
 
 int main(){

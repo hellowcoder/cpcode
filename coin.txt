@@ -1,0 +1,23 @@
+greedy 
+
+https://cses.fi/problemset/task/2183
+
+
+
+
+dp
+https://cses.fi/problemset/task/1635
+https://cses.fi/problemset/task/1636
+https://leetcode.com/problems/coin-change/
+https://leetcode.com/problems/coin-change-2/
+https://leetcode.com/contest/weekly-contest-455/problems/inverse-coin-change/
+
+
+query
+
+https://cses.fi/problemset/task/2184
+
+
+
+keypointss
+frs(j,i,n)  dp[j]+=dp[j-i]   //mostly used 

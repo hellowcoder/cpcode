@@ -31,7 +31,7 @@ const int MOD=1e9+7;
 
 pair<lli,lli>bfs(lli start,vector<vector<lli>>&v){
     lli n=v.size();
-  vector<lli>dist(n+1,0);
+  vector<lli>dist(n,0);
   queue<lli>q;
   q.push(start);
   lli far=-1;
@@ -74,32 +74,40 @@ void bfs2(lli start,vector<vector<lli>>&v,lli d,vector<lli>&end){
 }
 
 void solve(){
-    take(x);
-vector<vector<lli>>v(x+1);
+take(x);
+vector<vector<lli>>v(x);
 fr(i,x-1){
  take(a);take(b);
+ a--;
+ b--;
  v[a].psb(b);
  v[b].psb(a);
 }
 if(x==1){
+    cout<<"0";
+    return;
+}
+if(x==2){
     cout<<"1";
     return;
 }
 auto[A,useless]=bfs(1,v);
 auto[B,diam]=bfs(A,v);
-vector<lli>end;
-bfs2(1,v,useless,end);
-bfs2(A,v,diam,end);
+// vector<lli>end;
+// bfs2(1,v,useless,end);
+// bfs2(A,v,diam,end);
 //cout<<end.size()<<'\n';
-vector<lli>fre(x+1,0);
-fr(i,end.size()){
-    fre[end[i]]++;}
-
-fr1(i,x){
-    if(fre[i])cout<<diam+1<<'\n';
-    else cout<<diam<<'\n';
-}
-
+// vector<lli>fre(x+1,0);
+// fr(i,end.size()){
+//     fre[end[i]]++;}
+// lli ans=1;
+// fr1(i,x){
+//     // if(fre[i])cout<<diam+1<<'\n';
+//     // else cout<<diam<<'\n';
+//     if(fre[i])ans=max(ans,diam+1);
+//     else ans=max(ans,diam);
+// }
+cout<<diam;
 }
 
 int32_t main(){

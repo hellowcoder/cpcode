@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-23 11:54
+//Date: 2025-06-21 20:41
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -41,26 +41,20 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 //binary search lagale bete
 void solve(){
 lli n,k;cin>>n>>k;
-get(v,n);
-vector<lli>maxi(n+1,-1e18);
-maxi[0]=0;
+lli ans=0;
 fr(i,n){
-    lli sum=0;
-    frs(j,i,n-1){
-      sum+= v[j];
-      maxi[j-i+1]=max(maxi[j-i+1],sum);
-    }
-}
-vector<lli>ans(n+1,0);
-fr(i,n+1){
-    lli best=0;
-    fr(j,n+1){
-        best=max(best,maxi[j]+min(i,j)*k);
-    }
-    ans[i]=best;
-}
-out(ans)<<" ";
-cout<<'\n';
+ lli dx,dy,x,y;cin>>dx>>dy>>x>>y;
+ lli l=abs(x/dx);
+ lli r=abs(y/dy);
+ lli x1=x+l*dx,y1=y+l*dy;
+ if((x1==y1 && (x1==k || x1==0) )|| ((x1==0 || y1==0) && x1+y1==k)){ans++;continue;}
+ x1=x+r*dx,y1=y+r*dy;
+ if((x1==y1 && (x1==k || x1==0) )|| ((x1==0 || y1==0) && x1+y1==k)){ans++;continue;}
+}  
+ 
+
+cout<<ans<<'\n';
+
 }
 
 int32_t main(){

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-23 11:54
+//Date: 2025-06-23 21:33
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -28,6 +28,7 @@
 #define yes cout<<"YES\n"
 #define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
+#define nl cout<<"\n"
 #define ff first
 #define ss second
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
@@ -39,28 +40,47 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
+
+void dfs(vector<vector<lli>>& adj,vector<lli>&visited,lli node,lli v,lli k){
+        visited[node]=1;
+        if(node==v){
+           cout<<v+1<<" "<<adj[v][0]+1<<'\n';
+           dfs(adj,visited,adj[v][0],v,!k);
+           cout<<adj[v][0]+1<<" "<<v+1<<'\n';
+           dfs(adj,visited,adj[v][1],v,k);
+        }else{
+        for(auto &i : adj[node]){
+            if(!visited[i]){
+                if(k)cout<<node+1<<" "<<i+1<<'\n';
+                else cout<<i+1<<" "<<node+1<<'\n';
+                dfs(adj,visited,i,v,!k);
+            }
+        }
+    }
+}
 void solve(){
-lli n,k;cin>>n>>k;
-get(v,n);
-vector<lli>maxi(n+1,-1e18);
-maxi[0]=0;
+lli n,k;cin>>n;
+// UnionFind uf(n);
+vector<vector<lli>>adj(n);
+lli u,v;
+fr(i,n-1){
+ cin>>u>>v;
+ u--;
+ v--;
+ adj[u].psb(v);
+ adj[v].psb(u);
+}
+lli s=-1;
 fr(i,n){
-    lli sum=0;
-    frs(j,i,n-1){
-      sum+= v[j];
-      maxi[j-i+1]=max(maxi[j-i+1],sum);
-    }
+ if(adj[i].size()==2){s=i;break;}
 }
-vector<lli>ans(n+1,0);
-fr(i,n+1){
-    lli best=0;
-    fr(j,n+1){
-        best=max(best,maxi[j]+min(i,j)*k);
-    }
-    ans[i]=best;
-}
-out(ans)<<" ";
-cout<<'\n';
+if(s==-1){no;return;}
+yes;
+vector<lli>vis(n,0);
+dfs(adj,vis,s,s,0);
+
+
+
 }
 
 int32_t main(){

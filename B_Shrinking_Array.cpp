@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-23 11:54
+//Date: 2025-06-23 20:17
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -28,6 +28,7 @@
 #define yes cout<<"YES\n"
 #define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
+#define nl cout<<"\n"
 #define ff first
 #define ss second
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
@@ -40,27 +41,33 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
 void solve(){
-lli n,k;cin>>n>>k;
+lli n,k;cin>>n;
 get(v,n);
-vector<lli>maxi(n+1,-1e18);
-maxi[0]=0;
+
+fr(i,n-1){
+if(abs(v[i]-v[i+1])<=1){
+    cout<<"0\n";
+    return;
+}
+}
+
+lli ans=1e18;
 fr(i,n){
-    lli sum=0;
-    frs(j,i,n-1){
-      sum+= v[j];
-      maxi[j-i+1]=max(maxi[j-i+1],sum);
+    for(lli j=1;j<=n-1;j++){
+       if(j==i || (j-1)==i)continue;
+        lli a=v[j-1];
+        lli b=v[j];
+        if(a>b)swap(a,b);
+        a--;
+        b++;
+        k=v[i];
+       if(a<=k && k<=b){ans=min(ans,min(abs((j-1)-i),abs(j-i)));
+          //cout<<a<<k<<b<<'\n';
+       }
     }
 }
-vector<lli>ans(n+1,0);
-fr(i,n+1){
-    lli best=0;
-    fr(j,n+1){
-        best=max(best,maxi[j]+min(i,j)*k);
-    }
-    ans[i]=best;
-}
-out(ans)<<" ";
-cout<<'\n';
+if(ans==1e18)cout<<"-1\n";
+else cout<<ans<<'\n';
 }
 
 int32_t main(){

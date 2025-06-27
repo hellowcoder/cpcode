@@ -32,6 +32,88 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
+class SegmentTree {
+    vector<lli> tree, lazy;
+    lli n;
+
+    void build(vector<lli>& a, lli node, lli l, lli r) {
+        if (l == r) {
+            tree[node] = a[l];
+        } else {
+            lli mid = (l + r) / 2;
+            build(a, 2 * node, l, mid);
+            build(a, 2 * node + 1, mid + 1, r);
+            tree[node] = tree[2 * node] + tree[2 * node + 1];
+        }
+    }
+
+    void push(lli node, lli l, lli r) {
+        if (lazy[node] != 0) {
+            tree[node] += (r - l + 1) * lazy[node];
+            if (l != r) {
+                lazy[2 * node] += lazy[node];
+                lazy[2 * node + 1] += lazy[node];
+            }
+            lazy[node] = 0;
+        }
+    }
+
+    void update_range(lli node, lli l, lli r, lli ql, lli qr, lli val) {
+        push(node, l, r);
+        if (r < ql || l > qr) return;
+        if (ql <= l && r <= qr) {
+            lazy[node] += val;
+            push(node, l, r);
+            return;
+        }
+        lli mid = (l + r) / 2;
+        update_range(2 * node, l, mid, ql, qr, val);
+        update_range(2 * node + 1, mid + 1, r, ql, qr, val);
+        tree[node] = tree[2 * node] + tree[2 * node + 1];
+    }
+
+    void update_point(lli node, lli l, lli r, lli idx, lli val) {
+        push(node, l, r);
+        if (l == r) {
+            tree[node] = val;
+            return;
+        }
+        lli mid = (l + r) / 2;
+        if (idx <= mid) update_point(2 * node, l, mid, idx, val);
+        else update_point(2 * node + 1, mid + 1, r, idx, val);
+        tree[node] = tree[2 * node] + tree[2 * node + 1];
+    }
+
+    lli query(lli node, lli l, lli r, lli ql, lli qr) {
+        push(node, l, r);
+        if (r < ql || l > qr) return 0;
+        if (ql <= l && r <= qr) return tree[node];
+        lli mid = (l + r) / 2;
+        return query(2 * node, l, mid, ql, qr) + query(2 * node + 1, mid + 1, r, ql, qr);
+    }
+
+public:
+    SegmentTree(vector<lli>& a) {
+        n = a.size();
+        tree.assign(4 * n, 0);
+        lazy.assign(4 * n, 0);
+        build(a, 1, 0, n - 1);
+    }
+
+    void update_point(lli idx, lli val) {
+        update_point(1, 0, n - 1, idx, val);
+    }
+
+    void update_range(lli l, lli r, lli val) {
+        update_range(1, 0, n - 1, l, r, val);
+    }
+
+    lli query_range(lli l, lli r) {
+        return query(1, 0, n - 1, l, r);
+    }
+};
+
+
 //binary search lagale bete
 void solve(){
 

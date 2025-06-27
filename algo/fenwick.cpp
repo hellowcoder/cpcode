@@ -44,7 +44,7 @@ public:
     void update(lli i,lli val){
         for(++i;i<n;i+=(i& -i))
             bit[i]+=val;
-    }
+    } 
 
     lli query(lli i){
         lli sum=0;

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-23 11:54
+//Date: 2025-06-21 20:06
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,27 +40,34 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
 void solve(){
-lli n,k;cin>>n>>k;
-get(v,n);
-vector<lli>maxi(n+1,-1e18);
-maxi[0]=0;
-fr(i,n){
-    lli sum=0;
-    frs(j,i,n-1){
-      sum+= v[j];
-      maxi[j-i+1]=max(maxi[j-i+1],sum);
+// lli n,k;cin>>n>>k;
+// //get(v,n);
+lli l1,l2,l3,b1,b2,b3;
+cin>>l1>>b1>>l2>>b2>>l3>>b3;
+lli x=l1,y=b1;
+if(l1>b1){
+    if(l2==l1){
+        if(l3==l1  && (b1+b2+b3==l1)){
+            yes;return;
+        }else no;
+        
+    }else{
+        if(l2+l3==l1  && b1+b2==l1 && b2==b3){
+            yes;return;
+        }else no;
+    }
+}else{
+    if(b2==b1){
+        if(b3==b1  && (l1+l2+l3==b1)){
+            yes;return;
+        }else no;
+        
+    }else{
+        if(b2+b3==b1  && l2+l1==b1 && l2==l3){
+            yes;return;
+        }else no;
     }
 }
-vector<lli>ans(n+1,0);
-fr(i,n+1){
-    lli best=0;
-    fr(j,n+1){
-        best=max(best,maxi[j]+min(i,j)*k);
-    }
-    ans[i]=best;
-}
-out(ans)<<" ";
-cout<<'\n';
 }
 
 int32_t main(){

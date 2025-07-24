@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-07-09 07:30
+//Date: 2025-07-17 20:51
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,16 +40,23 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
-
-void x_d(lli a,lli b,lli x,lli y,set<lli>&st){
-    
-}
-
 void solve(){
-lli a,b,x1,y1,y2,x2;
-cin>>a>>b>>x1>>y1>>x2>>y2;
-set<pr>st1,st2;
-
+lli n,k;cin>>n>>k;
+vec2(v,n,3);
+fr(i,n){
+    fr(j,3)cin>>v[i][j];
+}
+srt(v);
+priority_queue<lli>pq;
+lli i=0;
+while(true){
+    while(i<n && v[i][0]<=k && v[i][1]>=k){pq.push(v[i][2]);i++;}
+    while(!pq.empty()  && pq.top()<=k)pq.pop();
+    if(pq.empty())break;
+    k=pq.top();
+    pq.pop();
+}
+cout<<k<<'\n';
 }
 
 int32_t main(){

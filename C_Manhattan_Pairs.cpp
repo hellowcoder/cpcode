@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-07-09 07:30
+//Date: 2025-07-19 21:31
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,16 +40,46 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
+struct point{
+ lli x,y,ind;
+};
+void solve(){
+lli n,k;cin>>n;
+vector<point>v(n);
+fr(i,n){
+ cin>>v[i].x>>v[i].y;
+ v[i].ind=i;
+}
+auto vx=v;
+auto vy=v;
+sort(all(vx),[](const point&a,const point&b){
+   return a.x<b.x;
+});
+sort(all(vy),[](const point&a,const point&b){
+   return a.y<b.y;
+});
 
-void x_d(lli a,lli b,lli x,lli y,set<lli>&st){
-    
+// divide adha adha
+
+vector<bool>left(n,false),bottom(n,false);
+fr(i,n/2){
+    left[vx[i].ind]=true;
+}
+fr(i,n/2){
+    bottom[vy[i].ind]=true;
 }
 
-void solve(){
-lli a,b,x1,y1,y2,x2;
-cin>>a>>b>>x1>>y1>>x2>>y2;
-set<pr>st1,st2;
+//1 quad and 4th quad
+vector<lli>q1,q2,q3,q4;
+fr(i,n){
+ if(!left[i] && !bottom[i])q1.psb(i+1);
+ if(!left[i] && bottom[i])q4.psb(i+1);
+ if(left[i] && !bottom[i])q2.psb(i+1);
+ if(left[i] && bottom[i])q3.psb(i+1);
+}
 
+fr(i,q1.size())cout<<q1[i]<<" "<<q3[i]<<'\n';
+fr(i,q2.size())cout<<q2[i]<<" "<<q4[i]<<'\n';
 }
 
 int32_t main(){

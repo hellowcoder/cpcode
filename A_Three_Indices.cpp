@@ -43,13 +43,16 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 void solve(){
 lli n,k;cin>>n;
 get(v,n);
-lli low=0,high=n-1,ans=-1;
-while(low<high){
- lli mid=(low+high)/2;
- if(v[mid]<v[mid+1])low=mid+1,ans=mid+1;
- else high=mid;
+vector<lli>suff(n,-1),pref(n,-1);
+lli check=1e10,ind=-1;
+fr(i,n){
+    
+    if(v[i]<check){
+        pref[i]=ind;
+        check=v[i];
+        ind=i;
+    }
 }
-cout<<ans<<'\n';
 }
 
 int32_t main(){

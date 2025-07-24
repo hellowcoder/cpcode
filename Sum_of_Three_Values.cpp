@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-07-09 07:30
+//Date: 2025-07-16 21:43
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,22 +40,39 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
 
-void x_d(lli a,lli b,lli x,lli y,set<lli>&st){
-    
-}
-
+    size_t operator()(lli x) const {
+        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM);
+    }
+};
 void solve(){
-lli a,b,x1,y1,y2,x2;
-cin>>a>>b>>x1>>y1>>x2>>y2;
-set<pr>st1,st2;
+lli n,k;cin>>n>>k;
+get(v,n);
+unordered_map<lli,lli,custom_hash>m;
+fr(i,n)m[v[i]]=i+1;
+lli check=0;
+fr(i,n){
+    frs(j,i+1,n-1){
+        check=k-v[i]-v[j];
+        if(m[check] && m[check]!=i+1 && m[check]!=j+1){
+            cout<<i+1<<" "<<j+1<<" "<<m[check];
+            return;
+        }
 
+    }
+}
+cout<<"IMPOSSIBLE";
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

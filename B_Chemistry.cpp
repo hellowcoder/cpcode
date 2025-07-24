@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-07-09 07:30
+//Date: 2025-07-14 08:34
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,16 +40,58 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
-
-void x_d(lli a,lli b,lli x,lli y,set<lli>&st){
-    
-}
-
 void solve(){
-lli a,b,x1,y1,y2,x2;
-cin>>a>>b>>x1>>y1>>x2>>y2;
-set<pr>st1,st2;
+lli n,k;cin>>n>>k;
+//get(v,n);
+string s;cin>>s;
+vector<lli>v(26);
+// lli i=0,j=n-1;
+// while(i<=j){
+//     if(k<=0){
+//         break;
+//     }
+//     if(s[i]==s[j]){i++,j--;continue;}
+//     if(i+1<n && s[i+1]==s[j]){i++;k--;continue;}
+//     if(j-1>=0  && s[i]==s[j-1]){j--;k--;continue;}
+//     i++;
+//     j--;
+//     k-=2;
+// }
+// string check=s.substr(i,j-i+1);
+// cout<<check<<" ";
+// string check2=check;
+// reverse(all(check2));
+// if(check==check2)yes;
+// else no;
+lli c=0;
+fr(i,n){
+ v[s[i]-'a']++;
+}
+fr(i,26){
+    if(v[i]&1)c++;
+}
+fr(i,26){
+    if(v[i]&1){
+        if(k){
+            k--;
+            v[i]--;
+        }
+    }
+}
+srt(v);
 
+fr(i,26){
+
+if(k){
+    k-=min(k,v[i]);
+}
+}
+c=0;
+fr(i,26){
+    if(v[i]&1)c++;
+}
+if(c<=1)yes;
+else no;
 }
 
 int32_t main(){

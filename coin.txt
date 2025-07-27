@@ -21,3 +21,10 @@ https://cses.fi/problemset/task/2184
 
 keypointss
 frs(j,i,n)  dp[j]+=dp[j-i]   //mostly used 
+
+
+for(lli &coin: all_coins){  //unbound
+   frs(i,coin,n){
+    dp[i]=(dp[i]+dp[i-coin])%MOD;
+   }
+}   

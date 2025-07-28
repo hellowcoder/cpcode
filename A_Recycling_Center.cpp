@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-07-27 19:57
+//Date: 2025-07-28 20:01
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -12,7 +12,7 @@
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define vec(v,n,k) vector<lli>v(n,k)
 #define vect(v) vector<lli>v
-#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y,0));
+#define vec2(v,x,y) vector<vector<lli>>v(x,vector<lli>(y));
 #define pr pair<lli,lli>
 #define take(x) lli x;cin>>x
 #define get(v,n) vec(v,n,0);frs(i,0,n-1)cin>>v[i]
@@ -40,47 +40,25 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
-
-// lli dpp(lli i,lli j,vector<lli>&a,vector<lli>&b,vector<vector<lli>>&dp){
-//         if(i<0 || j<0)return 0;
-//          if(dp[i][j] != -1)return dp[i][j];
-//          if(a[i]==b[j]){
-           
-//             return dp[i][j]=dpp(i-1,j-1,a,b,dp)+1;
-//          }
-//          return dp[i][j]=max(dpp(i-1,j,a,b,dp),dpp(i,j-1,a,b,dp));
-//     }
 void solve(){
-lli n,m;cin>>n>>m;
-get(a,n);
-get(b,m);
-vec2(dp,n+1,m+1);
-//cout<<dpp(n-1,m-1,a,b,dp);
-vect(ans);
-frs(i,1,n){
-   frs(j,1,m){
-      if(a[i-1]==b[j-1])dp[i][j]=1+dp[i-1][j-1];
-      else dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
-   }
+lli n,k;cin>>n>>k;
+get(v,n);
+lli ans=0;
+rsrt(v);
+lli check=1;
+fr(i,n){
+ if(v[i]*check <=k){
+  ans++;
+  check*=2;
+ }
 }
-
-lli i=n,j=m;
-while(i>0 && j>0){
-   if(a[i-1]==b[j-1]){
-      i--;j--;
-      ans.psb(a[i]);
-   }else if(dp[i-1][j]>dp[i][j-1])i--;
-   else j--;
-}
-
-cout<<ans.size()<<'\n';
-if(ans.size()){
-   reverse(all(ans));
-out(ans)<<" ";
-}
+cout<<n-ans<<'\n';
 }
 
 int32_t main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--){
 solve();
+}
 }

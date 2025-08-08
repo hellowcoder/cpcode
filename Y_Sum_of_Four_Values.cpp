@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-07-16 21:43
+//Date: 2025-08-08 17:56
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,36 +40,39 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
-struct custom_hash {
-    static uint64_t splitmix64(uint64_t x) {
-        x += 0x9e3779b97f4a7c15;
-        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
-        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
-        return x ^ (x >> 31);
-    }
-
-    size_t operator()(lli x) const {
-        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
-        return splitmix64(x + FIXED_RANDOM);
-    }
-};
+// four stage of dp  
+//  --think in term of index i,j whatever 
+ //   --find bse case --  
+//   -- find relation  
+//   -- good to go
+//chicken nugget formula 
+//   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
+//  -- total(x-1)(y-1)/2 numbers can be written in that form
+ 
+ 
+ 
 void solve(){
 lli n,k;cin>>n>>k;
-get(v,n);
-unordered_map<lli,lli,custom_hash>m;
-fr(i,n)m[v[i]]=i+1;
-lli check=0;
+vector<pr>v(n);
 fr(i,n){
-    frs(j,i+1,n-1){
-        check=k-v[i]-v[j];
-        if(m[check] && m[check]!=i+1 && m[check]!=j+1){
-            cout<<i+1<<" "<<j+1<<" "<<m[check];
-            return;
+    cin>>v[i].ff;
+    v[i].ss=i+1;
+}
+srt(v);
+frs(i,0,n-4){
+    frs(j,i+1,n-3){
+        lli l=j+1,r=n-1;
+        while(l<r){
+            lli sum=v[i].ff+v[j].ff+v[l].ff+v[r].ff;
+            if(sum==k){
+                cout<<v[i].ss<<" "<<v[l].ss<<" "<<v[r].ss<<" "<<v[j].ss;
+                return;
+            }else if(sum<k)l++;
+            else r--;
         }
-
     }
 }
-cout<<"IMPOSSIBLE";
+cout<<"-1\n";
 }
 
 int32_t main(){

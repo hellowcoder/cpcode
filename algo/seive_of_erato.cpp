@@ -23,8 +23,9 @@
 #define ss second
 using namespace std;
 const int MOD=1e9+7;
-
-void print(vector<lli>&spf,lli x){
+vector<lli>prime;
+vector<lli>spf;
+void spff(vector<lli>&spf,lli x){
     for(lli i=2;i*i<=x;i++){
         if(spf[i]==i){
             for(lli j=i*i;j<=x;j+=i){
@@ -35,23 +36,6 @@ void print(vector<lli>&spf,lli x){
         }
     }
 } 
-
-void solve3(){    //prime factorisation....
-   lli x;cin>>x;
-   vec(spf,x+1);
-   fr(i,x+1){
-    spf[i]=i;
-   }
-   print(spf,x);
-   while(x-1){
-      cout<<spf[x]<<'\n';
-      x/=spf[x];
-   }
-
-}
-
-   
-
 void primee(vector<lli>& prime ,lli x){    //nlog(log(n))  prime harmonic series...
    for(lli i=2;i*i<=x;i++){
      if(prime[i]){
@@ -60,16 +44,22 @@ void primee(vector<lli>& prime ,lli x){    //nlog(log(n))  prime harmonic series
      }
    }
 }
-
-void solve(){
-    lli x;cin>>x;
-    vector<lli>prime(x+1,1);
+void precompute_spf(lli x){    //prime factorisation....
+   
+   spf.resize(x+1);
+   fr(i,x+1){
+    spf[i]=i;
+   }
+   spff(spf,x);
+//    while(x-1){
+//       cout<<spf[x]<<'\n';
+//       x/=spf[x];
+//    }
+}
+void precompute_prime(lli n){
+    prime.assign(n+1,1);
     prime[0]=prime[1]=0;
-     
-     primee(prime,x);
-    frs(i,2,x+1){
-      if(prime[i]) cout<<i<<'\n';
-    }
+    primee(prime,n);
 }
 
 void solve2(){
@@ -91,6 +81,6 @@ int main(){
 fastio;
 //solve();  //prime numbers
 //solve2();  //printing prime factors..
-solve3(); //printing prime factorisation  using smallest prime factor;
+//solve3(); //printing prime factorisation  using smallest prime factor;
 }
 //....................................................................................................................................

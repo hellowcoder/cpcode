@@ -46,7 +46,7 @@ fr(i,n){
         }
     }
 }
-cout<<"IMPOSSIBLE";
+cout<<"-1\n";
 }
 
 

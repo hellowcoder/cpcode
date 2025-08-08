@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-06-23 19:34
+//Date: 2025-07-31 21:08
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,50 +40,86 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
-vector<lli>prime(1e6+7,1);
-void primee(vector<lli>& prime ,lli x){    //nlog(log(n))  prime harmonic series...
-   for(lli i=2;i*i<=x;i++){
-     if(prime[i]){
-        for(lli j=i*i;j<=x;j+=i)
-        prime[j]=0;
-     }
-   }
-}
+// four stage of dp  --think in term of index i,j whatever --find bse case --  -- find relation  -- good to go
+//chicken nugget formula  max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
+//                            and total(x-1)(y-1)/2 numbers can be written in that form
+
+class FenwickTree{
+private:
+    vector<lli>bit;
+    lli n;
+
+public:
+    FenwickTree(lli size){
+        n=size+1;
+        bit.assign(n,0);
+    }
+
+    void update(lli i,lli val){
+        for(++i;i<n;i+=(i& -i))
+            bit[i]+=val;
+    } 
+
+    lli query(lli i){
+        lli sum=0;
+        for (++i;i>0;i-=(i& -i))
+            sum+=bit[i];
+        return sum;
+    }
+
+    lli range_query(lli l,lli r) {
+        return query(r)-query(l-1);
+    }
+};
+
+
+// lli inversion(vector<lli>&v){
+//   lli n=v.size();
+//   FenwickTree ft(n);
+//   vector<lli>temp(n);
+//   temp=v;
+//   srt(temp);
+//   map<lli,lli>rank;
+//   fr(i,n){
+//     rank[temp[i]]=i;
+//   }
+//   lli ans=0;
+//   rfr(i,n-1,0){
+//     lli index=rank[v[i]];
+//     ans+=ft.query(index-1);  //counting number of eleemnt less than v[i]
+//     ft.update(index,1);  // increasing number of that index;
+//   }
+//   return ans;
+// }
+
+
 void solve(){
-lli n,e;cin>>n>>e;
+lli n,k=0;cin>>n;
 get(v,n);
 vector<lli>prefix(n,0),suffix(n,0);
-fr(i,n){
-    if(v[i]!=1)continue;
-    if(i-e<0)prefix[i]=1;
-    else prefix[i]=prefix[i-e]+1;
-
-
-}
+FenwickTree ft(n+1),ft2(n+1);
 rfr(i,n-1,0){
-    if(v[i]!=1)continue;
-    if(i+e>=n)suffix[i]=1;
-    else suffix[i]=suffix[i+e]+1;
+ suffix[i]=ft.query(v[i]-1);
+ ft.update(v[i],1);
 }
-lli ans=0,right=0,left=0;
+// out(suffix)<<" ";
+// cout<<'\n';
 fr(i,n){
-    if(!prime[v[i]])continue;
-    if(i-e >=0)left=prefix[i-e];
-    else left=0;
-    if(i+e<n)right=suffix[i+e];
-    else right=0;
-
-    if(!left || !right){
-        ans+=max(left,right);
-    }else ans+=(left+1)*(right+1)-1;
+    prefix[i]=i-ft2.query(v[i]);
+    ft2.update(v[i],1);
 }
-cout<<ans<<'\n';
+// out(prefix)<<" ";
+// cout<<'\n';
+lli ans=accumulate(all(suffix),0LL);
+fr(i,n){
+    lli check=(n-(i+1))-suffix[i]-prefix[i];
+    if(check<0)k+=check;
+}
+cout<<ans+k<<'\n';
 }
 
 int32_t main(){
 fastio;
-primee(prime,1e6);
-prime[0]=prime[1]=0;
 lli tt;cin>>tt;
 while(tt--){
 solve();

@@ -61,27 +61,36 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 lli n,k;
 multiset<lli,greater<lli>>min_half;
 multiset<lli>max_half;
-
+lli mini,maxi;
 void balance_min(){
  if(min_half.size() > (k+1)/2){
-    max_half.insert(*min_half.begin());
-    min_half.erase(min_half.find(*min_half.begin()));
+    lli check=*min_half.begin();
+    max_half.insert(check);
+    
+    min_half.erase(min_half.find(check));
+    mini-=check;
+    maxi+=check;
  }
 }
 
 void balance_max(){
   if(max_half.size() > k/2){
-    min_half.insert(*max_half.begin());
-    max_half.erase(max_half.find(*max_half.begin()));
+    lli check=*max_half.begin();
+    min_half.insert(check);
+    max_half.erase(max_half.find(check));
+    mini+=check;
+    maxi-=check;
  }
 }
 
 void add(lli x){
  if(x>*min_half.begin()){
      max_half.insert(x);
+     maxi+=x;
      balance_max();
  }else{
     min_half.insert(x);
+    mini+=x;
     balance_min();
  }
 }
@@ -89,32 +98,43 @@ void add(lli x){
 void remove(lli x){
  if(max_half.find(x) != max_half.end()){
     max_half.erase(max_half.find(x));
+    maxi-=x;
  }else{
     min_half.erase(min_half.find(x));
+    mini-=x;
  }
 
  if(min_half.empty()){
-    min_half.insert(*max_half.begin());
-    max_half.erase(max_half.find(*max_half.begin()));
+    lli check=*max_half.begin();
+    min_half.insert(check);
+    max_half.erase(max_half.find(check));
+    mini+=check;
+    maxi-=check;
  }
+}
+
+lli median(){
+    if(k%2)return *min_half.begin();
+     return 0;
 }
 void solve(){
 cin>>n>>k;
-
+mini=0,maxi=0;
 get(v,n);
 if(k==1){
-    out(v)<<" ";
+    fr(i,n)cout<<"0 ";
     return;
 }
 min_half.insert(v[0]);
+mini+=v[0];
 frs(i,1,k-1){
     add(v[i]);
 }
-cout<<*min_half.begin()<<" ";
+cout<<median()+maxi-mini<<" ";
 frs(i,k,n-1){
    remove(v[i-k]);
    add(v[i]);
-   cout<<*min_half.begin()<<" ";
+  cout<<maxi-mini+median()<<" ";
 }
 }
 

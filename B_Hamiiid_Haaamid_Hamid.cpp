@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-07-28 23:33
+//Date: 2025-08-07 20:35
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,49 +40,59 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
-
-pr check(lli mid,lli k,vector<lli>&v){
-    lli n=v.size();
-    vector<lli>tp(n);
-    fr(i,n){
-        if(v[i]<mid)tp[i]=-1;
-        else tp[i]=1;
-    }
-    vector<lli>pref(n+1,0);
-    frs(i,1,n)pref[i]=pref[i-1]+tp[i-1];
-    lli mini=0;
-    lli l=1;
-    frs(r,k,n){
-         if(pref[r-k]<mini){
-            l=r-k+1;
-            mini=pref[r-k];
-        }
-        if(pref[r]-mini>=0){
-            return {l,r};
-        }
-       
-    }
-    return {-1,-1};
-
-}
-
+// four stage of dp  
+//  --think in term of index i,j whatever 
+ //   --find bse case --  
+//   -- find relation  
+//   -- good to go
+//chicken nugget formula 
+//   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
+//  -- total(x-1)(y-1)/2 numbers can be written in that form
+ 
+ 
+ 
 void solve(){
 lli n,k;cin>>n>>k;
-get(v,n);
-lli low=0,high=n;
-pr prr={-1,-1};
-while(low<=high){
-    lli mid=(low+high)/2;
-    pr prrr=check(mid,k,v);
-    if(prrr.ff==-1 && prrr.ss==-1){
-        high=mid-1;
-    }else{
-      low=mid+1;
-      prr=prrr;
-    }
+k--;
+string s;cin>>s;
+vector<lli>v(n);
+fr(i,n){
+    if(s[i]=='.')v[i]=0;
+    else v[i]=1;
 }
-cout<<low-1<<' ';
-cout<<prr.ff<<" "<<prr.ss<<'\n';
+lli left=0,right=0,left_t=k,right_t=n-k-1;
+fr(i,k){
+  left+=v[i];
+}
+frs(i,k+1,n-1)right+=v[i];
+lli left_s=0,right_s=0;
+rfr(i,k-1,0){
+    if(v[i]==0)left_s++;
+    else break;
+}
+// frs(i,k+1,n-1){
+//     if(v[i]==0)right_s++;
+//     else break;
+// }
+// cout<<left_s<<" "<<right_s<<" ";
+// cout<<left_t<<" "<<right_t<<" ";
+frs(i,k+1,n-1){
+    if(v[i]==0)right_s++;
+    else break;
+}
+if(!left && !right){
+    cout<<"1\n";
+    return;
+}
+// cout<<left_t<<" "<<right_t<<" ";
+// cout<<left_s<<" "<<right_s<<" ";
+if(left_s && right_s){
+    lli maxi=max(left_t-left_s,right_t-right_s);
+   // cout<<maxi<<" ";
+    cout<<min(left,min(right,maxi))+1<<'\n';
+    return;
+}
+cout<<min(left_t,right_t)+1<<'\n';
 }
 
 int32_t main(){

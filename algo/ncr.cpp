@@ -60,8 +60,8 @@ void solve(){
     
     cout << nCr(10, 2) << endl; 
     cout << nCr(1000, 500) << endl;  
-
-    
+     cout<<nCr(1,0)<<'\n';
+    cout<<nCr(0,0)<<'\n';
 }
 
 int32_t main(){

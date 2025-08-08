@@ -32,12 +32,10 @@ const int MOD=1e9+7;
 void solve(){
 lli x;cin>>x;
 get(v,x);
+
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

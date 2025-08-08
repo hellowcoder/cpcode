@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-05-14 13:28
+//Date: 2025-08-07 20:07
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -16,7 +16,7 @@
 #define pr pair<lli,lli>
 #define take(x) lli x;cin>>x
 #define get(v,n) vec(v,n,0);frs(i,0,n-1)cin>>v[i]
-#define out(v,n) frs(i,0,n-1)cout<<v[i]
+#define out(v) frs(i,0,v.size()-1)cout<<v[i]
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -25,42 +25,60 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
+#define no1 cout<<"-1\n"
+#define nl cout<<"\n"
 #define ff first
 #define ss second
+#define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
+const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-
-
-
-const int MOD=1e9+7;
-
+//max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
+// four stage of dp  
+//  --think in term of index i,j whatever 
+ //   --find bse case --  
+//   -- find relation  
+//   -- good to go
+//chicken nugget formula 
+//   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
+//  -- total(x-1)(y-1)/2 numbers can be written in that form
+ 
+ 
+ 
 void solve(){
-ordered_set<lli>os;
-os.insert(2);
-os.insert(1);
-os.insert(10);
+lli n,k;cin>>n;
+get(v,n);
+for(lli i=0;i<n-2;i++){
+    bool bol=false;
+    map<lli,lli>m;
+    frs(j,i,i+2){
+        if(v[j]!=-1)m[v[j]]++;
+    }
+    if(m.size()>1){
+        no;return;
+    }
+    if(m.size()){
+        lli check;
+        for(auto &it:m){
+            check=it.ff;
+            if(it.ff == 0){
+                no;return;
+            }
+        }
+        frs(j,i,i+2){
+          v[j]=check;
+        }
 
-cout<<"*os.find_by_order(0)--> "<<*os.find_by_order(0)<<'\n';  // 1st element;
-cout<<"*os.find_by_order(3)--> "<<*os.find_by_order(3)<<'\n'; //4th elemt   it will output 0 as there are no 4th elemnt 
-
-cout<<"os.order_of_key(2)--> "<<os.order_of_key(2)<<'\n'; // number of lement less than 5
-
-cout<<"*os.lower_bound(2)--> "<<*os.lower_bound(2)<<'\n';
-cout<<"*os.lower_bound(3)--> "<<*os.lower_bound(3)<<'\n';
-
-cout<<"*os.upper_bound(2)--> "<<*os.upper_bound(2)<<'\n';
-
-os.erase(2);
-cout<<'\n';
-for(auto &it:os){
-    cout<<it<<'\n';
+    }
+    m.clear();
 }
+yes;
 }
 
 int32_t main(){

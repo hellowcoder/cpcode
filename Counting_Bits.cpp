@@ -35,13 +35,13 @@ void dpp(){
         dp[i]=i*((1LL<<(i-1)));
     }
 }
-//binary search lagale bete
+
 void solve(){
 lli x;cin>>x;
 lli ans=0;
 while(x){
 lli check=log2(x);
-//ans+=check*(1LL<<(check-1));
+
 ans+=dp[check];
 check=1LL<<check;
 ans+=(x-check+1);

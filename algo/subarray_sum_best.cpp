@@ -11,3 +11,6 @@
 // now let say we want to find abs(pref[r]-pref[l-1]) across all subarray
 // sort pref  now summation pref[r]-pref[l-1];
 //  let say its pref[i] so it will  go i times  positive and n-i time negative 
+
+//https://codeforces.com/contest/2131/problem/F
+//my solution 

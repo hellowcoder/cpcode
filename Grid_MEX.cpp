@@ -48,8 +48,16 @@ const int MOD=1e9+7;
  
  
 void solve(){
-lli n,k;cin>>n>>k;
+lli n,k;cin>>n;
 //get(v,n);
+vec2(v,n,n);
+fr(i,n){
+    fr(j,n){
+        v[i][j]=(i+j)%n;
+        cout<<v[i][j]<<" ";
+    }
+    cout<<'\n';
+}
 
 }
 

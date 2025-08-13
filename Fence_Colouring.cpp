@@ -48,9 +48,26 @@ const int MOD=1e9+7;
  
  
 void solve(){
-lli n,k;cin>>n>>k;
-//get(v,n);
-
+lli n,k;cin>>n;
+get(v,n);
+map<lli,lli>m;
+fr(i,n){
+    m[v[i]]++;
+}
+vector<pr>vc;
+for(auto &it:m){
+  vc.push_back({it.ss,it.ff});
+}
+srtp(vc);
+reverse(all(vc));
+lli ans=0;
+if(vc[0].ss==1){
+   frs(i,1,vc.size()-1)ans+=vc[i].ff;
+}else{
+    ans++;
+    frs(i,1,vc.size()-1)ans+=vc[i].ff;
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){

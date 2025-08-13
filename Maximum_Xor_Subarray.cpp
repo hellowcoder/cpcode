@@ -120,15 +120,23 @@ lli maxi(lli x){
 };
 
 void solve(){
-    lli x;cin>>x;get(v,x);
-//    if(x==10){cout<<"127";return;}
+lli x;cin>>x;
+x++;
+get(v,x);
+
+
+vector<lli>pre(x+1,0);
 Trie t;
-fr(i,x){
-    t.insert(v[i]);
+t.insert(0);
+frs(i,1,x){
+ pre[i]=pre[i-1]^v[i-1];
+ t.insert(pre[i]);
 }
+
 lli ans=0;
-fr(i,x){
- ans=max(ans,t.maxi(v[i]));
+frs(i,1,x){
+ ans=max(ans,t.maxi(pre[i]));
+  
 }
 cout<<ans<<'\n';
 }

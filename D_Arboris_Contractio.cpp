@@ -1,8 +1,9 @@
 //Author: sandeep172918
-//Date: 2025-08-06 19:28
+//Date: 2025-08-10 21:15
 
 #include <bits/stdc++.h>
-
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -33,6 +34,9 @@
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
+using namespace __gnu_pbds;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
@@ -45,17 +49,75 @@ const int MOD=1e9+7;
 //   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
 //  -- total(x-1)(y-1)/2 numbers can be written in that form
  
+
+void dfs(vector<vector<lli>>& adj,vector<lli>&size,vector<lli>&down,vector<lli>&ops,lli node,vector<lli>&deg,lli par){
+        size[node]=1;
+        down[node]=(deg[node]==1);
+        ops[node]=0;
+        for(auto &i : adj[node]){
+            if(i==par)continue;
+            dfs(adj,size,down,ops,i,deg,node);
+            size[node]+=size[i];
+            down[node]+=down[i];
+            if(size[i]>1){
+                ops[node]+=down[i];
+            }
+        }
+    }
  
  
 void solve(){
-lli n,k;cin>>n>>k;
+lli n,k;cin>>n;
 //get(v,n);
+vector<vector<lli>>adj(n);
+vector<lli>deg(n,0);
+fr(i,n-1){
+    lli u,v;
+    cin>>u>>v;
+    u--;
+    v--;
+    adj[u].psb(v);
+    adj[v].psb(u);
+    deg[u]++;
+    deg[v]++;
+}
+fr(i,n){
+  if(deg[i]==n-1){
+    cout<<"0\n";
+    return;
+  }
+}
+
+vector<lli>size(n),down(n),ops(n);
+dfs(adj,size,down,ops,0,deg,-1);
+
+out(size)<<' ';
+cout<<'\n';
+out(down)<<' ';
+cout<<'\n';
+out(ops)<<' ';
+cout<<'\n';
+
+
+lli mini=1e16;
+lli total=down[0];
+fr(i,n){
+    lli curr=ops[i];
+    if(i){
+        lli check=n-size[i];
+        if(check>1){
+            curr+=(total-down[i]);
+        }
+    }
+    mini=min(mini,curr);
+}
+//cout<<"hi\n";
+cout<<mini<<'\n';
 
 }
 
 int32_t main(){
 fastio;
-//solve();
 lli tt;cin>>tt;
 while(tt--){
 solve();

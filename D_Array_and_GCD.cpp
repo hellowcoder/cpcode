@@ -56,7 +56,7 @@ lli x;cin>>x;get(v,x);
 lli check=accumulate(all(v),0LL);
 if(pref[x-1]<=check)cout<<"0\n";
 else{
-    
+
 }
 }
 

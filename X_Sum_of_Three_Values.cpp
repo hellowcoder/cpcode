@@ -63,7 +63,7 @@ frs(i,0,n-3){
   }
 }
 
-cout<<"-1\n";
+cout<<"IMPOSSIBLE\n";
 }
 
 int32_t main(){

@@ -1,5 +1,4 @@
-//Author: sandeep172918
-//Date: 2025-04-10 17:27
+
 #include <bits/stdc++.h>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<(n);i++)
@@ -120,20 +119,22 @@ lli maxi(lli x){
 };
 
 void solve(){
-    lli x;cin>>x;get(v,x);
-//    if(x==10){cout<<"127";return;}
+
+lli n;cin>>n;get(v,n);
 Trie t;
-fr(i,x){
+fr(i,n){
     t.insert(v[i]);
 }
 lli ans=0;
-fr(i,x){
- ans=max(ans,t.maxi(v[i]));
+fr(i,n){
+    ans=max(ans,t.maxi(v[i]));
 }
 cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
+lli tt;cin>>tt;
+while(tt--)
 solve();
 }

@@ -48,9 +48,16 @@ const int MOD=1e9+7;
  
  
 void solve(){
-lli n,k;cin>>n>>k;
+lli n,k;cin>>n;
 //get(v,n);
 
+if(n&1){
+    cout<<(n+1)/2<<'\n';return;
+}
+lli ans=n/2;
+lli check=n/2;
+ans+=(check+1)/2;
+cout<<ans<<'\n';
 }
 
 int32_t main(){

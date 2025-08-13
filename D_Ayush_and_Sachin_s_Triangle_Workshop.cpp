@@ -1,8 +1,9 @@
 //Author: sandeep172918
-//Date: 2025-08-06 19:28
+//Date: 2025-08-12 21:30
 
 #include <bits/stdc++.h>
-
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -33,14 +34,21 @@
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
+using namespace __gnu_pbds;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //max(a,b)=(a+b+abs(a-b))/2
+//min(a,b)=(a+b-abs(a-b))/2
+
 //binary search lagale bete
+
 // four stage of dp  
 //  --think in term of index i,j whatever 
  //   --find bse case --  
 //   -- find relation  
 //   -- good to go
+ 
 //chicken nugget formula 
 //   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
 //  -- total(x-1)(y-1)/2 numbers can be written in that form
@@ -48,16 +56,39 @@ const int MOD=1e9+7;
  
  
 void solve(){
-lli n,k;cin>>n>>k;
-//get(v,n);
+lli n,k;cin>>n;
+get(v,n);
+// lli eq=v[0]/3;
+// lli ans=eq;
+// v[0]-=eq*3;
+// lli r=v[0];
+lli ans=0,r=0;
+frs(i,0,n-1){
+
+   lli curr=v[i]/2;
+
+   if(curr>=r){
+    ans+=r;
+    v[i]-=r*2;
+     r-=r;
+    
+   }else{
+      ans+=curr;
+      v[i]-=curr*2;
+      r-=curr;
+   
+   }
+   lli eq=v[i]/3;
+   ans+=eq;
+   v[i]-=eq*3;
+   r+=v[i];
+ 
+}
+cout<<ans<<'\n';
 
 }
 
 int32_t main(){
 fastio;
-//solve();
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

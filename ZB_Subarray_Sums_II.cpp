@@ -1,8 +1,9 @@
 //Author: sandeep172918
-//Date: 2025-08-06 19:28
+//Date: 2025-08-08 18:29
 
 #include <bits/stdc++.h>
-
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -33,6 +34,9 @@
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
+using namespace __gnu_pbds;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
@@ -49,15 +53,20 @@ const int MOD=1e9+7;
  
 void solve(){
 lli n,k;cin>>n>>k;
-//get(v,n);
-
+get(v,n);
+map<lli,lli>m;
+m[0]++;
+lli ans=0;
+lli curr=0;
+fr(i,n){
+ ans+=m[k-v[i]];
+ curr+=v[i];
+ m[curr]++;
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
-//solve();
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

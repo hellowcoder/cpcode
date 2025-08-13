@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-06 19:28
+//Date: 2025-08-10 00:30
 
 #include <bits/stdc++.h>
 
@@ -32,32 +32,26 @@
 #define ss second
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
-const int MOD=1e9+7;
 
-//max(a,b)=(a+b+abs(a-b))/2
-//binary search lagale bete
-// four stage of dp  
-//  --think in term of index i,j whatever 
- //   --find bse case --  
-//   -- find relation  
-//   -- good to go
-//chicken nugget formula 
-//   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
-//  -- total(x-1)(y-1)/2 numbers can be written in that form
- 
- 
- 
 void solve(){
-lli n,k;cin>>n>>k;
-//get(v,n);
-
+lli n,k;cin>>n;
+get(v,n);
+set<lli>st;
+lli ans=0;
+lli i=0,j=0;
+while(i<n && j<n){
+  
+   while(st.count(v[i])){
+    st.erase(v[j++]);
+   }
+   ans+=(i-j+1);
+   st.insert(v[i++]);
+  
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
-//solve();
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

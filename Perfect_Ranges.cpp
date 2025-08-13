@@ -34,22 +34,38 @@
 using namespace std;
 const int MOD=1e9+7;
 
-//max(a,b)=(a+b+abs(a-b))/2
-//binary search lagale bete
-// four stage of dp  
-//  --think in term of index i,j whatever 
- //   --find bse case --  
-//   -- find relation  
-//   -- good to go
-//chicken nugget formula 
-//   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
-//  -- total(x-1)(y-1)/2 numbers can be written in that form
- 
- 
  
 void solve(){
-lli n,k;cin>>n>>k;
-//get(v,n);
+lli n,k;cin>>n;
+get(a,n);
+get(b,n);
+lli ans=0;
+bool bol=true;
+frs(i,0,n-1){
+   lli check=min(a[i],b[i]);
+   ans++;
+   
+   frs(j,i+1,n-1){
+      if(min(a[j],b[j])>check){
+        check=min(a[i],b[i]);
+        ans++;
+      }else if(max(a[j],b[j])>check){
+        check=max(a[j],b[j]);
+        ans++;
+      }else{
+        bol=false;
+        break;
+      }
+   }
+   if(bol){
+    ans+=(n-i-1)*(n-i-2)/2;
+    ans+=(n-i-1);
+   
+    break;
+   }
+  
+}
+ cout<<ans<<'\n';
 
 }
 

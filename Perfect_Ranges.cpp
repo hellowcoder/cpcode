@@ -40,14 +40,15 @@ lli n,k;cin>>n;
 get(a,n);
 get(b,n);
 lli ans=0;
-bool bol=true;
+bool bol=false;
 frs(i,0,n-1){
    lli check=min(a[i],b[i]);
    ans++;
    
-   frs(j,i+1,n-1){
-      if(min(a[j],b[j])>check){
-        check=min(a[i],b[i]);
+   frs(j,i+1,n){
+    if(j==n)bol=true;
+     else if(min(a[j],b[j])>check){
+        check=min(a[j],b[j]);
         ans++;
       }else if(max(a[j],b[j])>check){
         check=max(a[j],b[j]);

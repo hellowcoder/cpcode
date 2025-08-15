@@ -63,14 +63,21 @@ sort(all(v),[](const pr& a,const pr& b){
        if(a.ss==b.ss) return a.ff<=b.ff;
         return a.ss<b.ss;
 });
-fr(i,n){
-    cout<<v[i].ff<<" "<<v[i].ss<<'\n';
-}
+// fr(i,n){
+//     cout<<v[i].ff<<" "<<v[i].ss<<'\n';
+//}
 lli check=v[0].ss;
 vector<lli>room;
 room.psb(1);
+set<lli>st;
+st.insert(v[0].ss);
 frs(i,1,n-1){
- 
+  if(v[i].ff>room.back()){
+    room.back()=v[i].ss;
+  }
+  else{
+    
+  }
 }
 }
 

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-12 22:22
+//Date: 2025-08-14 14:15
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -56,46 +56,42 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
  
 void solve(){
-lli n,k;cin>>n;
-get(v,7);
-vector<lli>vv(14);
-lli sum=accumulate(all(v),0);
-
-if(n<=sum){
-    lli mini=1e9;
-    lli curr=0;
-    lli i=0,j=0;
-    while(i<n && j<n){
-      curr+=v[i++];
-        while(curr>=n){
-            curr-=v[j++];
-        }
-     mini=min(mini,i-j+1);
+lli x,k;cin>>x;
+//get(v,n);
+lli count=0;
+lli n=x;
+lli l,r;
+vector<lli>temp;
+while(n){
+lli check=n/2;
+if(check%10!=9){
+    l=check,r=check;
+    if(n%2)r++;
+    break;
+}
+temp.psb(n%10);
+n/=10;
+count++;
+}
+bool bol=true;
+while(count--){
+    l*=10;
+    r*=10;
+    k=temp.back();
+    temp.pop_back();
+    l+=k/2;
+    r+=k/2;
+    if(k%2){
+        if(bol)l++;
+        else r++;
+        bol=!bol;
     }
-    cout<<mini<<'\n';
-    return;
+
+
 }
 
-fr(i,14){
-    vv[i]=v[i%7];
-}
-lli maxi=0;
-lli curr=0;
-fr(i,7){
-    maxi+=vv[i];
-}
-cout<<maxi<<" ";
-curr=maxi;
-frs(i,7,13){
-    curr-=vv[i-7];
-    curr+=vv[i];
-    maxi=max(maxi,curr);
-}
-cout<<maxi<<" ";
-lli maxiii=(n*7)/maxi;
-lli check=maxiii%7;
-cout<<maxiii<<' ';
-cout<<check<<"\n";
+//cout<<count<<'\n';
+cout<<l<<' '<<r<<'\n';
 
 }
 

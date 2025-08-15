@@ -34,18 +34,6 @@
 using namespace std;
 const int MOD=1e9+7;
 
-//max(a,b)=(a+b+abs(a-b))/2
-//binary search lagale bete
-// four stage of dp  
-//  --think in term of index i,j whatever 
- //   --find bse case --  
-//   -- find relation  
-//   -- good to go
-//chicken nugget formula 
-//   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
-//  -- total(x-1)(y-1)/2 numbers can be written in that form
- 
- 
  
 void solve(){
 lli n,k;cin>>n>>k;

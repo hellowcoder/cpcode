@@ -49,7 +49,7 @@ os.insert(10);
 cout<<"*os.find_by_order(0)--> "<<*os.find_by_order(0)<<'\n';  // 1st element;
 cout<<"*os.find_by_order(3)--> "<<*os.find_by_order(3)<<'\n'; //4th elemt   it will output 0 as there are no 4th elemnt 
 
-cout<<"os.order_of_key(2)--> "<<os.order_of_key(2)<<'\n'; // number of lement less than 5
+cout<<"os.order_of_key(2)--> "<<os.order_of_key(2)<<'\n'; // number of lement less than 2
 
 cout<<"*os.lower_bound(2)--> "<<*os.lower_bound(2)<<'\n';
 cout<<"*os.lower_bound(3)--> "<<*os.lower_bound(3)<<'\n';

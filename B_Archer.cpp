@@ -1,5 +1,6 @@
+
 //Author: sandeep172918
-//Date: 2025-08-12 22:22
+//Date: 2025-08-14 14:55
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -56,53 +57,15 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
  
 void solve(){
-lli n,k;cin>>n;
-get(v,7);
-vector<lli>vv(14);
-lli sum=accumulate(all(v),0);
-
-if(n<=sum){
-    lli mini=1e9;
-    lli curr=0;
-    lli i=0,j=0;
-    while(i<n && j<n){
-      curr+=v[i++];
-        while(curr>=n){
-            curr-=v[j++];
-        }
-     mini=min(mini,i-j+1);
-    }
-    cout<<mini<<'\n';
-    return;
-}
-
-fr(i,14){
-    vv[i]=v[i%7];
-}
-lli maxi=0;
-lli curr=0;
-fr(i,7){
-    maxi+=vv[i];
-}
-cout<<maxi<<" ";
-curr=maxi;
-frs(i,7,13){
-    curr-=vv[i-7];
-    curr+=vv[i];
-    maxi=max(maxi,curr);
-}
-cout<<maxi<<" ";
-lli maxiii=(n*7)/maxi;
-lli check=maxiii%7;
-cout<<maxiii<<' ';
-cout<<check<<"\n";
-
+double a,b,c,d;cin>>a>>b>>c>>d;
+//get(v,n);
+double p=a/b;
+double q=(1-a/b)*(1-c/d);
+double ans=p/(1-q);
+cout<<setprecision(9)<<fixed<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
-while(tt--){
 solve();
-}
 }

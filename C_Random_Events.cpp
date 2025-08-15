@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-12 22:22
+//Date: 2025-08-14 18:04
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -56,47 +56,24 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
  
 void solve(){
-lli n,k;cin>>n;
-get(v,7);
-vector<lli>vv(14);
-lli sum=accumulate(all(v),0);
-
-if(n<=sum){
-    lli mini=1e9;
-    lli curr=0;
-    lli i=0,j=0;
-    while(i<n && j<n){
-      curr+=v[i++];
-        while(curr>=n){
-            curr-=v[j++];
-        }
-     mini=min(mini,i-j+1);
-    }
-    cout<<mini<<'\n';
-    return;
+lli n,k;cin>>n>>k;
+get(v,n);
+double ans=1.000000000;
+vector<pair<lli,double>>vv(k);
+fr(i,k)cin>>vv[i].ff>>vv[i].ss;
+lli index=-1;
+fr(i,n){
+    if((i+1)!=v[i])index=i;
 }
-
-fr(i,14){
-    vv[i]=v[i%7];
+if(index != -1){
+fr(i,k){
+    if((--vv[i].ff)>=index){
+      ans*=(1-vv[i].ss);
+     }
 }
-lli maxi=0;
-lli curr=0;
-fr(i,7){
-    maxi+=vv[i];
 }
-cout<<maxi<<" ";
-curr=maxi;
-frs(i,7,13){
-    curr-=vv[i-7];
-    curr+=vv[i];
-    maxi=max(maxi,curr);
-}
-cout<<maxi<<" ";
-lli maxiii=(n*7)/maxi;
-lli check=maxiii%7;
-cout<<maxiii<<' ';
-cout<<check<<"\n";
-
+if(index != -1)ans=1.0-ans;
+cout<<setprecision(6)<<fixed<<ans<<'\n';
 }
 
 int32_t main(){

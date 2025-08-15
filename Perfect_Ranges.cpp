@@ -46,7 +46,7 @@ frs(i,0,n-1){
    ans++;
    
    frs(j,i+1,n){
-    if(j==n)bol=true;
+     if(j==n)bol=true;
      else if(min(a[j],b[j])>check){
         check=min(a[j],b[j]);
         ans++;

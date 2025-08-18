@@ -1,9 +1,8 @@
 //Author: sandeep172918
-//Date: 2025-08-12 00:28
+//Date: 2025-08-06 19:28
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -34,58 +33,22 @@
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
-using namespace __gnu_pbds;
-template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-//max(a,b)=(a+b+abs(a-b))/2
-//min(a,b)=(a+b-abs(a-b))/2
-
-//binary search lagale bete
-
-// four stage of dp  
-//  --think in term of index i,j whatever 
- //   --find bse case --  
-//   -- find relation  
-//   -- good to go
- 
-//chicken nugget formula 
-//   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
-//  -- total(x-1)(y-1)/2 numbers can be written in that form
- 
- 
  
 void solve(){
-lli n,k;cin>>n;
-vector<pair<pr,lli>>v(n);
-fr(i,n){
-  cin>>v[i].ff.ff>>v[i].ff.ss;
-  v[i].ss=i;
-}
-vector<lli>ans(n,0);
-srt(v);
-lli a=0;
-set<pr>pq;
-ans[v[0].ss]=++a;
-pq.insert({v[0].ff.ss,v[0].ss});
-frs(i,1,n-1){
-  pr chec=*pq.begin();
-  lli check=chec.ff;
-  if(v[i].ff.ff>check){
-       ans[v[i].ss]=ans[chec.ss];
-       pq.erase(pq.find(chec));
-      
-  }else{
-     ans[v[i].ss]=++a;
-
-  }
-  pq.insert({v[i].ff.ss,v[i].ss});
-}
-cout<<a<<'\n';
-out(ans)<<' ';
+string s;cin>>s;
+if(s=="red")cout<<"SSS";
+else if(s=="blue")cout<<"FFF";
+else if(s=="green")cout<<"MMM";
+else cout<<"Unknown";
 }
 
 int32_t main(){
 fastio;
+//solve();
+lli tt=1;
+//cin>>tt;
+while(tt--){
 solve();
+}
 }

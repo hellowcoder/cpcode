@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-13 17:11
+//Date: 2025-08-16 12:23
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -56,16 +56,47 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
  
 void solve(){
-lli n,k;cin>>n>>k;
+lli n,k,tar;cin>>n>>tar;
 get(v,n);
-srt(v);
+k=1LL<<(n/2);
+unordered_map<lli,lli>m1,m2;
+m1.reserve(1LL<<(n/2));
+m2.reserve(1LL<<(n-n/2));
 
+fr(i,k){
+    lli sum=0;
+    fr(j,n/2){
+        if((i>>j)&1){
+           sum+=v[j];
+        }
+    }
+    m1[sum]++;
+}
+k=1LL<<(n-n/2);
+fr(i,k){
+    lli sum=0;
+    fr(j,(n-n/2)){
+        if((i>>j)&1){
+           sum+=v[j+(n/2)];
+        }
+    }
+    m2[sum]++;
+  
+}
+
+lli ans=0;
+for(auto &it:m1){
+  ans+=(it.ss*m2[tar-it.ff]);
+}
+cout<<ans;
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
+lli tt=1;
+//cin>>tt;
 while(tt--){
 solve();
 }
 }
+

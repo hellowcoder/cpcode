@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-12 00:28
+//Date: 2025-08-17 16:25
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -56,36 +56,32 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
  
 void solve(){
-lli n,k;cin>>n;
-vector<pair<pr,lli>>v(n);
-fr(i,n){
-  cin>>v[i].ff.ff>>v[i].ff.ss;
-  v[i].ss=i;
+lli x,v,y;cin>>x>>y;
+//get(v,n);
+if(y>x){
+    cout<<"-1\n";
+    return;
 }
-vector<lli>ans(n,0);
-srt(v);
-lli a=0;
-set<pr>pq;
-ans[v[0].ss]=++a;
-pq.insert({v[0].ff.ss,v[0].ss});
-frs(i,1,n-1){
-  pr chec=*pq.begin();
-  lli check=chec.ff;
-  if(v[i].ff.ff>check){
-       ans[v[i].ss]=ans[chec.ss];
-       pq.erase(pq.find(chec));
-      
-  }else{
-     ans[v[i].ss]=++a;
+v=y;
+fr(i,61){
+  if((v |(1LL<<i)) <=x)
+      v|=(1LL<<i);
+}
 
-  }
-  pq.insert({v[i].ff.ss,v[i].ss});
-}
-cout<<a<<'\n';
-out(ans)<<' ';
+lli check=__builtin_popcountll(v);
+
+unsigned long long  ans=1LL<<check;
+if(check==1)ans-=(y==0);
+else ans-=(y!=0);
+
+cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
+lli tt=1;
+cin>>tt;
+while(tt--){
 solve();
+}
 }

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-12 00:28
+//Date: 2025-08-16 01:53
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -57,35 +57,21 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
 void solve(){
 lli n,k;cin>>n;
-vector<pair<pr,lli>>v(n);
+//get(v,n);
+vector<pr>v(n);
 fr(i,n){
-  cin>>v[i].ff.ff>>v[i].ff.ss;
-  v[i].ss=i;
+    cin>>v[i].ff;
+    v[i].ss=i;
 }
-vector<lli>ans(n,0);
 srt(v);
-lli a=0;
-set<pr>pq;
-ans[v[0].ss]=++a;
-pq.insert({v[0].ff.ss,v[0].ss});
+lli ans=1;
 frs(i,1,n-1){
-  pr chec=*pq.begin();
-  lli check=chec.ff;
-  if(v[i].ff.ff>check){
-       ans[v[i].ss]=ans[chec.ss];
-       pq.erase(pq.find(chec));
-      
-  }else{
-     ans[v[i].ss]=++a;
-
-  }
-  pq.insert({v[i].ff.ss,v[i].ss});
+ if(v[i].ss > v[i-1].ss)continue;
+ ans++;
 }
-cout<<a<<'\n';
-out(ans)<<' ';
+cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
-solve();
-}
+solve();}

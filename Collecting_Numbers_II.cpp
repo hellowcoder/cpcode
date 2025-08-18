@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-12 00:28
+//Date: 2025-08-17 22:53
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -56,36 +56,34 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
  
 void solve(){
-lli n,k;cin>>n;
-vector<pair<pr,lli>>v(n);
+lli n,k;cin>>n>>k;
+get(v,n);
+map<lli,lli>m;
+m[0]=1e18;
 fr(i,n){
-  cin>>v[i].ff.ff>>v[i].ff.ss;
-  v[i].ss=i;
+m[v[i]]=i;
 }
-vector<lli>ans(n,0);
-srt(v);
-lli a=0;
-set<pr>pq;
-ans[v[0].ss]=++a;
-pq.insert({v[0].ff.ss,v[0].ss});
-frs(i,1,n-1){
-  pr chec=*pq.begin();
-  lli check=chec.ff;
-  if(v[i].ff.ff>check){
-       ans[v[i].ss]=ans[chec.ss];
-       pq.erase(pq.find(chec));
-      
-  }else{
-     ans[v[i].ss]=++a;
+lli curr=0;
+fr(i,n){
+    curr+=(m[v[i]-1]>i);
+}
+lli a,b;
+fr(i,k){
+  cin>>a>>b;
+  lli inda=m[a-1];
+  lli indb=m[b-1];
+  
+  
+}
 
-  }
-  pq.insert({v[i].ff.ss,v[i].ss});
-}
-cout<<a<<'\n';
-out(ans)<<' ';
+
 }
 
 int32_t main(){
 fastio;
+lli tt=1;
+//cin>>tt;
+while(tt--){
 solve();
+}
 }

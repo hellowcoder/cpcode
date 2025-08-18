@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-12 00:28
+//Date: 2025-08-16 02:04
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -57,32 +57,21 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
 void solve(){
 lli n,k;cin>>n;
-vector<pair<pr,lli>>v(n);
+get(v,n);
+vec(pre,n+1,0);
 fr(i,n){
-  cin>>v[i].ff.ff>>v[i].ff.ss;
-  v[i].ss=i;
-}
-vector<lli>ans(n,0);
-srt(v);
-lli a=0;
-set<pr>pq;
-ans[v[0].ss]=++a;
-pq.insert({v[0].ff.ss,v[0].ss});
-frs(i,1,n-1){
-  pr chec=*pq.begin();
-  lli check=chec.ff;
-  if(v[i].ff.ff>check){
-       ans[v[i].ss]=ans[chec.ss];
-       pq.erase(pq.find(chec));
-      
-  }else{
-     ans[v[i].ss]=++a;
+    pre[i+1]=pre[i]+v[i];
 
-  }
-  pq.insert({v[i].ff.ss,v[i].ss});
 }
-cout<<a<<'\n';
-out(ans)<<' ';
+frs(i,1,n)pre[i]=(pre[i]%n+n)%n;
+map<lli,lli>m;
+m[0]++;
+lli ans=0;
+frs(i,1,n){
+ ans+=m[pre[i]];
+ m[pre[i]]++;
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){

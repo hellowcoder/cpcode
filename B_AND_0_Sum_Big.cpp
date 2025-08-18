@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-12 00:28
+//Date: 2025-08-18 17:51
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -52,40 +52,31 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 //chicken nugget formula 
 //   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
 //  -- total(x-1)(y-1)/2 numbers can be written in that form
- 
+
+ lli power(lli x,lli y,lli p=MOD) {
+     lli res=1;
+     x=x%p;
+     while (y>0) {
+         if (y&1) res=(res * x)% p;
+         x = (x * x)% p;
+         y >>= 1;
+     }
+     return res;
+ }
+
  
  
 void solve(){
-lli n,k;cin>>n;
-vector<pair<pr,lli>>v(n);
-fr(i,n){
-  cin>>v[i].ff.ff>>v[i].ff.ss;
-  v[i].ss=i;
-}
-vector<lli>ans(n,0);
-srt(v);
-lli a=0;
-set<pr>pq;
-ans[v[0].ss]=++a;
-pq.insert({v[0].ff.ss,v[0].ss});
-frs(i,1,n-1){
-  pr chec=*pq.begin();
-  lli check=chec.ff;
-  if(v[i].ff.ff>check){
-       ans[v[i].ss]=ans[chec.ss];
-       pq.erase(pq.find(chec));
-      
-  }else{
-     ans[v[i].ss]=++a;
-
-  }
-  pq.insert({v[i].ff.ss,v[i].ss});
-}
-cout<<a<<'\n';
-out(ans)<<' ';
+lli n,k;cin>>n>>k;
+//get(v,n);
+cout<<power(n,k)<<'\n';
 }
 
 int32_t main(){
 fastio;
+lli tt=1;
+cin>>tt;
+while(tt--){
 solve();
+}
 }

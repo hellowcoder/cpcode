@@ -1,5 +1,3 @@
-//Author: sandeep172918
-//Date: 2025-08-17 17:56
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -33,52 +31,54 @@
 #define ss second
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
-const int MOD=1e9+7;
+const int MOD=998244353;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-//max(a,b)=(a+b+abs(a-b))/2
-//min(a,b)=(a+b-abs(a-b))/2
 
-//binary search lagale bete
-
-// four stage of dp  
-//  --think in term of index i,j whatever 
- //   --find bse case --  
-//   -- find relation  
-//   -- good to go
- 
-//chicken nugget formula 
-//   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
-//  -- total(x-1)(y-1)/2 numbers can be written in that form
- 
- 
- 
 void solve(){
 lli n,k;cin>>n;
 get(v,n);
-vec2(pre,n,32);
-lli ans=0;
-frs(i,1,n){
-    fr(j,32){
-        lli check=(1LL<<j)&v[i-1];
-        pre[i][j]+=pre[i-1][j]+(check>0);
-        
+
+lli final=0;
+fr(i,32){
+    lli od=0;
+    lli ev=0;
+    lli od_s=0;
+    lli ev_s=0;
+    lli ans=0;
+    bool pairity=true;
+    fr(j,n){
+        lli check=(v[j]>>i)&1;
+        if(check)
+            pairity=!pairity;
+
+        if(pairity){  //even 
+            ans+=(od*(j+1))-od_s;
+            ev_s+=(j+1);
+            ev++;
+        }else{     //odd
+            ans+=(ev*(j+1))-ev_s;
+            ans+=(j+1);
+            od_s+=(j+1);
+            od++;
+        }    
+
     }
+    ans%=MOD;
+    final+=(1LL<<i)*ans;
+    final%=MOD;
+
+   
 }
-
-
-
-
-
-
+cout<<final<<'\n';
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

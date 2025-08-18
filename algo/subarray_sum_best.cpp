@@ -14,3 +14,7 @@
 
 //https://codeforces.com/contest/2131/problem/F
 //my solution 
+
+//https://codeforces.com/contest/1879/problem/D
+//my sol bestest
+

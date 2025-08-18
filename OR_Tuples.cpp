@@ -2,8 +2,7 @@
 //Date: 2025-08-17 17:34
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -33,32 +32,27 @@
 #define ss second
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
-const int MOD=1e9+7;
-using namespace __gnu_pbds;
-template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-//max(a,b)=(a+b+abs(a-b))/2
-//min(a,b)=(a+b-abs(a-b))/2
+lli check(lli a,lli b,lli c){
+    if(a==1 && b==1 && c==1)return 4;
+    if(a==0 && b==0 && c==0)return 1;
+    if(a==1 && b==1 && c==0)return 1;
+    if(a==0 && b==1 && c==1)return 1;
+    if(a==1 && b==0 && c==1)return 1;
+    return 0;
+} 
+ 
 
-//binary search lagale bete
-
-// four stage of dp  
-//  --think in term of index i,j whatever 
- //   --find bse case --  
-//   -- find relation  
-//   -- good to go
- 
-//chicken nugget formula 
-//   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
-//  -- total(x-1)(y-1)/2 numbers can be written in that form
- 
- 
- 
 void solve(){
 lli p,q,r;cin>>p>>q>>r;
-
-
+lli ans=check(p&1,q&1,r&1);
+frs(i,1,19){
+    lli a=(p>>i)&1;
+    lli b=(q>>i)&1;
+    lli c=(r>>i)&1;
+    ans*=check(a,b,c);
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){

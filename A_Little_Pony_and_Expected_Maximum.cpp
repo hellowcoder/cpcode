@@ -1,12 +1,12 @@
 //Author: sandeep172918
-//Date: 2025-08-18 18:34
+//Date: 2025-08-20 01:20
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
-#define frs(i,a,b) for(lli i=a;i<=b;i++)
+#define frs(i,a,b) for(double i=a;i<=b;i++)
 #define rfr(i,b,a) for(lli i=b;i>=a;i--)
 #define srt(v) sort(v.begin(),v.end())
 #define rsrt(v) sort(v.rbegin(),v.rend())
@@ -53,22 +53,35 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 //   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
 //  -- total(x-1)(y-1)/2 numbers can be written in that form
  
- 
+
+double power(double x,double yy) {
+     double res=1.0;
+     lli y=yy;
+     x=x;
+     while (y>0) {
+         if (y&1) res=(res * x);
+         x = (x * x);
+         y >>= 1;
+     }
+     return res;
+ }
+
  
 void solve(){
-lli n,k;cin>>n;
-vector<pair<char,lli>>v(n);
-fr(i,n){
- cin>>v[i].ff>>v[i].ss;
+lli n,k;cin>>n>>k;
+
+double ans=0.0;
+frs(i,1,n){
+    ans+=(i*(power(i/n,k)-power((i-1)/n,k)));
 }
 
-
+cout<<setprecision(9)<<fixed<<ans;
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

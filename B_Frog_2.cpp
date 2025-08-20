@@ -1,9 +1,8 @@
 //Author: sandeep172918
-//Date: 2025-08-18 18:34
+//Date: 2025-08-06 19:28
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -34,41 +33,28 @@
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
-using namespace __gnu_pbds;
-template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-//max(a,b)=(a+b+abs(a-b))/2
-//min(a,b)=(a+b-abs(a-b))/2
-
-//binary search lagale bete
-
-// four stage of dp  
-//  --think in term of index i,j whatever 
- //   --find bse case --  
-//   -- find relation  
-//   -- good to go
- 
-//chicken nugget formula 
-//   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
-//  -- total(x-1)(y-1)/2 numbers can be written in that form
- 
- 
  
 void solve(){
-lli n,k;cin>>n;
-vector<pair<char,lli>>v(n);
+lli n,k;cin>>n>>k;
+get(v,n);
+vector<lli>dp(n,1e18);
+dp[0]=0;
 fr(i,n){
- cin>>v[i].ff>>v[i].ss;
+   
+    frs(j,1,k){
+        if((i-j)<0)continue;
+        dp[i]=min(dp[i],dp[i-j]+abs(v[i]-v[i-j]));
+    }
 }
-
-
+cout<<dp[n-1];
 }
 
 int32_t main(){
 fastio;
+//solve();
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

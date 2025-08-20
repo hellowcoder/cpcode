@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-18 18:34
+//Date: 2025-08-20 00:21
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -53,22 +53,48 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 //   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
 //  -- total(x-1)(y-1)/2 numbers can be written in that form
  
- 
+double fact(lli x){
+    if(x<=1)return 1;
+    return x*fact(x-1);
+}
  
 void solve(){
-lli n,k;cin>>n;
-vector<pair<char,lli>>v(n);
+string a,b;cin>>a>>b;
+lli n=a.size();
+lli orig=0,curr=0;
 fr(i,n){
- cin>>v[i].ff>>v[i].ss;
+ if(a[i]=='+')orig++;
+ if(a[i]=='-')orig--;
+ if(b[i]=='+')curr++;
+ if(b[i]=='-')curr--;
 }
-
-
+lli c=count(all(b),'?');
+lli check=abs(orig-curr);
+double ans=0.0;
+if(check<=c){
+   if(check==0){
+     if(c%2==0){
+        lli x=c/2;
+        lli y=c/2;
+        ans=((fact(x+y)/(fact(x)*fact(y)))/pow(2,c));
+     }
+   }else{
+    if(check%2 == c%2){
+        lli x=check;
+        lli rem=c-check;
+        lli y=rem/2;
+        x+=rem/2;
+        ans=((fact(x+y)/(fact(x)*fact(y)))/pow(2,c));
+    }
+   }
+}
+cout<<setprecision(9)<<fixed<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

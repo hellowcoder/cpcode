@@ -7,6 +7,8 @@
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 using namespace std;
+
+
 class Chai{
     private:
     lli ab;
@@ -14,6 +16,7 @@ class Chai{
    public:
    int x;
      string name;
+    
      Chai(string name): Chai(1,name){}  //deligate constructor
      Chai(lli x,string st):x(x),name(st){}  //parametersied constructor
    Chai(){   //basic constructor
@@ -49,6 +52,7 @@ bool comparing(const Chai &it1,const Chai &it2 ){
    return it1.x   >it2.x;
 }
 void solve(){
+
 Chai chai1(10,"Chai1");
 Chai chai2(20,"Chai2");
 if(comparing(chai1,chai2))cout<<"yes\n";

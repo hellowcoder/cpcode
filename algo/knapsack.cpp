@@ -116,7 +116,7 @@ lli knapsack(lli W,vector<lli>&weight,vector<lli>&val){  //dp =0;
     lli n=weight.size();
     //vec2(dp,n,W+1);
     vec(dp,W+1,0);
-   // frs(w,weight[0],W) dp[w]=val[0];  //minimum weight[0] chor bhar skta hai
+    frs(w,weight[0],W) dp[w]=val[0];  //minimum weight[0] chor bhar skta hai
 
     frs(ind,1,n-1){
       rfr(w,W,0){

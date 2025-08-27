@@ -24,8 +24,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES\n"
-#define no cout<<"NO\n"
+#define yes cout<<"Yes\n"
+#define no cout<<"No\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define ff first
@@ -34,39 +34,36 @@
 using namespace std;
 const int MOD=1e9+7;
 
-lli frog(lli ind,lli k,vector<lli>&h){
-    if(ind==0)return 0;
-    lli mini=1e18;
-    frs(i,1,k){
-        if(ind-i >=0){
-            lli jump=frog(ind-i,k,h)+abs(h[ind]-h[ind-i]);
-            mini=min(mini,jump);
-        }
-    }
-    return mini;
-}
  
 void solve(){
-lli n,k;cin>>n>>k;
-get(v,n);
-vector<lli>dp(n,1e18);
-dp[0]=0;
-fr(i,n){
-   
-    frs(j,1,k){
-        if((i-j)<0)continue;
-        dp[i]=min(dp[i],dp[i-j]+abs(v[i]-v[i-j]));
+lli n,k;cin>>n;
+string s;cin>>s;
+vector<lli>temp;
+lli curr=0;
+frs(i,0,n-1){
+  if(s[i]=='0'){
+    temp.psb(curr);
+    curr=0;
+
+  }else{
+    curr+=(s[i]-'0');
+  }
+}
+temp.psb(curr);
+fr(i,temp.size()){
+    if(temp[i]==1 || temp[i]==2){
+        no;return;
     }
 }
-cout<<dp[n-1]<<'\n';
-cout<<frog(n-1,k,v);
+//out(temp);
+yes;
 }
 
 int32_t main(){
 fastio;
 //solve();
 lli tt=1;
-//cin>>tt;
+cin>>tt;
 while(tt--){
 solve();
 }

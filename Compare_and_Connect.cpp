@@ -34,39 +34,42 @@
 using namespace std;
 const int MOD=1e9+7;
 
-lli frog(lli ind,lli k,vector<lli>&h){
-    if(ind==0)return 0;
-    lli mini=1e18;
-    frs(i,1,k){
-        if(ind-i >=0){
-            lli jump=frog(ind-i,k,h)+abs(h[ind]-h[ind-i]);
-            mini=min(mini,jump);
-        }
-    }
-    return mini;
-}
  
 void solve(){
 lli n,k;cin>>n>>k;
-get(v,n);
-vector<lli>dp(n,1e18);
-dp[0]=0;
-fr(i,n){
-   
-    frs(j,1,k){
-        if((i-j)<0)continue;
-        dp[i]=min(dp[i],dp[i-j]+abs(v[i]-v[i-j]));
+string ans="";
+if(n && k){
+  ans+="<<>";
+  string curr="";
+  fr(i,n-1){curr+="<<";}
+  ans=curr+ans;
+  fr(i,k-1){ans+="<>";}
+}else if(k){
+    ans+=">=>";
+    string curr="";
+    fr(i,k-2){
+      //ans="><"+ans;
+      curr+="><";
     }
+    ans=curr+ans;
+}else{
+  ans+="<=<";
+  string curr="";
+  fr(i,n-2){
+   // ans="<<"+ans;
+    curr+="<<";
+  }
+  ans=curr+ans;
 }
-cout<<dp[n-1]<<'\n';
-cout<<frog(n-1,k,v);
+cout<<ans<<'\n';
+
 }
 
 int32_t main(){
 fastio;
 //solve();
 lli tt=1;
-//cin>>tt;
+cin>>tt;
 while(tt--){
 solve();
 }

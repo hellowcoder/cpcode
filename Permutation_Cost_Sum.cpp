@@ -4,7 +4,7 @@
 #include <bits/stdc++.h>
 
 #define lli long long int
-#define fr(i,n) for(lli i=0;i<n;i++)
+#define fr(i,n) for(lli i=1;i<=n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
 #define rfr(i,b,a) for(lli i=b;i>=a;i--)
 #define srt(v) sort(v.begin(),v.end())
@@ -34,39 +34,51 @@
 using namespace std;
 const int MOD=1e9+7;
 
-lli frog(lli ind,lli k,vector<lli>&h){
-    if(ind==0)return 0;
-    lli mini=1e18;
-    frs(i,1,k){
-        if(ind-i >=0){
-            lli jump=frog(ind-i,k,h)+abs(h[ind]-h[ind-i]);
-            mini=min(mini,jump);
-        }
-    }
-    return mini;
-}
  
 void solve(){
-lli n,k;cin>>n>>k;
-get(v,n);
-vector<lli>dp(n,1e18);
-dp[0]=0;
+lli n,k;cin>>n;
+vector<lli>v(n+1);
+fr(i,n)cin>>v[i];
+map<lli,lli>m;
+vector<lli>visited(n+1,0);
 fr(i,n){
-   
-    frs(j,1,k){
-        if((i-j)<0)continue;
-        dp[i]=min(dp[i],dp[i-j]+abs(v[i]-v[i-j]));
+    if(!visited[i]){
+      lli curr=i;
+      lli len=0;
+      while(!visited[curr]){
+        len++;
+        visited[curr]=1;
+        curr=v[curr];
+      }
+      if(len>=2)m[len]++;
     }
 }
-cout<<dp[n-1]<<'\n';
-cout<<frog(n-1,k,v);
+// for(auto &it:m){
+//     cout<<it.ff<<' '<<it.ss<<'\n';
+// }
+lli ans=0;
+for(auto &it : m){
+  lli curr=0;
+  lli len=it.ff; //len -1 operation
+  fr(i,n){
+    lli check=(((len)*i)+(len-1-1))/(len-1)-1;
+    if(check<0)check=0;  // no need to swap
+    if(check>n)check=n;  // dont swap ,,just do opertion 1;
+    lli prefix=(len-1)*check*(check+1)/2;
+    lli suffix=(n-check)*(len)*i;
+    curr+=(prefix+suffix);
+  }
+  curr*=it.ss;
+  ans+=curr;
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
 //solve();
 lli tt=1;
-//cin>>tt;
+cin>>tt;
 while(tt--){
 solve();
 }

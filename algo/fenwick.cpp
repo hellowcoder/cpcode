@@ -56,6 +56,16 @@ public:
     lli range_query(lli l,lli r) {
         return query(r)-query(l-1);
     }
+
+    lli kth(lli k){ 
+        lli idx=0, bitt=1;
+        while((bitt<<1)<=n) bitt<<=1;
+        for(lli step=bitt; step; step>>=1){
+            lli nxt=idx+step;
+            if(nxt<=n && bit[nxt]<k){ k-=bit[nxt]; idx=nxt; }
+        }
+        return idx+1;
+    }
 };
 
 

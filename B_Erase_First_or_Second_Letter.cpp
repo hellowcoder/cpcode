@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-28 20:28
+//Date: 2025-09-03 18:52
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,34 +38,23 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-void solve(){
-lli n,k;cin>>n;
-get(v,n);
-vvll pos(n+1);
-fr(i,n){
-  pos[v[i]].psb(i);
-}
+lli dpp(lli ind,string &s){
+    if(ind==0)return 1;
+    if(ind<0)return 0;
 
-vll dp(n+1,0);
-vll rem(n+1);
-frs(i,1,n){
-    rem[i]=pos[i].size();
-}
-rfr(i,n-1,0){
-
-   dp[i]=dp[i+1];
-
-    lli check=v[i];
-    rem[check]--;
-    lli maxi=rem[check];
-    
-    if((maxi+check-1)< pos[check].size()){
-        lli ind=pos[check][maxi+check-1];
-        dp[i]=max(dp[i],check+dp[ind+1]);
+    if(ind>=1){
+       if(s[ind]==s[ind-1]){
+         return 1+dpp(ind-1,s);
+       }else{
+         return 2+dpp(ind-1,s)+dpp(ind-2,s);
+       }
     }
-   
 }
-cout<<dp[0]<<'\n';
+
+void solve(){
+lli n;cin>>n;
+string s;cin>>s;
+cout<<dpp(n-1,s)<<'\n';
 }
 
 int32_t main(){

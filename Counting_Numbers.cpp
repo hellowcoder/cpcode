@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-28 20:28
+//Date: 2025-09-02 01:11
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -32,46 +32,48 @@
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
+#define vvvll(dp,n,k,m) vector<vector<vector<lli>>> dp(n+1, vector<vector<lli>>(k, vector<lli>(m, -1)));
 using namespace std;
 const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
- 
-void solve(){
-lli n,k;cin>>n;
-get(v,n);
-vvll pos(n+1);
-fr(i,n){
-  pos[v[i]].psb(i);
-}
 
-vll dp(n+1,0);
-vll rem(n+1);
-frs(i,1,n){
-    rem[i]=pos[i].size();
-}
-rfr(i,n-1,0){
 
-   dp[i]=dp[i+1];
 
-    lli check=v[i];
-    rem[check]--;
-    lli maxi=rem[check];
-    
-    if((maxi+check-1)< pos[check].size()){
-        lli ind=pos[check][maxi+check-1];
-        dp[i]=max(dp[i],check+dp[ind+1]);
+
+lli dppp(string maxi,lli n,bool tight,lli prev,vector<vector<vector<lli>>>&dp){ 
+    if(n==0){
+        return 1;
     }
-   
+  //  if(dp[n][prev][tight]!= -1)return dp[n][prev][tight];
+    lli ub=tight ? (maxi[maxi.size()-n]-'0'):9;
+    lli c=0;
+    fr(i,ub+1){
+        
+            if(i==prev)continue;
+            c+=dppp(maxi,n-1,tight&(i==ub),i,dp);
+        
+    }
+    return c;
+   // return dp[n][prev][tight]=c;
 }
-cout<<dp[0]<<'\n';
+
+void solve(){
+string r;lli l;cin>>l>>r;
+l--;
+string ll=to_string(l);
+
+vvvll(dp,r.size(),10,2);
+vvvll(dpp,ll.size(),10,2);
+
+cout<<dppp(r,r.size(),1,-1,dp)-dppp(ll,ll.size(),1,-1,dpp);
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

@@ -47,30 +47,30 @@ lli query(lli x,char d){
 }
 
 void solve(){
-lli n,k;cin>>n;
+lli n,k=1e9;cin>>n;
 lli x,y;
-lli p=-1e18,q=1e18;
+lli p=-1e17,q=-1e17;
 fr(i,n){
    cin>>x>>y;
-   p=max(p,x-y);
-   q=min(q,x+y);
+   p=max(p,x+y);
+   q=max(q,x-y);
 }
 lli t,a,b;
-t=query(1e9,'R');
-t=query(1e9,'R');
-t=query(1e9,'D');
-t=query(1e9,'D');
-a=t;
-t=query(1e9,'L');
-t=query(1e9,'L');
-t=query(1e9,'D');
-t=query(1e9,'D');
-b=t;
-x=a+p; //i-j
-y=q-b-4*(1e9);  //i+j
-lli xx=(x+y)/2;
-lli yy=y-xx;
-cout<<"! "<<xx<<' '<<yy<<'\n';
+t=query(k,'R');
+t=query(k,'R');
+t=query(k,'U');
+t=query(k,'U');
+a=t+p-4*k;
+t=query(k,'D');
+t=query(k,'D');
+t=query(k,'D');
+t=query(k,'D');
+
+b=t+q-4*k;
+x=(a+b)/2;
+y=(a-b)/2;
+
+cout<<"! "<<x<<' '<<y<<'\n';
 cout.flush();
 }
 

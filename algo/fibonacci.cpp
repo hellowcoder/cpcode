@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-28 20:28
+//Date: 2025-09-03 15:19
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,40 +38,56 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-void solve(){
-lli n,k;cin>>n;
-get(v,n);
-vvll pos(n+1);
-fr(i,n){
-  pos[v[i]].psb(i);
-}
-
-vll dp(n+1,0);
-vll rem(n+1);
-frs(i,1,n){
-    rem[i]=pos[i].size();
-}
-rfr(i,n-1,0){
-
-   dp[i]=dp[i+1];
-
-    lli check=v[i];
-    rem[check]--;
-    lli maxi=rem[check];
-    
-    if((maxi+check-1)< pos[check].size()){
-        lli ind=pos[check][maxi+check-1];
-        dp[i]=max(dp[i],check+dp[ind+1]);
+struct matrix {
+    lli mat[2][2];
+    matrix friend operator *(const matrix &a, const matrix &b){
+        matrix c;
+        for (int i = 0; i < 2; i++) {
+          for (int j = 0; j < 2; j++) {
+              c.mat[i][j] = 0;
+              for (int k = 0; k < 2; k++) {
+                  c.mat[i][j] += ((a.mat[i][k]%MOD) * (b.mat[k][j]%MOD)%MOD);
+              }
+          }
+        }
+        return c;
     }
-   
+};
+
+matrix matpow(matrix base, lli n) {
+    matrix ans{ {
+      {1, 0},
+      {0, 1}
+    } };
+    while (n) {
+        if(n&1)
+            ans = ans*base;
+        base = base*base;
+        n >>= 1;
+        n%=MOD;
+    }
+    return ans;
 }
-cout<<dp[0]<<'\n';
+
+lli fib(int n) {
+    matrix base{ {
+      {1, 1},
+      {1, 0}
+    } };
+    return matpow(base, n).mat[0][1];
+}
+
+void solve(){
+//fr(i,100)cout<<fib(i)<<' ';
+lli n;
+cin>>n;
+cout<<fib(n)<<'\n';
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

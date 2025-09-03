@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-28 20:28
+//Date: 2025-09-03 00:32
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,38 +40,31 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
 void solve(){
 lli n,k;cin>>n;
-get(v,n);
-vvll pos(n+1);
-fr(i,n){
-  pos[v[i]].psb(i);
+vll v;
+lli prod=1;
+frs(i,1,n-1){
+  if(__gcd(i,n)==1){
+    v.psb(i);
+    prod*=i;
+    prod%=n;
+  }
 }
-
-vll dp(n+1,0);
-vll rem(n+1);
-frs(i,1,n){
-    rem[i]=pos[i].size();
-}
-rfr(i,n-1,0){
-
-   dp[i]=dp[i+1];
-
-    lli check=v[i];
-    rem[check]--;
-    lli maxi=rem[check];
-    
-    if((maxi+check-1)< pos[check].size()){
-        lli ind=pos[check][maxi+check-1];
-        dp[i]=max(dp[i],check+dp[ind+1]);
+//out(v);
+if(prod==1){
+    cout<<v.size()<<'\n';
+    out(v);
+}else {cout<<v.size()-1<<'\n';
+    fr(i,v.size()){
+        if(v[i]==prod)continue;
+        else cout<<v[i]<<' ';
     }
-   
-}
-cout<<dp[0]<<'\n';
+}  
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

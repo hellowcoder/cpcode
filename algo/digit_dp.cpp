@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-28 20:28
+//Date: 2025-09-02 00:15
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,34 +38,44 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-void solve(){
-lli n,k;cin>>n;
-get(v,n);
-vvll pos(n+1);
-fr(i,n){
-  pos[v[i]].psb(i);
-}
-
-vll dp(n+1,0);
-vll rem(n+1);
-frs(i,1,n){
-    rem[i]=pos[i].size();
-}
-rfr(i,n-1,0){
-
-   dp[i]=dp[i+1];
-
-    lli check=v[i];
-    rem[check]--;
-    lli maxi=rem[check];
-    
-    if((maxi+check-1)< pos[check].size()){
-        lli ind=pos[check][maxi+check-1];
-        dp[i]=max(dp[i],check+dp[ind+1]);
+lli dpp(lli n,lli x){  //number of all number upto n digit having digit sum = x;
+    if(n==0){
+        if(x==0)return 1;
+        return 0;
     }
-   
+    lli c=0;
+    fr(i,10){
+        if(i<=x){
+            c+=dpp(n-1,x-i);
+        }
+    }
+    return c;
 }
-cout<<dp[0]<<'\n';
+
+//number of all number upto k having digit sum = x;
+
+lli dppp(string maxi,lli n,lli x,bool tight){ 
+    if(n==0){
+        if(x==0)return 1;
+        return 0;
+    }
+    lli ub=tight ? (maxi[maxi.size()-n]-'0'):9;
+    lli c=0;
+    fr(i,ub+1){
+        if(i<=x){
+            c+=dppp(maxi,n-1,x-i,tight);
+        }
+    }
+    return c;
+}
+
+
+
+void solve(){
+lli k;
+string n;cin>>n>>k;
+cout<<dppp(n,n.size(),k,1)<<'\n';
+
 }
 
 int32_t main(){

@@ -1,9 +1,6 @@
-//Author: sandeep172918
-//Date: 2025-08-28 20:28
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -34,44 +31,34 @@
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
-using namespace __gnu_pbds;
-template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
-get(v,n);
-vvll pos(n+1);
+string s;cin>>s;
+lli n=s.size();
+lli a=0,b=0;
 fr(i,n){
-  pos[v[i]].psb(i);
-}
-
-vll dp(n+1,0);
-vll rem(n+1);
-frs(i,1,n){
-    rem[i]=pos[i].size();
-}
-rfr(i,n-1,0){
-
-   dp[i]=dp[i+1];
-
-    lli check=v[i];
-    rem[check]--;
-    lli maxi=rem[check];
-    
-    if((maxi+check-1)< pos[check].size()){
-        lli ind=pos[check][maxi+check-1];
-        dp[i]=max(dp[i],check+dp[ind+1]);
+    if(s[i]=='A'){
+        a+=s[i+1]-'0';
+    }else if(s[i]=='B'){
+        b+=s[i+1]-'0';
+    }
+    if(a>=11 && (a-b)>=2){
+        cout<<"A\n";
+        return;
+    }
+    if(b>=11 && (b-a)>=2){
+        cout<<"B\n";
+        return;
     }
    
 }
-cout<<dp[0]<<'\n';
 }
+
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

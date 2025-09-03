@@ -1,80 +1,54 @@
+//Author: sandeep172918
+//Date: 2025-09-03 10:59
+
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 #define lli long long int
-#define fr(i,n) for(lli i=0;i<(n);i++)
-#define frs(i,s,n) for(lli i=s;i<(n);i++)
-#define fr1(i,n) for(lli i=1;i<=(n);i++)
-#define uint unsigned long long int
+#define fr(i,n) for(lli i=0;i<n;i++)
+#define frs(i,a,b) for(lli i=a;i<=b;i++)
+#define rfr(i,b,a) for(lli i=b;i>=a;i--)
 #define srt(v) sort(v.begin(),v.end())
 #define rsrt(v) sort(v.rbegin(),v.rend())
-#define vec(v,n) vector<lli>v(n)
-#define vec2(v,n) vector<vector<lli>>v(n)
-#define take(lli,x) lli x;cin>>x
-#define get(v,n) vec(v,n);fr(i,n)cin>>v[i]
+#define pr pair<lli,lli>
+#define vll vector<lli>
+#define vbl vector<bool>
+#define vpr vector<pr>
+#define vvll vector<vector<lli>>
+#define get(v,n) vll v(n);fr(i,n)cin>>v[i]
+#define ff first
+#define ss second
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
-#define vin(a) for(auto &i:a) cin>>i
 #define psb(a) push_back(a)
 #define ppb pop_back()
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
-#define sz(v) (lli)(v.size())
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<
-#define no cout<<
-#define ff first
-#define ss second
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
+#define no1 cout<<"-1\n"
+#define nl cout<<"\n"
+#define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
+#define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
-
-vector<lli>spf(1e6+7),divisor(1e6+7,1);
-
-void print(){
-    fr(i,1e6+1+7){
-      spf[i]=i;
-    }
-    for(lli i=2;i*i<=1e6+7;i++){
-        if(spf[i]==i){
-            for(lli j=i*i;j<=1e6+7;j+=i){
-                if(spf[j]==j){
-                    spf[j]=i;
-                }
-            }
-        }
-    }
-} 
-
-void divi(){
-   
-    fr1(i,1e6+7){
-         lli ans=1,count=1;
-        lli k=i;
-      while(k-1){
-          lli s=spf[k];
-          count=0;
-          while(k%s==0){
-              count++;
-              k/=s;
-          }
-          ans*=count;
-      }
-      divisor[i]=ans;
-    }
+using namespace __gnu_pbds;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+ 
+void solve(){
+lli n;cin>>n;
+lli ans=0;
+frs(i,1,n)ans+=(n/i)*i;
+cout<<ans<<'\n';
 }
 
-void solve(){    
-   lli x;cin>>x;
-   cout<<divisor[x]<<'\n';
-
-}
-
-
-
-int main(){
+int32_t main(){
 fastio;
-print();
-divi();
-lli tt;cin>>tt;
+lli tt=1;
+//cin>>tt;
 while(tt--){
 solve();
 }

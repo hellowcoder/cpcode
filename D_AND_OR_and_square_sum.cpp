@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-28 20:28
+//Date: 2025-08-30 15:17
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,39 +39,37 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
-get(v,n);
-vvll pos(n+1);
+lli n,k;cin>>n;get(v,n);
+lli maxi=max_element(all(v))-v.begin();
+k=v[maxi];
+lli ind=-1;
+lli curr=k;
+//cout<<k<<'\n';
 fr(i,n){
-  pos[v[i]].psb(i);
-}
-
-vll dp(n+1,0);
-vll rem(n+1);
-frs(i,1,n){
-    rem[i]=pos[i].size();
-}
-rfr(i,n-1,0){
-
-   dp[i]=dp[i+1];
-
-    lli check=v[i];
-    rem[check]--;
-    lli maxi=rem[check];
-    
-    if((maxi+check-1)< pos[check].size()){
-        lli ind=pos[check][maxi+check-1];
-        dp[i]=max(dp[i],check+dp[ind+1]);
+  //  cout<<(v[i]|k)<<' ';
+    if((v[i]|k) >=curr){
+        ind=i;
+        curr=v[i]|k;
     }
-   
+}//cout<<'\n';
+//cout<<curr<<'\n';
+lli mini=k&v[ind];
+v[ind]=mini;
+v[maxi]=curr;
+fr(i,n){
+    if(i==maxi || i==ind)continue;
+    if(v[i]&curr > curr)v[i]=v[i]&curr;
 }
-cout<<dp[0]<<'\n';
+//out(v);
+lli sum=0;
+fr(i,n)sum+=v[i]*v[i];
+cout<<sum<<'\n';
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

@@ -55,6 +55,7 @@ while(v.size()>1){
          k++;
         if(a.val<b.val){
            a.def.push_back(b.val);
+           
            nxt_rnd.push_back(a);
         }else{
            b.def.push_back(a.val);

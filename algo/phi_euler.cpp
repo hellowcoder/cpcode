@@ -59,8 +59,8 @@ void phi_q(){    //same idea like sum of divisor......;
 }
 
 void solve(){
-fr(i,10)cout<<phi[i];
-cout<<phi_c(9);
+lli n;cin>>n;
+cout<<phi[n]<<'\n';
 }
 
 int32_t main(){

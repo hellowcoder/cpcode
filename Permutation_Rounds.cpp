@@ -1,11 +1,11 @@
 //Author: sandeep172918
-//Date: 2025-08-28 20:28
+//Date: 2025-09-03 09:56
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 #define lli long long int
-#define fr(i,n) for(lli i=0;i<n;i++)
+#define fr(i,n) for(lli i=1;i<=n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
 #define rfr(i,b,a) for(lli i=b;i>=a;i--)
 #define srt(v) sort(v.begin(),v.end())
@@ -40,38 +40,46 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
 void solve(){
 lli n,k;cin>>n;
-get(v,n);
-vvll pos(n+1);
+vll v(n+1);
+lli ind=-1;
+vll pos(n+1);
+vll rot(n+1);
 fr(i,n){
-  pos[v[i]].psb(i);
+    cin>>v[i];
+    pos[v[i]]=i;
 }
-
-vll dp(n+1,0);
-vll rem(n+1);
-frs(i,1,n){
-    rem[i]=pos[i].size();
+lli gc=0;
+fr(i,n){
+lli check=v[i];
+ind=pos[i];
+lli curr=1;
+while(check != ind){
+  check=v[check];
+  curr++;
 }
-rfr(i,n-1,0){
-
-   dp[i]=dp[i+1];
-
-    lli check=v[i];
-    rem[check]--;
-    lli maxi=rem[check];
-    
-    if((maxi+check-1)< pos[check].size()){
-        lli ind=pos[check][maxi+check-1];
-        dp[i]=max(dp[i],check+dp[ind+1]);
-    }
+ rot[i]=curr+1;
+ gc=__gcd(gc,rot[i]);
+}
+lli ans=1;
+map<lli,lli>m;
+bool bol=true;
+fr(i,n)m[rot[i]]++;
+for(auto &it:m){
    
+    ans*=it.ff;
+    if(bol){
+        ans/=gc;
+        bol=false;
+    }
+    ans%=MOD;
 }
-cout<<dp[0]<<'\n';
+cout<<ans;
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

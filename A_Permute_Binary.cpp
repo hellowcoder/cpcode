@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-28 20:28
+//Date: 2025-08-31 10:29
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,33 +39,26 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
-get(v,n);
-vvll pos(n+1);
-fr(i,n){
-  pos[v[i]].psb(i);
-}
+lli n,k;
+string s;cin>>s;cin>>k;
 
-vll dp(n+1,0);
-vll rem(n+1);
-frs(i,1,n){
-    rem[i]=pos[i].size();
+n=s.size();
+lli z=count(all(s),'0');
+lli on=n-z;
+lli maxi=0;
+lli ans=0;
+string ss="";
+fr(i,on)ss+='1';
+fr(i,z)ss+='0';
+maxi=stoi(ss,0,2);
+// cout<<maxi<<' ';
+for(lli i=k;i<=maxi;i+=k){
+    lli onn=__builtin_popcount(i);
+    lli nn=(lli)log2(i)+1;
+    lli zz=nn-onn;
+    if(onn==on  && zz<=z)ans++;
 }
-rfr(i,n-1,0){
-
-   dp[i]=dp[i+1];
-
-    lli check=v[i];
-    rem[check]--;
-    lli maxi=rem[check];
-    
-    if((maxi+check-1)< pos[check].size()){
-        lli ind=pos[check][maxi+check-1];
-        dp[i]=max(dp[i],check+dp[ind+1]);
-    }
-   
-}
-cout<<dp[0]<<'\n';
+cout<<ans<<'\n';
 }
 
 int32_t main(){

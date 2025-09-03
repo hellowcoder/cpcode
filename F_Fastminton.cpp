@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-28 20:28
+//Date: 2025-08-31 14:31
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,40 +38,80 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-void solve(){
-lli n,k;cin>>n;
-get(v,n);
-vvll pos(n+1);
-fr(i,n){
-  pos[v[i]].psb(i);
-}
 
-vll dp(n+1,0);
-vll rem(n+1);
-frs(i,1,n){
-    rem[i]=pos[i].size();
-}
-rfr(i,n-1,0){
-
-   dp[i]=dp[i+1];
-
-    lli check=v[i];
-    rem[check]--;
-    lli maxi=rem[check];
-    
-    if((maxi+check-1)< pos[check].size()){
-        lli ind=pos[check][maxi+check-1];
-        dp[i]=max(dp[i],check+dp[ind+1]);
+void ingame(lli rr,lli ss,lli rrr,lli sss,char c){
+    if(c=='S'){
+         cout<<rrr<<" ("<<rr<<") - "<<sss<<" ("<<ss<<"*)\n";
+    }else{
+         cout<<rrr<<" ("<<rr<<"*) - "<<sss<<" ("<<ss<<")\n";
+        
     }
+}
+
+void solve(){
+lli ss=0,rr=0;
+lli sss=0,rrr=0;
+string s;cin>>s;
+lli n=s.size();
+bool bol=false;
+bool win=false;
+fr(i,n){
+   if(s[i]=='Q'){
+     
+        if(win){
+          if(sss>rrr){
+            cout<<sss<<" (winner) - "<<rrr<<"\n";
+          }else{
+            cout<<sss<<" - "<<rrr<<" (winner)\n";
+          }
+        }else{
+           ingame(ss,rr,sss,rrr,s[i-1]);
+           
+        }
+         continue;
+    }
+    if(win)continue;
+    
+    if(bol){
+        if(s[i]=='S'){
+            rr++;
+            
+        }
+        if(s[i]=='R'){
+          ss++;
+          //bol=!bol;
+        }
+    }
+    else{
+      if(s[i]=='S')ss++;
+      if(s[i]=='R'){
+        rr++;
+       // bol=!bol;
+      }
+    }  
+
+    if(ss==10)ss=0,rr=0,sss++;
+     else if(rr==10)rr=0,ss=0,rrr++;
+        else{
+            if((ss-rr)>=2  && ss>=5){
+                sss++;
+                ss=0;rr=0;
+            }else if(rr>=5 && (rr-ss)>=2){
+                rrr++;
+                rr=0;ss=0;
+            }
+        }
+
+     if(rrr>=2 || sss>=2)win=true;   
+     if(s[i]=='R') bol=!bol;  
    
 }
-cout<<dp[0]<<'\n';
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

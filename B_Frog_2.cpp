@@ -59,7 +59,7 @@ fr(i,n){
     }
 }
 cout<<dp[n-1]<<'\n';
-cout<<frog(n-1,k,v);
+//cout<<frog(n-1,k,v);
 }
 
 int32_t main(){

@@ -29,12 +29,12 @@ class derived : public base{
    void called  () override {
     cout<<"called\n";
    }
-   void bye() override {
-     cout<<"bye\n";
+  //  void bye() override {
+  //    cout<<"bye\n";
+  //  }
+   void print(){
+    cout<<"Hi World\n";
    }
-//    void print(){
-//     cout<<"Hi World\n";
-//    }
 };
 
 class derived2 : public base{

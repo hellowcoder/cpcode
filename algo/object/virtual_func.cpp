@@ -29,10 +29,10 @@ class derived : public base{
    void called  () override {
     cout<<"called\n";
    }
-  //  void bye() override {
-  //    cout<<"bye\n";
-  //  }
-   void print(){
+   void bye() override {  //if i want to print megatron i have to comment it out.
+     cout<<"bye\n";
+   }
+   void print(){  //it will override
     cout<<"Hi World\n";
    }
 };

@@ -38,25 +38,14 @@ public:
 };
 
 int main() {
-    // ptr is a pointer to an integer member of class X.
-    // It's initialized to point to member 'a'.
-    int X::*ptr = &X::a;
-
-    // fptr is a pointer to a member function of class X that takes an int
-    // and returns void. It's initialized to point to the 'print' function.
-    void (X::*fptr)(int) = &X::print;
-
-    // Create an object of class X
-    X Object;
-
-    // Use the pointer-to-member operator (.*) to assign a value to 'a'
-    // for the 'Object' instance.
-    Object.*ptr = 10;
-    cout << "a = " << Object.*ptr << endl;
-
-    // Use the pointer-to-member operator (.*) to call the 'print' function
-    // on the 'Object' instance with the argument 20.
-    (Object.*fptr)(20);
-
-    return 0;
+   X x;
+   int (X::*ptr);
+   ptr=&X::a;
+   void (X::*fptr)(int);
+   fptr=&X::print;
+   x.*ptr=2;
+   (x.*fptr)(10);
+   
 }
+
+

@@ -1,6 +1,10 @@
 //Author: sandeep172918
 //Date: 2025-08-05 18:56
 
+//virtual function must be non static
+// cant be friend
+// constructor function cant be virtual ,constatnt,sttaic
+
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>

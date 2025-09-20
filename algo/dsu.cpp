@@ -1,4 +1,4 @@
-
+  
 
 #include <bits/stdc++.h>
 
@@ -65,7 +65,7 @@ public:
         if (u == v)
             return false;
         if (sz[u] <= sz[v])
-        {
+        { 
             sz[v] += sz[u];
             par[u] = v;
         }

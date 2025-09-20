@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-20 21:42
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,9 +40,55 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
 void solve(){
 lli n,k;cin>>n;
-get(x,n);
-get(v,n);
+string s;
+cin>>s;
+vll zind;
+fr(i,n){
+    if(s[i]=='0')zind.push_back(i);
+}
+k=zind.size();
+if(!k){
+    yes;
+    return;
+}
+vll l(n,0);
+vll r(n,0);
+for(lli &ind:zind){
+    if(ind==0 || s[ind-1]=='0' || (ind>=2 && s[ind-1]=='1'  && s[ind-2]=='0'))l[ind]=1;
+    if(ind==(n-1) || s[ind+1]=='0' || (ind+2<n && s[ind+1]=='1'  && s[ind+2]=='0'))r[ind]=1;
 
+}
+lli i=0;
+out(l); //
+out(r); //
+while(i<k){
+ lli j=i;
+ while(((j+1)<k) && zind[j+1]==(zind[j]+2)  &&  s[zind[j]+1]=='1')j++;  //only one gap allowed
+ cout<<i<<' '<<j<<'\n'; //
+ lli check=zind[i];
+ lli curr=0;
+ if(l[check])curr=1;
+ else if(r[check])curr=2;
+ else if(l[check] && r[check])curr=3;
+ if(!curr){
+    no;return;
+ }
+ frs(x,i+1,j){
+   lli ii=zind[x];
+   lli next=0;
+   if((curr==1 || curr==3) && r[ii])next=2;
+   if((curr==2 || curr==3) && l[ii])next=1;
+   if(curr==3 && r[ii]  &&  l[ii])next=3;
+
+   curr=next;
+   if(!curr){
+    no;
+    return;
+   }
+ }
+ i=j+1;
+}
+yes;
 }
 
 int32_t main(){

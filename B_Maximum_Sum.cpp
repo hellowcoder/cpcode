@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-04 23:44
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,10 +39,18 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
-get(x,n);
+lli n,k;cin>>n>>k;
 get(v,n);
+srt(v);
 
+vll pref(n+1,0);
+
+lli ans=0;
+frs(i,1,n)pref[i]=v[i-1]+pref[i-1];
+fr(i,k+1){
+    ans=max(ans,pref[n-(k-i)]-pref[2*i]);
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){

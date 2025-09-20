@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-20 19:05
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,10 +39,13 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
-get(x,n);
+lli n,k;cin>>n>>k;
 get(v,n);
-
+if(k>=2)yes;
+else{
+    if(is_sorted(all(v)))yes;
+    else no;
+}
 }
 
 int32_t main(){

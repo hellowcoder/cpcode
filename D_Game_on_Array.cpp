@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-20 21:16
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -31,7 +31,7 @@
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
-#define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
+#define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff!= b.ff)return a.ff>b.ff; return a.ss>b.ss;});
 using namespace std;
 const int MOD=1e9+7;
 using namespace __gnu_pbds;
@@ -40,9 +40,33 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
 void solve(){
 lli n,k;cin>>n;
-get(x,n);
 get(v,n);
+map<lli,lli>m;
+fr(i,n)m[v[i]]++;
+vpr p;
+for(auto &it:m){
+    p.push_back({it.ss,it.ff});
 
+}
+srtp(p);
+lli a=0,b=0;
+lli turn=0;
+// for(auto &it:p){
+//     cout<<it.ff<<' '<<it.ss<<'\n';
+// }
+for(auto &it:p){
+ lli freq=it.ff;
+ lli check=it.ss;
+ lli aa=0;
+ if(turn==0)aa=(check+1)/2;
+ else aa=check/2;
+ lli bb=check-aa;
+ a+=aa*freq;
+ b+=bb*freq;
+ if(check&1)
+ turn=1-turn;
+}
+cout<<a<<' '<<b<<'\n';
 }
 
 int32_t main(){

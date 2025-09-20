@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-07 14:03
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,16 +39,57 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
-get(x,n);
-get(v,n);
+lli n,k;cin>>n>>k;
+map<lli,lli>pref;
+set<pair<lli,lli>>st;
+fr(i,n){
+    pref[i]=0;
+    st.insert({0,i});
+}
+vll v(n);
+lli x;
+fr(i,k){
+    cin>>x;
+    lli ind;
+ 
+    fr(i,x){
+        cin>>ind;
+        ind--;
+        lli check=pref[ind];
+        st.erase(st.find({check,ind}));
+        st.insert({check-1,ind});
+        pref[ind]--;
 
+    }
+    lli rank=1,curr=1;;
+    pr it=*st.begin();
+    v[it.ss]+=rank;
+    for(auto it=st.begin();it!=st.end();it++){
+         if(it==st.begin())continue;
+         auto pre=prev(it);
+       
+         if((*it).ss != (*pre).ss){
+            rank=curr;
+            v[(*it).ss]+=rank;
+         }else{
+             v[(*it).ss]+=rank;
+         }
+         curr++;
+        
+    }
+
+}
+for(lli &it:v){
+  double ans=it;
+  ans/=(double)k;
+  cout<<fixed<<setprecision(6)<<ans<<'\n';
+}
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

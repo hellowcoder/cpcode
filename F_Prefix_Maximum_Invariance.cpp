@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-07 21:43
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,11 +38,47 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
+class FenwickTree{
+private:
+    vector<lli>bit;
+    lli n;
+
+public:
+    FenwickTree(lli size){
+        n=size+1;
+        bit.assign(n,0);
+    }
+
+    void update(lli i,lli val){
+        for(;i<n;i+=(i& -i))
+           // bit[i]+=val;
+           bit[i]=max(bit[i],val);
+    } 
+
+    lli query(lli i){
+        lli sum=0;
+        for (;i>0;i-=(i& -i))
+            sum=max(sum,bit[i]);
+            //sum+=bit[i];
+        return sum;
+    }
+
+};
+
+lli rev(lli x,lli maxi){
+    return maxi-x+1;
+}
 void solve(){
 lli n,k;cin>>n;
-get(x,n);
-get(v,n);
-
+get(a,n);
+get(b,n);
+lli maxi=2*n;
+FenwickTree ft(maxi);
+lli ans=0;
+fr(i,n){
+ 
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){

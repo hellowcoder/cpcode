@@ -1,4 +1,6 @@
-//Author: sandeep172918 //Date: 2025-09-03 20:54
+//Author: sandeep172918
+//Date: 2025-09-03 21:18
+
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -35,92 +37,50 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
-struct SegTree {
-    lli n;
-    vector<lli> st;
-    
-    SegTree(vector<lli> &v) {
-        n = v.size();
-        st.assign(4*n, 0);
-        build(1,0,n-1,v);
-    }
-    
-    void build(lli p, lli l, lli r, vector<lli> &v) {
-        if(l==r){
-            st[p]=v[l];
-            return;
-        }
-        lli mid=(l+r)/2;
-        build(p*2,l,mid,v);
-        build(p*2+1,mid+1,r,v);
-        
-        // Calculate the level of this segment in the tree
-        // Level 0 = leaves, Level 1 = parents of leaves, etc.
-        lli len = r - l + 1;
-        lli level = 0;
-        lli temp = n;
-        while(temp > len) {
-            temp = (temp + 1) / 2;
-            level++;
-        }
-        
-        // Level 0 (leaves): no operation needed
-        // Level 1: max operation (combines adjacent elements with max)
-        // Level 2: min operation  
-        // Level 3: max operation, etc.
-        if(level % 2 == 1)
-            st[p] = max(st[p*2], st[p*2+1]);
-        else
-            st[p] = min(st[p*2], st[p*2+1]);
-    }
-    
-    void update(lli p, lli l, lli r, lli idx, lli val){
-        if(l==r){
-            st[p]=val;
-            return;
-        }
-        lli mid=(l+r)/2;
-        if(idx<=mid) update(p*2,l,mid,idx,val);
-        else update(p*2+1,mid+1,r,idx,val);
-        
-        // Same level calculation as in build
-        lli len = r - l + 1;
-        lli level = 0;
-        lli temp = n;
-        while(temp > len) {
-            temp = (temp + 1) / 2;
-            level++;
-        }
-        
-        if(level % 2 == 1)
-            st[p] = max(st[p*2], st[p*2+1]);
-        else
-            st[p] = min(st[p*2], st[p*2+1]);
-    }
-    
-    lli query_root(){ return st[1]; }
-};
-
+ 
 void solve(){
-    lli n,k;cin>>n>>k;
-    get(v,n);
-    SegTree sg(v);
-    cout<<sg.query_root()<<' ';
-    fr(i,k){
-        lli a,b;cin>>a>>b;
-        a--;
-        sg.update(1,0,n-1,a,b);
-        cout<<sg.query_root()<<' '; 
+lli n,k;cin>>n>>k;
+get(v,n);
+
+vll ans(n);
+ans[0]=v[0];
+ans[1]=max(v[0],v[1]);
+lli temp=ans[1];
+frs(i,2,n-1){
+    if(i&1){
+         temp=max(temp,v[i]);
+    }else{
+        temp=min(temp,v[i]);
     }
-    cout<<'\n';
+    ans[i]=temp;
+}
+cout<<ans[n-1]<<' ';
+
+while(k--){
+    lli i,val;
+    cin>>i>>val;
+    i--;
+    v[i]=val;
+    temp= (i)==0?1e18:ans[i-1];
+    frs(j,i,n-1){
+       if(j&1){
+         temp=max(temp,v[j]);
+       }else{
+        temp=min(temp,v[j]);
+       }
+       if(temp==ans[j])break;
+       ans[j]=temp;
+    }
+    cout<<ans[n-1]<<' ';
+}
+cout<<'\n';
 }
 
 int32_t main(){
-    fastio;
-    lli tt=1;
-    cin>>tt;
-    while(tt--){
-        solve();
-    }
+fastio;
+lli tt=1;
+cin>>tt;
+while(tt--){
+solve();
+}
 }

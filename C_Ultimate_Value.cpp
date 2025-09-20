@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-11 00:33
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,8 +40,32 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
 void solve(){
 lli n,k;cin>>n;
-get(x,n);
 get(v,n);
+multiset<pr>ev,od;
+lli e=0,o=0;
+lli check=v[0];
+check=count(all(v),check);
+fr(i,n){
+    if(i&1)od.insert({v[i],i}),o+=v[i];
+    else ev.insert({v[i],i}),e+=v[i];
+}
+pr ev_max=*ev.rbegin();
+pr ev_min=*ev.begin();
+pr od_max=*od.rbegin();
+pr od_min=*od.begin();
+lli ans=e-o;
+//cout<<od_max.ff<<'\n';
+if(check==n){
+  ans+=(n-1);
+}
+else if(ev_min.ff >= od_max.ff){
+   ans=max(ans,ans+(n-1-((n%2)==0)));
+   
+}else{
+    ans=max(ans,ans+(2*od_max.ff-2*ev_min.ff)+(abs(od_max.ss-ev_min.ss)));
+}
+
+cout<<ans<<'\n';
 
 }
 

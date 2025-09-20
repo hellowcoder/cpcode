@@ -3,6 +3,7 @@
 # Ignore test files
 test.cpp
 test/
+test
 
 # Ignore compiled files
 *.o

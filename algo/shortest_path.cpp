@@ -70,7 +70,7 @@ while(!pq.empty()){
 }
 
 }
-//printing path soutce will be 0 and destination will be last one
+//printing path --- soutce will be 0 and destination will be last one
 vector<lli> dijkstra_pq_print(vector<vector<pr>>&adj,lli src,vector<lli>&dist){  // adj[i]={{node,weight}}  dist=inf all       
 dist[src]=0;
 priority_queue<pr,vector<pr>,greater<pr>>pq;  //template for storing smallest at top

@@ -32,10 +32,10 @@ const int MOD=1e9+7;
 
 //binary search lagale bete
 void solve(){
-lli x,a,b;cin>>x>>a>>b;if(x==1){
-yes;return;
-}
-if(x-a-b>=2)yes;
+lli x,a,b;cin>>x>>a>>b;
+
+if(x==a && a==b)yes;
+else if((x-2)>=(a+b))yes;
 else no;
 }
 

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-07 20:11
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,9 +40,12 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
 void solve(){
 lli n,k;cin>>n;
-get(x,n);
 get(v,n);
-
+lli check=1+n;
+fr(i,n){
+    cout<<check-v[i]<<' ';
+}
+cout<<'\n';
 }
 
 int32_t main(){

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-05 00:30
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,11 +37,25 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
- 
+ lli mod_pow(lli a, lli e, lli m=MOD){
+         lli r = 1 % m;
+         a %= m;
+         while(e){
+             if(e & 1) r = (__int128)r * a % m;
+             a = (__int128)a * a % m;
+             e >>= 1;
+         }
+         return r;
+     }
 void solve(){
-lli n,k;cin>>n;
-get(x,n);
-get(v,n);
+lli l,r,k;cin>>l>>r>>k;
+if(k>=10){
+    cout<<"0\n";
+    return;
+}
+lli check=9/k+1;
+lli ans=(mod_pow(check,r)-mod_pow(check,l)+MOD)%MOD;
+cout<<ans<<'\n';
 
 }
 

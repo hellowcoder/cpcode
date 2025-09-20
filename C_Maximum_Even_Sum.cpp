@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-07 20:15
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,9 +39,28 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
-get(x,n);
-get(v,n);
+lli n,k;cin>>n>>k;
+//get(v,n);
+if((n&1) == (k&1)){
+    if(n&1)
+      cout<<n*k+1<<'\n';
+    else{
+        lli check=k/2;
+        cout<<k/check+n*check<<'\n';
+    }
+    return;
+}
+if(k&1){
+    no1;
+    return;
+}
+if((k%4)==0){
+    lli check=k/2;
+    cout<<n*check+k/check<<'\n';
+}
+else{
+    no1;
+}
 
 }
 

@@ -29,23 +29,38 @@
 #include <iostream>
 using namespace std;
 
-class X {
-public:
+class test {
     int a;
-    void print(int b) {
-        cout << "b = " << b << endl;
-    }
+  public:
+   void set_a(int x){
+     a=x;
+   }
+   int get_a(){
+    return a;
+   }
 };
 
+class derv:public test{
+  int b;
+  public:
+   void set_b(int x){
+     b=x;
+   }
+   int get_b(){
+    return b;
+   }
+};
+
+
+
 int main() {
-   X x;
-   int (X::*ptr);
-   ptr=&X::a;
-   void (X::*fptr)(int);
-   fptr=&X::print;
-   x.*ptr=2;
-   (x.*fptr)(10);
-   
+   test tt,*p;
+   derv d,*dd;
+   p=&d;
+   dd=&d;
+  
+   ((derv *)p)->set_b(571823);
+   cout<<((derv *)p)->get_b()<<'\n';
 }
 
 

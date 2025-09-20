@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-20 20:15
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,8 +40,28 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
 void solve(){
 lli n,k;cin>>n;
-get(x,n);
-get(v,n);
+
+vll used(2*n+1,0);
+vll ans(2*n+1);
+lli r=2*n;
+rfr(i,n,1){
+ while(r && used[r])r--;
+ lli curr=r;
+ lli d=i;
+ while(true){
+    lli l=curr-d;
+    if(l && !used[l]){
+        ans[l]=i;
+        ans[r]=i;
+        used[l]=1;
+        used[r]=1;
+        break;
+    }
+    d+=i;
+ }
+}
+frs(i,1,2*n)cout<<ans[i]<<' ';
+cout<<'\n';
 
 }
 

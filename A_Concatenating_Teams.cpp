@@ -41,7 +41,9 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 void solve(){
 lli n,k;cin>>n>>k;
-//get(v,n);
+vector<string>a(n),b(k);
+fr(i,n)cin>>a[i];
+fr(i,k)cin>>b[i];
 
 }
 

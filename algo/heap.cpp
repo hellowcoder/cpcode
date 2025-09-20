@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-17 19:00
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,17 +38,80 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
+//priority queue is max_heap by default
+
+
+class maxheap{
+
+    private:
+     vector<lli>heap;
+
+     void heapify(lli ind){
+        lli n=heap.size();
+        lli maxi=ind;
+        lli left=2*ind+1;
+        lli right=2*ind+2;
+        
+        if(left<n && heap[left]>heap[maxi])maxi=left;
+        if(right<n && heap[right]>heap[maxi])maxi=right;
+
+        if(maxi != ind){
+            swap(heap[maxi],heap[ind]);
+            heapify(maxi);
+        }
+     }
+
+     void shift_up(lli ind){
+        while(ind>0){
+            int par=(ind-1)/2;
+             if(heap[par]<heap[ind]){
+                swap(heap[par],heap[ind]);
+                ind=par;
+             }else break;
+        }
+     }
+
+    public:
+      maxheap(vector<lli>v){
+        heap=v;
+        lli n=heap.size();
+
+        for(lli i=n/2-1;i>=0;i--){
+            heapify(i);
+        }
+      }
+
+      void insert(lli val){
+        heap.push_back(val);
+        shift_up((lli)heap.size()-1);
+      }
+
+      lli max_extract(){
+        if(!heap.size())return -1e17;
+        lli root=heap[0];
+        heap[0]=heap.back();
+        heap.pop_back();
+        if(heap.size())heapify(0);
+        return root;
+
+      }
+
+
+};
+
+
 void solve(){
 lli n,k;cin>>n;
-get(x,n);
 get(v,n);
-
+priority_queue<lli,vector<lli>,greater<lli>>pq;
+fr(i,n)pq.push(v[i]);
+cout<<pq.top();
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+//cin>>tt;
 while(tt--){
 solve();
 }

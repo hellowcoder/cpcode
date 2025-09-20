@@ -30,39 +30,81 @@
 using namespace std;
 const int MOD=1e9+7;
 
-int spanningTree(int n, vector<vector<pr>>&adj) {
-    // code here
-    int ans=0;
-    priority_queue<pr,vector<pr>,greater<pr>>pq;
+// int prim(int n, vector<vector<pr>>&adj) {
+//     // code here
+//     int ans=0;
+//     priority_queue<pr,vector<pr>,greater<pr>>pq;
    
-    vector<lli>vis(n);
-    pq.push({0,0});
+//     vector<lli>vis(n);
+//     pq.push({0,0});
+//     while(!pq.empty()){
+//         lli weight=pq.top().ff;
+//         lli node=pq.top().ss;
+//         pq.pop();
+//         if(vis[node])continue;
+//          vis[node]=1;
+//          ans+=weight;
+         
+//         for(auto &it:adj[node]){
+//             lli nodee=it.ff,w=it.ss;
+//             if(!vis[nodee]){
+//                 pq.push({w,nodee});
+//             }
+//         }
+//     }
+//     return ans;
+    
+// }
+
+vector<lli> prim(lli src,vector<vector<pr>>&adj){
+    lli n=adj.size();
+    vector<lli>key(n,1e18);
+    vector<lli>parent(n,-1);
+    vector<bool>vis(n,false);
+    priority_queue<pr,vector<pr>,greater<pr>>pq;
+    key[src]=0;
+   
+    pq.push({0,src});
     while(!pq.empty()){
-        lli weight=pq.top().ff;
         lli node=pq.top().ss;
         pq.pop();
-        if(vis[node])continue;
-         vis[node]=1;
-         ans+=weight;
-         
+      //  if(vis[node])continue;
+        vis[node]=true;
         for(auto &it:adj[node]){
-            lli nodee=it.ff,w=it.ss;
-            if(!vis[nodee]){
-                pq.push({w,nodee});
-            }
+            
+            lli w=it.ff;
+            lli child=it.ss;
+            if(!vis[child]  && w<key[child]){
+             key[child]=w;
+             parent[child]=node;
+             pq.push({key[child],child});
+           }
         }
     }
-    return ans;
-    
+    return parent;
 }
 
-void solve(){
 
+void solve(){
+lli n,m;
+cin>>n>>m;
+vector<vector<pr>>adj(n);
+fr(i,m){
+    lli w,u,v;
+    cin>>w>>u>>v;
+    u--;
+    v--;
+    adj[u].push_back({w,v});
+    adj[v].push_back({w,u});
+
+}
+vector<lli> par = prim(0,adj);
+fr(i,par.size())cout<<par[i]<<' ';
 }
 
 int32_t main(){
 fastio;
-lli tt;cin>>tt;
+lli tt=1;//cin>>tt;
 while(tt--){
 solve();
 }

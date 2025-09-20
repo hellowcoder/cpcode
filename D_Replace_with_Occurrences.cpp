@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-07 20:28
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -40,8 +40,35 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
  
 void solve(){
 lli n,k;cin>>n;
-get(x,n);
 get(v,n);
+map<lli,lli>m;
+fr(i,n){
+    m[v[i]]++;
+}
+vll ans(n);
+vvll pos(n+1);
+fr(i,n){
+    pos[v[i]].psb(i);
+}
+lli sum=0;
+for(auto &it:m){
+  if(it.ss%it.ff){
+    no1;
+    return;
+  }
+  //sum+=it.ss;
+}
+lli fill=1;
+frs(i,1,n){
+    lli check=pos[i].size();
+    for(lli j=0;j<check;j+=i){
+        fr(l,i){
+            ans[pos[i][j+l]]=fill;
+        }
+        fill++;
+    }
+}
+out(ans);
 
 }
 

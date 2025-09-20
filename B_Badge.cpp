@@ -33,6 +33,7 @@ vec2(adj,n);
 fr(i,n){
     
 }
+\
 }
 
 int main(){

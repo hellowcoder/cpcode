@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-08-30 18:59
+//Date: 2025-09-07 21:05
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,10 +39,62 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
-get(x,n);
+lli n,k;cin>>n>>k;
 get(v,n);
+lli mex=0,mex2=-1;
+vll fq(n+1,0);
+fr(i,n){
+    if(v[i]<=n)
+    fq[v[i]]++;
+}
+while(fq[mex])mex++;
+fr(i,mex){
+    if(fq[i]>=2){
+        mex2=i;
+        break;
+    }
+}
+if(k==1){
+     lli sum=0;
+     lli curr=0;
+     fr(i,mex){
+      if(fq[i]==1){
+        curr++;
+        sum+=i;
+      }
+     }
+     cout<<(n-curr)*mex+sum<<'\n';
 
+    return;
+}
+
+lli ans=0;
+if(mex2 != -1){
+
+    lli prev=mex2*(mex2-1)/2;
+    lli check=n-mex2;
+    
+      if(k&1){
+        ans=prev+check*(mex2+1);
+
+      }else{
+        ans=prev+check*mex2;
+      }
+  
+}else{
+  lli prev=mex*(mex-1)/2; //itne to ayenge hi ayenge
+  lli check=n-mex;
+    if(check==0)ans=prev;
+    else if(check==1)ans=prev+mex;
+    else{
+    if(k&1){
+        ans=prev+check*mex;
+    }else{
+        ans=prev+check*(mex+1);
+    }
+}
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){

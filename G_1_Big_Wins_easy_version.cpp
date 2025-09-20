@@ -40,13 +40,29 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 //max(a,b)=(a+b+abs(a-b))/2
 //binary search lagale bete
+
+lli check(lli ind,lli mid,vector<lli>&v){
+     lli low=ind-1,high=ind+1;
+}
+
 void solve(){
 lli n,k;cin>>n;
 get(v,n);
-ordered_set<lli>os;
-vector<lli>freq(101,0);
+
+vector<vector<lli>>freq(100+1);
 fr(i,n){
-    
+    freq[v[i]].psb(i);
+}
+lli low=0,high=100;
+while(low<=high){
+   lli mid=(low+high)/2;
+   if(freq[mid].size()){
+       lli ind=freq[mid].back();
+       freq[mid].pop_back();
+       if(check(ind,mid,v)){
+          
+    }
+   }
 }
 }
 

@@ -258,7 +258,7 @@ lli mm,nn,d;
 vector<vector<pr>> adj(n+1);
 fr(i,k){
   cin>>mm>>nn>>d;
-  adj[n].push_back({mm,d});
+  adj[nn].push_back({mm,d});
 }
 
 vll ans(n);

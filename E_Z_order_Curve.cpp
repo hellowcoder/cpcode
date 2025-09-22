@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-21 11:19
+//Date: 2025-09-21 14:54
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,58 +37,23 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-string s;
-const lli  N=2e5+1;
-lli n;
-lli dp[N][3][3];
-// 0 tree
-// 1  <--
-// 2 -->
-
-
-bool dpp(lli i,lli l,lli sl){
-    if(i==n){
-        if(sl==2  && l==0)return false;
-        return true;
-    }
-    if(dp[i][l][sl] != -1)return dp[i][l][sl];
-    lli ans=false;
-    if(s[i]=='1'){
-        if(sl==2 && l==0){  //-> 1 1
-         ans=false;
-         return dp[i][l][sl]=ans; 
-        }
-        ans|=dpp(i+1,0,l);
-        return dp[i][l][sl]=ans;
-    }
-    if(sl==2 && l==0){
-        ans|=dpp(i+1,1,l);
-        return dp[i][l][sl]=ans;
-    }
-    if(l==0){
-        ans|=dpp(i+1,2,l);
-    }
-    if(l==1 || l==2){
-        ans|=dpp(i+1,1,l);
-        ans|=dpp(i+1,2,l);
-    }
-    return dp[i][l][sl]=ans;
+ 
+string decToBinary(lli n) {
+    
+    int len = (int)(log2(n));
+  
+	// Store in bitset to get the binary representation, 
+  	// then convert it to string
+  	// and finally remove the prefix zeroes
+  	
+    return bitset<64>(n).to_string().substr(64 - len - 1);
 }
 
 void solve(){
-cin>>n;
-cin>>s;
-fr(i,n+1){
-  fr(j,3){
-    fr(k,3){
-        dp[i][j][k]=-1;
-    }
-  }
-}
-if(dpp(0,1,1))yes;  //1 1for if first block is tree {-> 0 _ }this need to be <-
-else no;
-
-
+lli l,r;cin>>l>>r;
+if(l)
+cout<<decToBinary(l)<<'\n';
+else cout<<"0\n";
 }
 
 int32_t main(){

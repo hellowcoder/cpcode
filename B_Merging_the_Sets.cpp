@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-21 11:19
+//Date: 2025-09-21 20:13
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,57 +37,45 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-string s;
-const lli  N=2e5+1;
-lli n;
-lli dp[N][3][3];
-// 0 tree
-// 1  <--
-// 2 -->
-
-
-bool dpp(lli i,lli l,lli sl){
-    if(i==n){
-        if(sl==2  && l==0)return false;
-        return true;
-    }
-    if(dp[i][l][sl] != -1)return dp[i][l][sl];
-    lli ans=false;
-    if(s[i]=='1'){
-        if(sl==2 && l==0){  //-> 1 1
-         ans=false;
-         return dp[i][l][sl]=ans; 
-        }
-        ans|=dpp(i+1,0,l);
-        return dp[i][l][sl]=ans;
-    }
-    if(sl==2 && l==0){
-        ans|=dpp(i+1,1,l);
-        return dp[i][l][sl]=ans;
-    }
-    if(l==0){
-        ans|=dpp(i+1,2,l);
-    }
-    if(l==1 || l==2){
-        ans|=dpp(i+1,1,l);
-        ans|=dpp(i+1,2,l);
-    }
-    return dp[i][l][sl]=ans;
-}
-
+ 
 void solve(){
-cin>>n;
-cin>>s;
-fr(i,n+1){
-  fr(j,3){
-    fr(k,3){
-        dp[i][j][k]=-1;
+lli n,k;cin>>n>>k;
+map<lli,vll>m;
+vvll v(n);
+lli t;
+fr(i,n){
+    cin>>t;
+    lli x;
+    fr(j,t){
+         cin>>x;
+        v[i].psb(x);
+       
+        m[x-1].psb(i);
     }
-  }
 }
-if(dpp(0,1,1))yes;  //1 1for if first block is tree {-> 0 _ }this need to be <-
+vll cnt(k,0);
+for(auto &it:m){
+    cnt[it.ff]=it.ss.size();
+}
+fr(i,k){
+    if(cnt[i]==0){
+        no;
+        return;
+    }
+}
+lli noreq=0;
+fr(i,n){
+ bool req=false;
+ for(auto &it:v[i]){
+    if(cnt[it-1]==1){
+        req=true;
+        break;
+    }
+ }
+ if(!req)noreq++;
+}
+if(noreq>=2)yes;
 else no;
-
 
 }
 

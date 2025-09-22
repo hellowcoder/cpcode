@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-21 11:19
+//Date: 2025-09-21 20:34
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -30,65 +30,51 @@
 #define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
-#define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
+#define out(v) fr(i,v.size())cout<<v[i]+1<<" ";nl
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-string s;
-const lli  N=2e5+1;
-lli n;
-lli dp[N][3][3];
-// 0 tree
-// 1  <--
-// 2 -->
-
-
-bool dpp(lli i,lli l,lli sl){
-    if(i==n){
-        if(sl==2  && l==0)return false;
-        return true;
-    }
-    if(dp[i][l][sl] != -1)return dp[i][l][sl];
-    lli ans=false;
-    if(s[i]=='1'){
-        if(sl==2 && l==0){  //-> 1 1
-         ans=false;
-         return dp[i][l][sl]=ans; 
-        }
-        ans|=dpp(i+1,0,l);
-        return dp[i][l][sl]=ans;
-    }
-    if(sl==2 && l==0){
-        ans|=dpp(i+1,1,l);
-        return dp[i][l][sl]=ans;
-    }
-    if(l==0){
-        ans|=dpp(i+1,2,l);
-    }
-    if(l==1 || l==2){
-        ans|=dpp(i+1,1,l);
-        ans|=dpp(i+1,2,l);
-    }
-    return dp[i][l][sl]=ans;
-}
-
+ 
 void solve(){
-cin>>n;
-cin>>s;
-fr(i,n+1){
-  fr(j,3){
-    fr(k,3){
-        dp[i][j][k]=-1;
-    }
-  }
+lli n,k;cin>>n;
+string s;cin>>s;
+bool check=true;
+lli i=0;
+while(i<n){
+while(i<n && s[i]=='1')i++; //remove 1
+lli l=i;
+while(i<n && s[i]=='0')i++; //count 0
+lli r=i;
+if((r-l)==1){
+    no;return;
 }
-if(dpp(0,1,1))yes;  //1 1for if first block is tree {-> 0 _ }this need to be <-
-else no;
-
-
+}
+i=0;
+vll ans(n);
+while(i<n){
+    while(i<n && s[i]=='1'){
+      ans[i]=i;
+      i++;
+      continue;
+    }
+    lli l=i;
+    while(i<n && s[i]=='0'){
+        i++;
+    }
+    lli r=i-1;
+    if(r-l+1){
+    
+    frs(j,l,r-1){
+        ans[j]=j+1;
+    }
+    ans[r]=l;
+   }
+}
+yes;
+out(ans);
 }
 
 int32_t main(){

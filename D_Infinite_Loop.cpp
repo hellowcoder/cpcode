@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-21 11:19
+//Date: 2025-09-21 16:14
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,64 +37,78 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-string s;
-const lli  N=2e5+1;
-lli n;
-lli dp[N][3][3];
-// 0 tree
-// 1  <--
-// 2 -->
-
-
-bool dpp(lli i,lli l,lli sl){
-    if(i==n){
-        if(sl==2  && l==0)return false;
-        return true;
-    }
-    if(dp[i][l][sl] != -1)return dp[i][l][sl];
-    lli ans=false;
-    if(s[i]=='1'){
-        if(sl==2 && l==0){  //-> 1 1
-         ans=false;
-         return dp[i][l][sl]=ans; 
-        }
-        ans|=dpp(i+1,0,l);
-        return dp[i][l][sl]=ans;
-    }
-    if(sl==2 && l==0){
-        ans|=dpp(i+1,1,l);
-        return dp[i][l][sl]=ans;
-    }
-    if(l==0){
-        ans|=dpp(i+1,2,l);
-    }
-    if(l==1 || l==2){
-        ans|=dpp(i+1,1,l);
-        ans|=dpp(i+1,2,l);
-    }
-    return dp[i][l][sl]=ans;
-}
 
 void solve(){
-cin>>n;
-cin>>s;
-fr(i,n+1){
-  fr(j,3){
-    fr(k,3){
-        dp[i][j][k]=-1;
-    }
-  }
+lli n,k,q;cin>>n>>k>>q;
+lli sum=0;
+vpr v(n);
+vll pre(n+1,0);
+fr(i,n){
+    lli a,b;
+    cin>>a>>b;
+    v[i]={a,b};
+    sum+=b;
 }
-if(dpp(0,1,1))yes;  //1 1for if first block is tree {-> 0 _ }this need to be <-
-else no;
+frs(i,1,n){
+    pre[i]=pre[i-1]+v[i-1].ss;
+   // cout<<pre[i]<<" ";
+}
 
+vll endd1(n);
+vll endd2(n);
+lli prev=0;
+lli curr=0;
+fr(i,n){
+        curr=max(v[i].ff+v[i].ss-1,prev+v[i].ss);
+        endd1[i]=curr;
+        prev=curr;
+}
+lli p=prev;
+fr(i,n){
+   curr=max(p+v[i].ss,k+v[i].ff+v[i].ss-1);
+   endd2[i]=curr;
+   p=curr;
+}
 
+while(q--){
+    lli x,y;cin>>x>>y;
+  
+   lli tot=0;
+    if(sum>k){
+        if(x>2){
+           tot=prev+pre[y]+(x-2)*sum;
+        }else if(x==1){
+           tot=endd1[y-1];
+        }else{
+           tot=pre[y]+prev;
+        }
+       
+       
+
+    }else{
+        
+        if(x==1){
+          tot=endd1[y-1];
+        }else if(x==2){
+          tot=endd2[y-1];
+        }else{
+          tot=(x-2)*k+endd2[y-1];
+        }
+    }
+
+    if(tot%k){
+        cout<<tot/k+1<<' '<<tot%k<<'\n';
+    }else{
+        cout<<tot/k<<' '<<k<<'\n';
+    }
+
+}
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+
 while(tt--){
 solve();
 }

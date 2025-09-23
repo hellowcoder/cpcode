@@ -45,6 +45,7 @@ ordered_set<lli>os;
 os.insert(2);
 os.insert(1);
 os.insert(10);
+os.insert(3);
 
 cout<<"*os.find_by_order(0)--> "<<*os.find_by_order(0)<<'\n';  // 1st element;
 cout<<"*os.find_by_order(3)--> "<<*os.find_by_order(3)<<'\n'; //4th elemt   it will output 0 as there are no 4th elemnt 
@@ -52,6 +53,7 @@ cout<<"*os.find_by_order(3)--> "<<*os.find_by_order(3)<<'\n'; //4th elemt   it w
 cout<<"os.order_of_key(2)--> "<<os.order_of_key(2)<<'\n'; // number of lement less than 2
 
 cout<<"*os.lower_bound(2)--> "<<*os.lower_bound(2)<<'\n';
+cout<<"*os.lower_bound(13)--> "<<*os.lower_bound(13)<<'\n';
 cout<<"*os.lower_bound(3)--> "<<*os.lower_bound(3)<<'\n';
 
 cout<<"*os.upper_bound(2)--> "<<*os.upper_bound(2)<<'\n';

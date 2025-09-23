@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-23 00:23
+//Date: 2025-09-23 00:28
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -50,13 +50,13 @@ class SegmentTree {
             lli mid = l + (r - l) / 2;
             build(a, 2 * node, l, mid);
             build(a, 2 * node + 1, mid + 1, r);
-            tree[node] = tree[2 * node] + tree[2 * node + 1];
+            tree[node] = min(tree[2 * node] , tree[2 * node + 1]);//
         }
     }
 
     void push(lli node, lli l, lli r) {
         if (lazy[node] != 0) {
-            tree[node] += (r - l + 1) * lazy[node];
+            tree[node] +=  lazy[node];
             if (l != r) {
                 lazy[2 * node] += lazy[node];
                 lazy[2 * node + 1] += lazy[node];
@@ -78,19 +78,20 @@ class SegmentTree {
         lli mid = l + (r - l) / 2;
         update_range(2 * node, l, mid, ql, qr, val);
         update_range(2 * node + 1, mid + 1, r, ql, qr, val);
-        tree[node] = tree[2 * node] + tree[2 * node + 1];
+        tree[node] = min(tree[2 * node] + lazy[2 * node], tree[2 * node + 1] + lazy[2 * node + 1]);//
     }
 
     lli query(lli node, lli l, lli r, lli ql, lli qr) {
         push(node, l, r);
         if (r < ql || l > qr) {
-            return 0;
+            return 1e18;//
         }
         if (ql <= l && r <= qr) {
             return tree[node];
         }
         lli mid = l + (r - l) / 2;
-        return query(2 * node, l, mid, ql, qr) + query(2 * node + 1, mid + 1, r, ql, qr);
+
+        return min(query(2 * node, l, mid, ql, qr) , query(2 * node + 1, mid + 1, r, ql, qr));//
     }
 
 public:
@@ -115,6 +116,7 @@ public:
         return query(1, 0, n - 1, l, r);
     }
 };
+
 void solve(){
 lli n,k;cin>>n>>k;
 get(v,n);

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-21 14:05
+//Date: 2025-09-23 00:40
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,16 +39,15 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 
-
 class SegmentTree {
-    vector<lli> tree, lazy;
+    std::vector<lli> tree, lazy;
     lli n;
 
-    void build(vector<lli>& a, lli node, lli l, lli r) {
+    void build(const std::vector<lli>& a, lli node, lli l, lli r) {
         if (l == r) {
             tree[node] = a[l];
         } else {
-            lli mid = (l + r) / 2;
+            lli mid = l + (r - l) / 2;
             build(a, 2 * node, l, mid);
             build(a, 2 * node + 1, mid + 1, r);
             tree[node] = tree[2 * node] + tree[2 * node + 1];
@@ -68,61 +67,54 @@ class SegmentTree {
 
     void update_range(lli node, lli l, lli r, lli ql, lli qr, lli val) {
         push(node, l, r);
-        if (r < ql || l > qr) return;
+        if (r < ql || l > qr) {
+            return;
+        }
         if (ql <= l && r <= qr) {
             lazy[node] += val;
             push(node, l, r);
             return;
         }
-        lli mid = (l + r) / 2;
+        lli mid = l + (r - l) / 2;
         update_range(2 * node, l, mid, ql, qr, val);
         update_range(2 * node + 1, mid + 1, r, ql, qr, val);
         tree[node] = tree[2 * node] + tree[2 * node + 1];
     }
 
-    void update_point(lli node, lli l, lli r, lli idx, lli val) {
-        push(node, l, r);
-        if (l == r) {
-            tree[node] = val;
-            return;
-        }
-        lli mid = (l + r) / 2;
-        if (idx <= mid) update_point(2 * node, l, mid, idx, val);
-        else update_point(2 * node + 1, mid + 1, r, idx, val);
-        tree[node] = tree[2 * node] + tree[2 * node + 1];
-    }
-
     lli query(lli node, lli l, lli r, lli ql, lli qr) {
         push(node, l, r);
-        if (r < ql || l > qr) return 0;
-        if (ql <= l && r <= qr) return tree[node];
-        lli mid = (l + r) / 2;
+        if (r < ql || l > qr) {
+            return 0;
+        }
+        if (ql <= l && r <= qr) {
+            return tree[node];
+        }
+        lli mid = l + (r - l) / 2;
         return query(2 * node, l, mid, ql, qr) + query(2 * node + 1, mid + 1, r, ql, qr);
     }
 
 public:
-    SegmentTree(vector<lli>& a) {
+    SegmentTree(const std::vector<lli>& a) {
         n = a.size();
         tree.assign(4 * n, 0);
         lazy.assign(4 * n, 0);
         build(a, 1, 0, n - 1);
     }
 
-    void update_point(lli idx, lli val) {
-        update_point(1, 0, n - 1, idx, val);
+    void update_point(lli idx, lli val) {  // 0 based
+        lli current_val = query_range(idx, idx);
+        lli delta = val - current_val;
+        update_range(1, 0, n - 1, idx, idx, delta);
     }
 
-    void update_range(lli l, lli r, lli val) {
+    void update_range(lli l, lli r, lli val) {  //0 based
         update_range(1, 0, n - 1, l, r, val);
     }
 
-    lli query_range(lli l, lli r) {
+    lli query_range(lli l, lli r) {  // 0 3
         return query(1, 0, n - 1, l, r);
     }
 };
-
-
-
 
 void solve(){
 lli n,k;cin>>n>>k;

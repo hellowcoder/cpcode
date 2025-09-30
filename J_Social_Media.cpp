@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-29 23:42
+//Date: 2025-09-28 14:57
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,17 +39,44 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
+lli n,m,k;cin>>n>>m>>k;
 get(v,n);
-fr(i,n){
-    if(v[i]==1)v[i]++;
+
+vll frd(k+1,0);
+vll frq(k+1,0);
+map<pr,lli>mp;
+fr(i,n)frd[v[i]]=1;
+lli ans=0;
+fr(i,m){
+ lli a,b;cin>>a>>b;
+ if(a>b)swap(a,b);
+
+ if(frd[a] && frd[b]){
+    ans++;
+    continue;
+ }
+ 
+ 
+
+
+ if(frd[a])frq[b]++;
+ else if(frd[b])frq[a]++;
+ else if(a==b)frq[a]++;
+ else if(!frd[a] && !frd[b]){
+    mp[{a,b}]++;
+    continue;
+ }
+ 
 }
-frs(i,1,n-1){
-    if(v[i]%v[i-1]==0){
-        v[i]++;
-    }
+
+lli final=ans;
+
+for(auto &it:mp){
+  final=max(final,ans+it.ss+frq[it.ff.ff]+frq[it.ff.ss]);
 }
-out(v);
+rsrt(frq);
+lli check=frq[0]+frq[1];
+cout<<max(final,ans+check)<<'\n';
 }
 
 int32_t main(){

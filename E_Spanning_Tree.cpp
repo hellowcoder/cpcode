@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-29 23:42
+//Date: 2025-09-30 15:41
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,24 +38,48 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
+
+vll par,sz;
+
+lli find(lli u){
+    if(par[u]==u)return u;
+    return par[u]=find(par[u]);
+}
+
+bool join(lli u,lli v){
+  u=find(u);
+  v=find(v);
+  if(u==v)return false;
+  if(sz[u]<sz[v])swap(u,v);
+  sz[u]+=sz[v];
+  par[v]=u;
+  return true;
+}
+
+
 void solve(){
-lli n,k;cin>>n;
-get(v,n);
-fr(i,n){
-    if(v[i]==1)v[i]++;
+lli n,k;cin>>n>>k;
+vvll v(k,vll(3));
+fr(i,k){
+    rfr(j,2,0)cin>>v[i][j];
 }
-frs(i,1,n-1){
-    if(v[i]%v[i-1]==0){
-        v[i]++;
-    }
+srt(v);
+par=vll(n);
+iota(all(par),0);
+sz=vll(n,1);
+lli ans=0;
+fr(i,k){
+   if(!join(v[i][1]-1,v[i][2]-1))continue;
+   ans+=v[i][0];
+  // join(v[i][1],v[i][2]);
 }
-out(v);
+cout<<ans<<'\n';
+
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
 while(tt--){
 solve();
 }

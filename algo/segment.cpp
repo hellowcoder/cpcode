@@ -93,6 +93,7 @@ int main(){
            st.update(pos,val);
         }
      }
+     
 
     return 0;
 }

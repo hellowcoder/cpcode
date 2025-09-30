@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-29 23:42
+//Date: 2025-09-30 12:00
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,18 +38,25 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
+struct node{
+  lli sum;
+  node(){
+    sum=0;
+  }
+};
+
+node merge(node a,node b){
+    node temp;
+    temp.sum=a.sum+b.sum;
+    return temp;
+}
+
+
 void solve(){
-lli n,k;cin>>n;
+lli n,k;cin>>n>>k;
 get(v,n);
-fr(i,n){
-    if(v[i]==1)v[i]++;
-}
-frs(i,1,n-1){
-    if(v[i]%v[i-1]==0){
-        v[i]++;
-    }
-}
-out(v);
+
+
 }
 
 int32_t main(){

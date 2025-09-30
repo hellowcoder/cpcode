@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-29 23:42
+//Date: 2025-09-28 16:35
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,18 +38,40 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-void solve(){
-lli n,k;cin>>n;
-get(v,n);
-fr(i,n){
-    if(v[i]==1)v[i]++;
-}
-frs(i,1,n-1){
-    if(v[i]%v[i-1]==0){
-        v[i]++;
+lli lower(vector<lli>&v,lli tar){
+    lli low=0,high=v.size()-1;
+    lli ans=-1;
+    while(low<=high){
+        lli mid=(low+high)/2;
+        if(v[mid]<tar){
+            ans=mid+1;
+            low=mid+1;
+        }else{
+            high=mid-1;
+        }
     }
+    return ans;
 }
-out(v);
+
+
+void solve(){
+lli n,k,m,w;cin>>n>>m>>k>>w;
+get(r,n);
+get(b,m);
+srt(r);
+srt(b);
+lli low,high;
+fr(i,m+1){
+    if(!i)low=1;
+    else low=b[i-1]+1;
+    if(i==m)high=w;
+    high=b[i]-1;
+
+    low=lower_bound(all(r),low)-r.begin()+1;
+    high=lower(r,high);
+    cout<<low<<' '<<high<<'\n';
+
+}
 }
 
 int32_t main(){
@@ -57,6 +79,7 @@ fastio;
 lli tt=1;
 cin>>tt;
 while(tt--){
+    cout<<"Case #"<<tt<<'\n';
 solve();
 }
 }

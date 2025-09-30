@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-29 23:42
+//Date: 2025-09-26 22:04
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,19 +37,25 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
- 
+
+
+
 void solve(){
-lli n,k;cin>>n;
+lli n,k;cin>>n>>k;
 get(v,n);
-fr(i,n){
-    if(v[i]==1)v[i]++;
-}
+srt(v);
+lli curr=1;
+lli ans=0;
 frs(i,1,n-1){
-    if(v[i]%v[i-1]==0){
-        v[i]++;
-    }
+ if(v[i]-v[i-1]<=k)curr++;
+ else {
+    ans=max(ans,curr);
+    curr=1;
+ }
 }
-out(v);
+    ans=max(ans,curr);
+cout<<n-ans<<'\n';
+
 }
 
 int32_t main(){

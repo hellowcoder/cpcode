@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-29 23:42
+//Date: 2025-09-30 13:21
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,24 +38,78 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-void solve(){
-lli n,k;cin>>n;
-get(v,n);
-fr(i,n){
-    if(v[i]==1)v[i]++;
-}
-frs(i,1,n-1){
-    if(v[i]%v[i-1]==0){
-        v[i]++;
+
+class dsu{
+    vll siz,par,mini,maxi;
+    public:
+  
+    dsu(lli n){
+        siz.resize(n);
+        par.resize(n);
+        mini.resize(n);
+        maxi.resize(n);
+        fr(i,n){
+            par[i]=i;
+            siz[i]=1;
+            mini[i]=i;
+            maxi[i]=i;
+        }
     }
+    lli find(lli x){
+        if(par[x]==x)return x;
+        return par[x]=find(par[x]);
+    }
+    bool connected(lli u,lli v){
+        return find(u)==find(v);
+    }
+    bool join(lli u,lli v){
+        u=find(u);
+        v=find(v);
+        if(u==v)return false;
+        if(siz[u]<siz[v]) swap(u,v);
+        siz[u]+=siz[v];
+        par[v]=u;
+        mini[u]=min(mini[u],mini[v]);
+        maxi[u]=max(maxi[u],maxi[v]);
+
+        return true;
+    }
+    lli size(lli u){
+        return siz[find(u)];
+    }
+    lli minii(lli u){
+        return mini[find(u)];
+    }
+    lli maxii(lli u){
+        return maxi[find(u)];
+    }
+
+};
+
+
+void solve(){
+lli n,k;cin>>n>>k;
+dsu ds(n);
+fr(i,k){
+    string s;cin>>s;
+    if(s=="get"){
+        lli u;cin>>u;u--;
+        cout<<ds.minii(u)+1<<' '<<ds.maxii(u)+1<<' ';
+        cout<<ds.size(u)<<'\n';
+    }else{
+        lli u,v;cin>>u>>v;
+        u--;v--;
+        ds.join(u,v);
+    }
+   
 }
-out(v);
+
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+
 while(tt--){
 solve();
 }

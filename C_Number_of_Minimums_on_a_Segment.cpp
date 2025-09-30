@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-29 23:42
+//Date: 2025-09-30 11:13
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,25 +37,86 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
- 
-void solve(){
-lli n,k;cin>>n;
-get(v,n);
-fr(i,n){
-    if(v[i]==1)v[i]++;
+const int maxx=1e5+1;
+struct node{
+  lli val;
+  lli f;
+  node(){
+    val=1e9;
+    f=0;
+  }
+};
+
+vector<node>t(4*maxx);
+vll v(4*maxx);
+
+node merge(node a,node b){
+    node temp;
+    temp.val=min(a.val,b.val);
+    if(temp.val==a.val)temp.f+=a.f;
+    if(temp.val==b.val)temp.f+=b.f;
+    return temp;
 }
-frs(i,1,n-1){
-    if(v[i]%v[i-1]==0){
-        v[i]++;
+
+void build(lli ind,lli l,lli r){
+    if(l==r){
+        t[ind].val=v[l];
+        t[ind].f=1;
+        return;
+    }
+    lli mid=(l+r)/2;
+    build(2*ind,l,mid);
+    build(2*ind+1,mid+1,r);
+    t[ind]=merge(t[2*ind],t[2*ind+1]);
+}
+
+void update(lli ind,lli l,lli r,lli pos,lli val){
+    if(pos<l || pos>r){
+        return;
+    }
+    if(l==r){
+        t[ind].val=val;
+        return;
+    }
+    lli mid=(l+r)/2;
+    update(2*ind,l,mid,pos,val);
+    update(2*ind+1,mid+1,r,pos,val);
+    t[ind]=merge(t[2*ind],t[2*ind+1]);
+}
+
+node query(lli ind,lli l,lli r,lli lq,lli rq){
+    if(r<lq || l>rq){
+        return node();
+    }
+    if(lq<=l && r<=rq){
+        return t[ind];
+    }
+    lli mid=(l+r)/2;
+    return merge(query(2*ind,l,mid,lq,rq),query(2*ind+1,mid+1,r,lq,rq));
+}
+
+
+void solve(){
+lli n,k;cin>>n>>k;
+fr(i,n)cin>>v[i];
+build(1,0,n-1);
+
+while(k--){
+    lli t,a,b;cin>>t>>a>>b;
+    if(t==1){
+        update(1,0,n-1,a,b);
+    }else{
+        node ans=query(1,0,n-1,a,b-1);
+        cout<<ans.val<<' '<<ans.f<<'\n';
     }
 }
-out(v);
+
+
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
 while(tt--){
 solve();
 }

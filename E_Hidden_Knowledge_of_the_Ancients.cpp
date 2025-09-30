@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-29 23:42
+//Date: 2025-09-26 21:14
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,17 +39,37 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
+   lli l,r;
+lli n,k;cin>>n>>k>>l>>r;;
 get(v,n);
+map<lli,lli>m;
+set<pr>st;
+lli ans=0;
 fr(i,n){
-    if(v[i]==1)v[i]++;
+   lli num=v[i];
+   if(m.find(num) != m.end()){
+      st.erase({m[num],num});
+   }
+   m[num]=i;
+   st.insert({m[num],num});
+   if(st.size() > k+1){
+      st.erase(st.begin());
+   }
+   if(st.size()<k)continue;
+   lli low=0,high=0,check=0;
+   if(st.size()==k){
+     low=i-st.begin()->first+1;
+     high=i+0+1;
+      
+   }else{
+     low=i-next(st.begin())->first+1;
+     high=i-(st.begin()->first+1)+1;  
+   }
+   check=(min(high,r)-max(low,l)+1);
+     if(check>0)ans+=check;
 }
-frs(i,1,n-1){
-    if(v[i]%v[i-1]==0){
-        v[i]++;
-    }
-}
-out(v);
+
+cout<<ans<<'\n';
 }
 
 int32_t main(){

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-29 23:42
+//Date: 2025-09-28 21:10
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,25 +37,49 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
- 
-void solve(){
-lli n,k;cin>>n;
-get(v,n);
-fr(i,n){
-    if(v[i]==1)v[i]++;
+ lli n,k;
+bool check(vll &v,lli mid){
+  vll dp(n);
+  fr(i,n){
+    dp[i]=i; // maximium change till it I acan do
+    fr(j,i){
+       lli diff=abs(v[i]-v[j]);
+       if(diff<=(i-j)*mid){
+        dp[i]=min(dp[i],dp[j]+(i-j-1)); // either i tk pura change kar do ya ek pivot pakdo aur uske bad se sara change kr do
+       }
+    }
+  }
+  lli x=n;
+  fr(i,n){
+    x=min(x,dp[i]+(n-i-1));
+  }
+  return x<=k;
 }
-frs(i,1,n-1){
-    if(v[i]%v[i-1]==0){
-        v[i]++;
+
+void solve(){
+cin>>n>>k;
+get(v,n);
+if(n==1){
+    cout<<"0";
+    return;
+}
+
+lli low=0,high=1e10;
+while(low<=high){
+    lli mid=(low+high)/2;
+    if(check(v,mid)){
+        high=mid-1;
+    }else{
+        low=mid+1;
     }
 }
-out(v);
+cout<<low<<'\n';
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
+
 while(tt--){
 solve();
 }

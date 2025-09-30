@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-29 23:42
+//Date: 2025-09-25 20:09
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -41,15 +41,12 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 void solve(){
 lli n,k;cin>>n;
 get(v,n);
-fr(i,n){
-    if(v[i]==1)v[i]++;
+srt(v);
+lli maxi=0;
+for(int i=0;i<n;i+=2){
+    maxi=max(maxi,abs(v[i+1]-v[i]));
 }
-frs(i,1,n-1){
-    if(v[i]%v[i-1]==0){
-        v[i]++;
-    }
-}
-out(v);
+cout<<maxi<<'\n';
 }
 
 int32_t main(){

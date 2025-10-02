@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-30 19:01
+//Date: 2025-10-02 00:20
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,6 +18,7 @@
 #define get(v,n) vll v(n);fr(i,n)cin>>v[i]
 #define ff first
 #define ss second
+#define bitc(x) __builtin_popcountll(x)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -39,45 +40,40 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,m;cin>>n>>m;
-vector<string>v(n);
-fr(i,n)cin>>v[i];
-vvll exp(n,vll(m,0));
-fr(i,n){
-    lli count=0;
-    fr(j,m){
-        if(v[i][j]=='*'){
-            count++;
-        }else count=0;
-
-        exp[i][j]=count;
+lli n,k;cin>>n;
+get(a,n);
+get(b,n);
+vll aa(2*n+1,0);
+vll bb(2*n+1,0);
+lli c=1;
+frs(i,1,n-1){
+    if(a[i-1]==a[i]){
+        c++;
     }
-    count=0;
-    rfr(j,m-1,0){
-       if(v[i][j]=='*'){
-            count++;
-       }else count=0;
-
-       exp[i][j]=min(exp[i][j],count);
+    else{
+      aa[a[i-1]]=max(aa[a[i-1]],c);
+      c=1;
     }
 }
-
-// fr(i,n){
-//     fr(j,m)cout<<exp[i][j]<<' ';
-//     cout<<'\n';
-// }
+aa[a[n-1]]=max(aa[a[n-1]],c);
+c=1;
+frs(i,1,n-1){
+    if(b[i-1]==b[i]){
+        c++;
+    }
+    else{
+      bb[b[i-1]]=max(bb[b[i-1]],c);
+      c=1;
+    }
+}
+bb[b[n-1]]=max(bb[b[n-1]],c);
 
 lli ans=0;
-fr(i,n){
-    fr(j,m){
-        frs(down,i,n-1){
-          lli check=(down-i)+1;
-          if(exp[down][j]<check)break;
-          ans++;
-        }    
-    }
+fr(i,2*n+1){
+    ans=max(ans,aa[i]+bb[i]);
 }
 cout<<ans<<'\n';
+
 }
 
 int32_t main(){

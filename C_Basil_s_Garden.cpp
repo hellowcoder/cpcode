@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-30 19:01
+//Date: 2025-10-02 00:34
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,6 +18,7 @@
 #define get(v,n) vll v(n);fr(i,n)cin>>v[i]
 #define ff first
 #define ss second
+#define bitc(x) __builtin_popcountll(x)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -39,45 +40,14 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,m;cin>>n>>m;
-vector<string>v(n);
-fr(i,n)cin>>v[i];
-vvll exp(n,vll(m,0));
-fr(i,n){
-    lli count=0;
-    fr(j,m){
-        if(v[i][j]=='*'){
-            count++;
-        }else count=0;
-
-        exp[i][j]=count;
-    }
-    count=0;
-    rfr(j,m-1,0){
-       if(v[i][j]=='*'){
-            count++;
-       }else count=0;
-
-       exp[i][j]=min(exp[i][j],count);
-    }
+lli n,k;cin>>n;
+get(v,n);
+vll dp(n);
+dp[n-1]=v[n-1];
+rfr(i,n-2,0){
+    dp[i]=max(v[i],dp[i+1]+1);
 }
-
-// fr(i,n){
-//     fr(j,m)cout<<exp[i][j]<<' ';
-//     cout<<'\n';
-// }
-
-lli ans=0;
-fr(i,n){
-    fr(j,m){
-        frs(down,i,n-1){
-          lli check=(down-i)+1;
-          if(exp[down][j]<check)break;
-          ans++;
-        }    
-    }
-}
-cout<<ans<<'\n';
+cout<<dp[0]<<'\n';
 }
 
 int32_t main(){

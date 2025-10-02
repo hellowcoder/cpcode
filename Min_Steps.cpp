@@ -1,9 +1,6 @@
-//Author: sandeep172918
-//Date: 2025-09-30 19:01
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -34,52 +31,36 @@
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
-using namespace __gnu_pbds;
-template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
- 
+
+string a(lli x){
+    string s="";
+    while(x){
+        s+=to_string(x%2);
+        x/=2;
+    }
+    reverse(all(s));
+    if(s.size()==0)return "0";
+    return s;
+}
 void solve(){
-lli n,m;cin>>n>>m;
-vector<string>v(n);
-fr(i,n)cin>>v[i];
-vvll exp(n,vll(m,0));
-fr(i,n){
-    lli count=0;
-    fr(j,m){
-        if(v[i][j]=='*'){
-            count++;
-        }else count=0;
-
-        exp[i][j]=count;
-    }
-    count=0;
-    rfr(j,m-1,0){
-       if(v[i][j]=='*'){
-            count++;
-       }else count=0;
-
-       exp[i][j]=min(exp[i][j],count);
-    }
+lli n,k,d;cin>>n>>d;
+lli ans=1e18;
+fr(i,63){
+    k=1LL<<i;
+    if(k>n)break;
+    if((n-k)%d)continue;
+    lli sum=(n-k)/d;
+    
+   lli req=sum/k; //shuruat me kitna add krna hai ki uplift ho paye
+    lli rem=sum%k; //last se uplifting
+    lli step=i+req+__builtin_popcountll(rem);
+    cout<<i<<' '<<req<<' '<<a(rem)<<' '<<step<<'\n';
+    ans=min(ans,step);
 }
-
-// fr(i,n){
-//     fr(j,m)cout<<exp[i][j]<<' ';
-//     cout<<'\n';
-// }
-
-lli ans=0;
-fr(i,n){
-    fr(j,m){
-        frs(down,i,n-1){
-          lli check=(down-i)+1;
-          if(exp[down][j]<check)break;
-          ans++;
-        }    
-    }
+if(ans==1e18){
+    no1;
+}else cout<<ans<<'\n';
 }
-cout<<ans<<'\n';
-}
-
 int32_t main(){
 fastio;
 lli tt=1;

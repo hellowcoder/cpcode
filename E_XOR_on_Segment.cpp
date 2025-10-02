@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-01 13:38
+//Date: 2025-10-02 20:12
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,6 +18,7 @@
 #define get(v,n) vll v(n);fr(i,n)cin>>v[i]
 #define ff first
 #define ss second
+#define bitc(x) __builtin_popcountll(x)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -37,13 +38,16 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+const int sz=21;
 class Segment_Tree{
    struct node{
     lli sum;
     lli lazy;
+    vll bit;
     node(){
         sum=0;
         lazy=0;
+        bit =vll(21,0);
     }
    };
 
@@ -61,7 +65,11 @@ class Segment_Tree{
   
     node merge(node a,node b){ //isme lazy nhi sochna hota
         node temp;
+        // temp.bit=vll(21,0);
         temp.sum=a.sum+b.sum;
+        fr(i,21){
+            temp.bit[i]=a.bit[i]+b.bit[i];
+        }
         return temp;
     }
 
@@ -70,6 +78,12 @@ class Segment_Tree{
         if(l==r){
             t[id].sum=v[l];
             t[id].lazy=0;
+            t[id].bit=vll(21,0);
+            lli x=v[l];
+            fr(i,21){
+                if((1LL<<i)&x)
+                   t[id].bit[i]++;
+            }
             return;
         }
         lli mid=(l+r)/2;
@@ -79,15 +93,28 @@ class Segment_Tree{
     }
     
     void apply(lli id,lli l,lli r){
-         t[id].sum+=((r-l+1)*t[id].lazy);
+         lli s=0;
+         lli lz=t[id].lazy;
+         lli tot=r-l+1;
+         fr(i,21){
+           if((1LL<<i)&lz)t[id].bit[i]=tot-t[id].bit[i];
+         }
+         fr(i,21){
+            s+=(t[id].bit[i])*(1LL<<i);
+         }
+         t[id].sum=s;
          return;
     }
 
     void push(lli id,lli l,lli r){
         if(t[id].lazy !=0){
            apply(id,l,r);
-           t[2*id].lazy+=t[id].lazy;
-           t[2*id+1].lazy+=t[id].lazy;
+
+           //push down
+           if(l!=r){
+           t[2*id].lazy^=t[id].lazy;
+           t[2*id+1].lazy^=t[id].lazy;
+           }
         }
         t[id].lazy=0;
     }
@@ -98,7 +125,7 @@ class Segment_Tree{
         return;
       }
       if(lq<=l && r<=rq){
-        t[id].lazy+=val;
+        t[id].lazy=val;
         push(id,l,r);
         return;
       }
@@ -128,18 +155,20 @@ class Segment_Tree{
 
 
 void solve(){
-lli n,k;cin>>n>>k;
+lli n,k;cin>>n;
 get(v,n);
-Segment_Tree sg(v);
+cin>>k;
+Segment_Tree sw(v);
 while(k--){
-    lli t;cin>>t;
+    lli t,l,r;cin>>t>>l>>r;
+    l--;
+    r--;
     if(t==1){
-        lli l,r;cin>>l>>r;
-        cout<<sg.quer(l,r)<<'\n';
+        cout<<sw.quer(l,r)<<'\n';
     }else{
-        lli l,r,va;
-        cin>>l>>r>>va;
-        sg.update(1,0,n-1,l,r,va);
+        lli val;
+        cin>>val;
+        sw.update(1,0,n-1,l,r,val);
     }
 }
 

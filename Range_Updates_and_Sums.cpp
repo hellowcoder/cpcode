@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-01 13:38
+//Date: 2025-10-01 13:40
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -24,7 +24,6 @@
 #define ppb pop_back()
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
-#define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
 #define yes cout<<"YES\n"
 #define no cout<<"NO\n"
@@ -37,13 +36,16 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+ 
 class Segment_Tree{
    struct node{
     lli sum;
-    lli lazy;
+    lli lazy_set;
+    lli lazy_add;
     node(){
         sum=0;
-        lazy=0;
+        lazy_set=0;
+        lazy_add=0;
     }
    };
 
@@ -69,7 +71,8 @@ class Segment_Tree{
     void build(lli id,lli l,lli r){
         if(l==r){
             t[id].sum=v[l];
-            t[id].lazy=0;
+            t[id].lazy_set=0;
+            t[id].lazy_add=0;
             return;
         }
         lli mid=(l+r)/2;
@@ -78,33 +81,53 @@ class Segment_Tree{
         t[id]=merge(t[2*id],t[2*id+1]);
     }
     
-    void apply(lli id,lli l,lli r){
-         t[id].sum+=((r-l+1)*t[id].lazy);
-         return;
-    }
+   void push_down(lli id,lli child){
+     if(t[id].lazy_set){
+        t[child].lazy_set=t[id].lazy_set;
+         t[id].lazy_add=0;
+     }else{
+        if(t[child].lazy_set)t[child].lazy_set+=t[id].lazy_add;
+        else t[child].lazy_add+=t[id].lazy_add;
+        // t[id].lazy_set=0;
+     }
+   }
 
     void push(lli id,lli l,lli r){
-        if(t[id].lazy !=0){
-           apply(id,l,r);
-           t[2*id].lazy+=t[id].lazy;
-           t[2*id+1].lazy+=t[id].lazy;
-        }
-        t[id].lazy=0;
+       if(t[id].lazy_set==0 && t[id].lazy_add==0)return;
+       if(l!=r){
+         push_down(id,2*id);
+         push_down(id,2*id+1);
+       }
+       if(t[id].lazy_set){
+          t[id].sum=(r-l+1)*t[id].lazy_set;
+
+       }
+        t[id].sum+=(r-l+1)*t[id].lazy_add;
+       
+       
+         t[id].lazy_add=0;
+         t[id].lazy_set=0;
     }
 
-    void update(lli id,lli l,lli r,lli lq,lli rq,lli val){
+    void update(lli id,lli l,lli r,lli lq,lli rq,lli val,lli type){
       push(id,l,r);
       if(rq<l || r<lq){
         return;
       }
       if(lq<=l && r<=rq){
-        t[id].lazy+=val;
+        if(type==0){
+            t[id].lazy_set=val;
+            t[id].lazy_add=0;
+        }else{
+            t[id].lazy_add+=val;
+        }
+        
         push(id,l,r);
         return;
       }
       lli mid=(l+r)/2;
-      update(2*id,l,mid,lq,rq,val);
-      update(2*id+1,mid+1,r,lq,rq,val);
+      update(2*id,l,mid,lq,rq,val,type);
+      update(2*id+1,mid+1,r,lq,rq,val,type);
       t[id]=merge(t[2*id],t[2*id+1]);
     }
     
@@ -130,16 +153,22 @@ class Segment_Tree{
 void solve(){
 lli n,k;cin>>n>>k;
 get(v,n);
-Segment_Tree sg(v);
+Segment_Tree sq(v);
 while(k--){
     lli t;cin>>t;
-    if(t==1){
-        lli l,r;cin>>l>>r;
-        cout<<sg.quer(l,r)<<'\n';
+    lli l,r,val;
+    cin>>l>>r;
+    l--;
+    r--;
+    if(t==3){
+        cout<<sq.quer(l,r)<<'\n';
+    }
+    else if(t==2){
+        cin>>val;
+        sq.update(1,0,n-1,l,r,val,0);
     }else{
-        lli l,r,va;
-        cin>>l>>r>>va;
-        sg.update(1,0,n-1,l,r,va);
+        cin>>val;
+        sq.update(1,0,n-1,l,r,val,1);
     }
 }
 
@@ -148,6 +177,7 @@ while(k--){
 int32_t main(){
 fastio;
 lli tt=1;
+
 while(tt--){
 solve();
 }

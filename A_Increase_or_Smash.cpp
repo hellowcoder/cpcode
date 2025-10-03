@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-02 21:04
+//Date: 2025-10-03 20:07
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,42 +38,23 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
-vvll dp(1LL<<20, vll (20,-1));
-vvll adj;
-
-lli dpp(lli mask,lli ind){
-    if(ind==0){
-        if(mask==1)return 1;
-        else return 0;
-    }
-    if(!(mask&(1LL<<ind)))return 0;
-    if(dp[mask][ind] != -1)return dp[mask][ind];
-
-    lli unused=mask^(1LL<<ind);
-    lli ans=0;
-    for(auto &it:adj[ind]){
-       ans=(ans+dpp(unused,it))%MOD;
-    }
-    return dp[mask][ind]=ans;
-}
-
+ 
 void solve(){
-lli n,k;cin>>n>>k;
-adj.resize(n);
-fr(i,k){
-    lli u,v;
-    cin>>u>>v;
-    u--;
-    v--;
-    adj[v].psb(u);
+lli n,k;cin>>n;
+get(v,n);
+srt(v);
+set<lli>st;
+fr(i,n){
+    st.insert(v[i]);
 }
-cout<<dpp((1LL<<n)-1,n-1);
+k=st.size();
+cout<<k+k-1<<'\n';
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
+cin>>tt;
 while(tt--){
 solve();
 }

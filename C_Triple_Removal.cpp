@@ -1,5 +1,6 @@
+
 //Author: sandeep172918
-//Date: 2025-10-02 21:04
+//Date: 2025-10-03 20:41
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,42 +39,95 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
-vvll dp(1LL<<20, vll (20,-1));
-vvll adj;
-
-lli dpp(lli mask,lli ind){
-    if(ind==0){
-        if(mask==1)return 1;
-        else return 0;
-    }
-    if(!(mask&(1LL<<ind)))return 0;
-    if(dp[mask][ind] != -1)return dp[mask][ind];
-
-    lli unused=mask^(1LL<<ind);
-    lli ans=0;
-    for(auto &it:adj[ind]){
-       ans=(ans+dpp(unused,it))%MOD;
-    }
-    return dp[mask][ind]=ans;
-}
-
+ 
 void solve(){
 lli n,k;cin>>n>>k;
-adj.resize(n);
-fr(i,k){
-    lli u,v;
-    cin>>u>>v;
-    u--;
-    v--;
-    adj[v].psb(u);
+get(v,n);
+vll zero,one;
+vvll f(n+1,vll(2,0));
+
+
+fr(i,n){
+    if(v[i]==1)one.psb(i);
+    else zero.psb(i);
 }
-cout<<dpp((1LL<<n)-1,n-1);
+
+
+
+frs(i,1,n){
+ f[i][0]=f[i-1][0]+(v[i-1]==0);
+ f[i][1]=f[i-1][1]+(v[i-1]==1);
+}
+
+
+
+vll temp(n,0);
+for(lli i=0;i<one.size();i+=3){
+   if((i+2) > (one.size()-1)) break;
+   lli mini=one[i+1]-one[i];
+   mini=min(mini,one[i+2]-one[i+1]);
+   temp[one[i]]=mini;
+}
+vll pre_one(n+1,0);
+vll pre_z(n+1,0);
+
+
+frs(i,1,n){
+    pre_one[i]=pre_one[i-1]+temp[i-1];
+}
+
+temp=vll(n,0);
+for(lli i=0;i<zero.size();i+=3){
+   if((i+2) > (zero.size()-1)) break;
+   lli mini=zero[i+1]-zero[i];
+   mini=min(mini,zero[i+2]-zero[i+1]);
+   temp[zero[i]]=mini;
+}
+
+frs(i,1,n){
+    pre_z[i]=pre_z[i-1]+temp[i-1];
+}
+
+
+while(k--){
+ lli l,r;cin>>l>>r;l--;
+ lli z=f[r][0]-f[l][0];
+ lli o=f[r][1]-f[l][1];
+
+ cout<<z<<' '<<o<<' ';
+ if(z%3 || o%3){
+    no1;
+    continue;
+ }
+ //one
+ 
+//  lli low=upper_bound(all(one),l)-one.begin();
+//  lli high=upper_bound(all(one),r-1)-one.begin();
+//  lli low=pre_one[l];
+//  lli high=pre_one[r];
+ lli oo=pre_one[r]-pre_one[l];
+ //zero
+ 
+//  low=lower_bound(all(zero),l)-zero.begin();
+//  high=upper_bound(all(zero),r-1)-zero.begin();
+// low=pre_z[l];
+// high=pre_z[r];
+ lli zz=pre_z[r]-pre_z[l];
+//  if(zz>oo){
+//     cout<<zz+o/3<<'\n';
+//  }else{
+//     cout<<oo+z/3<<'\n';
+// }
+ cout<<min(oo+z/3,zz+o/3)<<'\n';
+}
+out(pre_one);
+out(pre_z);
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
+cin>>tt;
 while(tt--){
 solve();
 }

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-04 12:14
+//Date: 2025-10-04 23:54
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,16 +39,43 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
+lli kadane(vector<lli>&v){
+    lli cs=0,ms=0;
+    if(v.size()==0)return -1e18;
+    bool bol=true;
+    fr(i,v.size()){
+        if(v[i]>=0)bol=false;
+    }
+    if(bol){
+        return mxe(v);
+    }
+    fr(i,v.size()){
+        // cs+=v[i];
+        // if(cs<0)cs=0;
+        // ms=max(ms,cs);
+        ms+=max(0LL,v[i]);
+    }
+    return ms;
+}
+
 void solve(){
-lli n,k;cin>>n>>k;
+lli n,k;cin>>n;
 get(v,n);
-
-
+vll odd,even;
+fr(i,n){
+    if(i&1){
+        odd.psb(v[i]);
+    }else{
+        even.psb(v[i]);
+    }
+}
+cout<<max(kadane(odd),kadane(even))<<'\n';
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
+cin>>tt;
 while(tt--){
 solve();
 }

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-30 12:00
+//Date: 2025-10-04 23:10
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,6 +18,7 @@
 #define get(v,n) vll v(n);fr(i,n)cin>>v[i]
 #define ff first
 #define ss second
+#define bitc(x) __builtin_popcountll(x)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -38,89 +39,52 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-struct node{
-  lli sum;
-  lli pref;
-  lli suff;
-  lli maxi;
- // lli maxi;
-  node(){
-    sum=0;
-    maxi=0;
-  }
-};
-lli v[100001];
-node t[400004];
-
-node merge(node a,node b){
-    node temp;
-    temp.sum=a.sum+b.sum;
-    temp.pref=max(a.pref,a.sum+b.pref);
-    temp.suff=max(b.suff,b.sum+a.suff);
-   // temp.maxi=max({a.sum,b.sum,temp.sum});
-    return temp;
-}
-void build(lli id,lli l,lli r){
-  if(l==r){
-    t[id].pref=v[l];
-    t[id].suff=v[l];
-    t[id].sum=v[l];
-   // t[id].maxi=max(0LL,v[l]);
-    return;
-  }
-  lli mid=(l+r)/2;
-  build(id<<1,l,mid);
-  build(id<<1|1,mid+1,r);
-  t[id]=merge(t[id<<1],t[id<<1|1]);
-
-}
-
-void update(lli id,lli l,lli r,lli pos,lli val){
-  if(pos<l || pos>r){
-    return;
-  }
-  if(l<=pos && pos<=r){
-    t[id].sum=val*(r-l+1);//potential issue
-    if(l==r){
-      t[id].pref=val;
-      t[id].suff=val;
-    }else{
-      
-    }
-    return;
-  }
-  lli mid=(l+r)/2;
-  update(id<<1,l,mid,pos,val);
-  update(id<<1|1,mid+1,r,pos,val);
-  t[id]=merge(t[id<<1],t[id<<1|1]);
-}
-node query(lli id,lli l,lli r,lli lq,lli rq){
-  if(lq>r || rq<l)return node();
-  if(lq<=l && r<=rq){
-    return t[id];
-  }
-  lli mid=(l+r)/2;
-  return merge(query(id<<1,l,mid,lq,rq),query(id<<1|1,mid+1,r,lq,rq));
-}
-
-
 void solve(){
-lli n,k;cin>>n>>k;
-frs(i,1,n){
-  cin>>v[i];
+lli n,k;cin>>n;
+get(v,n);
+lli check=v[0];
+multiset<lli>st;
+frs(i,1,n-1){
+    if(v[i]>check){
+       check=v[i];
+    }else{
+      if(check-v[i])  
+        st.insert(check-v[i]);
+    }
 }
-build(1,1,n);
-cout<<query(1,1,n,1,n).maxi<<'\n';
-while(k--){
-  lli i,val;cin>>i>>val;
-  update(1,1,n,i+1,val);
-  cout<<query(1,1,n,1,n).maxi<<'\n';
+k=st.size();
+if(k==0){
+    cout<<"0\n";
+    return;
 }
+vll temp(k);
+lli i=0;
+for(auto &it:st){
+  temp[i++]=it;
+}
+srt(temp);
+check=temp[0];
+lli c=1;
+lli ans=0;
+frs(i,1,k-1){
+    if(temp[i]==temp[i-1]){
+        c++;
+    }else{
+      ans+=((c)*temp[i-1]);
+      c=1;
+    }
+}
+ans+=(c)*temp[k-1];
+cout<<ans+temp[k-1]<<'\n';
+
+
+
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
+cin>>tt;
 while(tt--){
 solve();
 }

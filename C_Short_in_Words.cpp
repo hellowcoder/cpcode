@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-06 21:07
+//Date: 2025-10-07 19:18
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,69 +38,14 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-const int INF=1e9; 
-vector<vll>dp(1000);
-vll best(1000,INF);
-
-void precompute(){
- vpr v;
- frs(i,2,900){
-    v.push_back({i,i*(i-1)/2});
- }
-    dp[0]={};
-    best[0]=0;
-
-    frs(i,1,999){
-        for(auto &it:v){
-           lli len=it.ff;
-           lli tot=it.ss;
-           if(tot<=i && best[i-tot]!=INF){
-             lli check=best[i-tot]+len;
-             if(check<best[i]){
-                best[i]=check;
-                dp[i]=dp[i-tot];
-                dp[i].psb(len);
-             }
-           }
-        }
-    }
- }
-
-
+ 
 void solve(){
 lli n,k;cin>>n>>k;
-lli x=n*(n-1)/2-k;
-if(k==0){
-    fr(i,n)cout<<i+1<<' ';
-    nl;
-    return;
-}
-if(x==0){
-    rfr(i,n,1)cout<<i<<' ';
-    nl;return;
-}
-if(best[x]>n){
-    cout<<"0\n";
-    return;
-}
-// out(dp[x]);
-
-lli start=0,end=n;
-
-fr(i,dp[x].size()){
-    start=end-dp[x][i]+1;
-    frs(j,start,end)cout<<j<<' ';
-    end=start-1;
-}
-while(end)cout<<end--<<' ';
-nl;
 
 }
 
 int32_t main(){
 fastio;
-precompute();
-
 lli tt=1;
 cin>>tt;
 while(tt--){

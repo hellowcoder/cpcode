@@ -38,21 +38,6 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-//  ordered_set<pr>st;
-//  lli n;
-// lli query(){                       CANT BE DONE IN LOG N USING THIS NO MONOTONOCITY.......
-//     lli low=0,high=n-1;
-//     while(low<=high){
-//         lli mid=(low+high)/2;
-//         lli check=(*st.find_by_order(mid)).first;
-//         if(check>mid){
-//             high=mid-1;
-//         }else{
-//             low=mid+1;
-//         }
-//     }
-//     return low;
-// }
 
 const lli N=2e6+1;
 

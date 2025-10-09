@@ -1,9 +1,6 @@
-//Author: sandeep172918
-//Date: 2025-10-06 21:07
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -35,72 +32,48 @@
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
-using namespace __gnu_pbds;
-template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-const int INF=1e9; 
-vector<vll>dp(1000);
-vll best(1000,INF);
-
-void precompute(){
- vpr v;
- frs(i,2,900){
-    v.push_back({i,i*(i-1)/2});
- }
-    dp[0]={};
-    best[0]=0;
-
-    frs(i,1,999){
-        for(auto &it:v){
-           lli len=it.ff;
-           lli tot=it.ss;
-           if(tot<=i && best[i-tot]!=INF){
-             lli check=best[i-tot]+len;
-             if(check<best[i]){
-                best[i]=check;
-                dp[i]=dp[i-tot];
-                dp[i].psb(len);
-             }
-           }
-        }
-    }
- }
-
-
+ 
 void solve(){
-lli n,k;cin>>n>>k;
-lli x=n*(n-1)/2-k;
-if(k==0){
-    fr(i,n)cout<<i+1<<' ';
-    nl;
+lli n,k;cin>>n;
+get(v,n);
+if(n==2){
+    cout<<abs(v[0]-v[1])<<'\n';
     return;
 }
-if(x==0){
-    rfr(i,n,1)cout<<i<<' ';
-    nl;return;
-}
-if(best[x]>n){
-    cout<<"0\n";
+if(n==3){
+
+    cout<<min({v[0]+v[1]+v[2],abs(v[0]-v[1])+abs(v[0]-v[2]),abs(v[1]-v[0])+abs(v[1]-v[2]),abs(v[2]-v[1])+abs(v[0]-v[2])})<<'\n';
     return;
+
 }
-// out(dp[x]);
-
-lli start=0,end=n;
-
-fr(i,dp[x].size()){
-    start=end-dp[x][i]+1;
-    frs(j,start,end)cout<<j<<' ';
-    end=start-1;
+lli ans=0;
+ans+=abs(v[0]-v[1]);
+ans+=abs(v[n-1]-v[n-2]);
+lli c=0;
+frs(i,2,n-3){
+  c++;
+  if(i==(n-3)){
+    if(c==3){
+     ans+=v[i-2];
+     ans+=abs(v[i]-v[i-1]);
+    }else if(c==2){
+        ans+=v[i]+v[i-1];
+    }else{
+       ans+=v[i];
+    }
+    break;
+  }
+  if(c==3){
+     c=0;
+     ans+=v[i-2];
+     ans+=abs(v[i]-v[i-1]);
+  }
 }
-while(end)cout<<end--<<' ';
-nl;
-
+cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
-precompute();
-
 lli tt=1;
 cin>>tt;
 while(tt--){

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-06 21:07
+//Date: 2025-10-08 12:02
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,71 +38,49 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-const int INF=1e9; 
-vector<vll>dp(1000);
-vll best(1000,INF);
+ 
 
-void precompute(){
- vpr v;
- frs(i,2,900){
-    v.push_back({i,i*(i-1)/2});
- }
-    dp[0]={};
-    best[0]=0;
-
-    frs(i,1,999){
-        for(auto &it:v){
-           lli len=it.ff;
-           lli tot=it.ss;
-           if(tot<=i && best[i-tot]!=INF){
-             lli check=best[i-tot]+len;
-             if(check<best[i]){
-                best[i]=check;
-                dp[i]=dp[i-tot];
-                dp[i].psb(len);
-             }
-           }
-        }
+vector<int> toplogical(vector<vector<int>>&graph){ //kahn algorithm
+  lli x=graph.size();
+  vector<lli>indegree(x,0),vis(x,0);
+  for(int i=0;i<x;i++){
+    for(int &j:graph[i]){
+      indegree[j]++;
     }
- }
-
+  }
+  queue<int>q;
+  for(int i=0;i<x;i++){
+    if(indegree[i]==0)q.push(i);  // phle phle wale node kopush kar lo kyuki uke pas koi nhi aa raha 
+  }
+  vector<int>v;
+  while(!q.empty()){
+    lli node=q.front();
+    q.pop();
+    v.push_back(node);
+    for(int &i :graph[node]){
+      indegree[i]--;
+      if(indegree[i]<=0)q.push(i);
+    }
+  }
+   return v;
+}
 
 void solve(){
 lli n,k;cin>>n>>k;
-lli x=n*(n-1)/2-k;
-if(k==0){
-    fr(i,n)cout<<i+1<<' ';
-    nl;
-    return;
+vvll adj(n);
+vll indeg(n,0);
+fr(i,k){
+    lli u,v;cin>>u>>v;
+    u--;
+    v--;
+    adj[u].psb(v);
 }
-if(x==0){
-    rfr(i,n,1)cout<<i<<' ';
-    nl;return;
-}
-if(best[x]>n){
-    cout<<"0\n";
-    return;
-}
-// out(dp[x]);
-
-lli start=0,end=n;
-
-fr(i,dp[x].size()){
-    start=end-dp[x][i]+1;
-    frs(j,start,end)cout<<j<<' ';
-    end=start-1;
-}
-while(end)cout<<end--<<' ';
-nl;
 
 }
 
 int32_t main(){
 fastio;
-precompute();
-
 lli tt=1;
-cin>>tt;
 while(tt--){
 solve();
 }

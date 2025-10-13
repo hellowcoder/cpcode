@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-30 23:30
+//Date: 2025-10-10 23:47
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,6 +18,7 @@
 #define get(v,n) vll v(n);fr(i,n)cin>>v[i]
 #define ff first
 #define ss second
+#define bitc(x) __builtin_popcountll(x)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -39,38 +40,27 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,m;cin>>n>>m;;
-get(a,n);
-get(b,m);
-vll pref(m,-1);
-vll suff(m+2,n);
-lli i=0,j=0;
-while(i<n && j<m){
- if(a[i]>=b[j]){
-    //j++;
-    pref[j++]=i;
- }
- i++;
-}
-if(pref[m]!=-1){
-    cout<<"0\n";
-    return;
-}
-i=n-1;
-j=n-1;
-while(i>=0){
- if(a[i]>=b[j]){
-    suff[j--]=i;
-   // j--;
- }
- i--;
-}
-frs(i,1,n){
-    lli left=pref[i-1];
-    lli right=suff[i+1];
+lli n,k;cin>>n>>k;
+lli prev=0;
+lli prev_s=0;
+lli ans=0;
+fr(i,k){
+    lli m,s;cin>>m>>s;
+    if(prev_s==s){
+        
+      lli kk=m-prev;
+      prev=m;
+      if(kk%2==0)ans+=kk;
+      else ans+=(kk-1);
+    }else{
+      lli kk=m-prev;
+      prev=m;
+      if(kk%2==0)ans+=kk-1;
+      else ans+=kk;
+    }
 
 }
-
+cout<<ans<<'\n';
 
 }
 

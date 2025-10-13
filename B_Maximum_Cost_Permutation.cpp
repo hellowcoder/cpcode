@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-30 23:30
+//Date: 2025-10-10 23:39
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,6 +18,7 @@
 #define get(v,n) vll v(n);fr(i,n)cin>>v[i]
 #define ff first
 #define ss second
+#define bitc(x) __builtin_popcountll(x)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -39,38 +40,32 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,m;cin>>n>>m;;
-get(a,n);
-get(b,m);
-vll pref(m,-1);
-vll suff(m+2,n);
-lli i=0,j=0;
-while(i<n && j<m){
- if(a[i]>=b[j]){
-    //j++;
-    pref[j++]=i;
- }
- i++;
+lli n,k;cin>>n;
+get(v,n);
+lli c=count(all(v),0);
+if(c==1){
+    vll vis(n+1,0);
+    fr(i,n){
+      vis[v[i]]=1;
+    }
+    lli id=0;
+    frs(i,1,n)if(!vis[i])id=i;
+    fr(i,n){
+        if(v[i]==0)v[i]=id;
+    }
 }
-if(pref[m]!=-1){
-    cout<<"0\n";
-    return;
+//out(v);
+lli i=0,j=n-1;
+while(i<n){
+    if(v[i]==(i+1))i++;
+    else break;
 }
-i=n-1;
-j=n-1;
-while(i>=0){
- if(a[i]>=b[j]){
-    suff[j--]=i;
-   // j--;
- }
- i--;
+while(j>=0 && j>=i){
+  if(v[j]==(j+1))j--;
+  else break;
 }
-frs(i,1,n){
-    lli left=pref[i-1];
-    lli right=suff[i+1];
-
-}
-
+//cout<<i<<" "<<j<<'\n';
+cout<<j-i+1<<'\n';
 
 }
 

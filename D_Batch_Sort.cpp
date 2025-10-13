@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-30 23:30
+//Date: 2025-10-09 20:08
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,6 +18,7 @@
 #define get(v,n) vll v(n);fr(i,n)cin>>v[i]
 #define ff first
 #define ss second
+#define bitc(x) __builtin_popcountll(x)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -39,45 +40,49 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,m;cin>>n>>m;;
-get(a,n);
-get(b,m);
-vll pref(m,-1);
-vll suff(m+2,n);
-lli i=0,j=0;
-while(i<n && j<m){
- if(a[i]>=b[j]){
-    //j++;
-    pref[j++]=i;
- }
- i++;
+lli n,k;cin>>n>>k;
+vvll v(n,vll(n));
+fr(i,n){
+    fr(j,n)cin>>v[i][j];
 }
-if(pref[m]!=-1){
-    cout<<"0\n";
+bool bol=true;
+fr(i,n){
+    lli c=0;
+    fr(j,n){
+        if(v[i][j]!=(j+1))c++;
+    }
+    if(c>2)bol=false;
+}
+if(bol){
+    yes;
     return;
 }
-i=n-1;
-j=n-1;
-while(i>=0){
- if(a[i]>=b[j]){
-    suff[j--]=i;
-   // j--;
- }
- i--;
-}
-frs(i,1,n){
-    lli left=pref[i-1];
-    lli right=suff[i+1];
+vvll t;
+fr(x,n){
+    frs(y,x+1,n-1){
+        t=v;
+        fr(i,n){
+            swap(t[i][x],t[i][y]);
+        }
+        fr(i,n){
+         lli c=0;
+           fr(j,n){
+               if(v[i][j]!=(j+1))c++;
+            }
+         if(c>2){
+            no;return;
+         }
+        }
 
+    }
 }
-
+yes;
 
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
 while(tt--){
 solve();
 }

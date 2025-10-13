@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-30 23:30
+//Date: 2025-10-12 09:55
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,6 +18,7 @@
 #define get(v,n) vll v(n);fr(i,n)cin>>v[i]
 #define ff first
 #define ss second
+#define bitc(x) __builtin_popcountll(x)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -39,39 +40,46 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,m;cin>>n>>m;;
-get(a,n);
-get(b,m);
-vll pref(m,-1);
-vll suff(m+2,n);
-lli i=0,j=0;
-while(i<n && j<m){
- if(a[i]>=b[j]){
-    //j++;
-    pref[j++]=i;
- }
- i++;
-}
-if(pref[m]!=-1){
-    cout<<"0\n";
-    return;
-}
-i=n-1;
-j=n-1;
-while(i>=0){
- if(a[i]>=b[j]){
-    suff[j--]=i;
-   // j--;
- }
- i--;
-}
-frs(i,1,n){
-    lli left=pref[i-1];
-    lli right=suff[i+1];
+lli n,k;cin>>n;
+vvll v(n);
+lli a;
+lli sz=0;
 
+fr(i,n){
+    cin>>k;
+   sz=max(sz,k);
+    v[i]=vll(k);
+        fr(j,k){
+         cin>>v[i][j];
+        }
+   // srt(v[i]);
+}
+vll ans(sz);
+lli len=0;
+while(true){
+    vll temp;
+    fr(i,n){
+        if(v[i].size()>len){
+            vll check;
+            check.assign(v[i].begin()+len,v[i].end());
+            if(temp.empty() || check<temp){
+                temp=check;
+            }
+        }
+    }
+    if(temp.size()){
+        //out(temp);
+        fr(i,temp.size()){
+           ans[len+i]=temp[i];
+        }
+        len+=temp.size();
+       // cout<<len<<'\n';
+    }else break;
 }
 
 
+
+out(ans);
 }
 
 int32_t main(){

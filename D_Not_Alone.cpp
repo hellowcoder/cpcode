@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-30 23:30
+//Date: 2025-10-11 18:56
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,6 +18,7 @@
 #define get(v,n) vll v(n);fr(i,n)cin>>v[i]
 #define ff first
 #define ss second
+#define bitc(x) __builtin_popcountll(x)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -38,39 +39,50 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
+lli dpp(vll &v){
+ lli n=v.size();
+ if(n==1){
+    return 0;
+ }
+ if(n==2){
+    return abs(v[0]-v[1]);
+ }
+ vll dp(n,1e18);
+ frs(i,1,n-1){
+    //two ka group
+    dp[i]=abs(v[i]-v[i-1])+((i-2)>=0 ? dp[i-2]:0);
+    
+    //three
+    if(i>=2){
+        lli a=abs(v[i]-v[i-2])+abs(v[i]-v[i-1]);
+        lli b=abs(v[i-1]-v[i-2])+abs(v[i-1]-v[i]);
+        lli c=abs(v[i-2]-v[i])+abs(v[i-2]-v[i-1]);
+        dp[i]=min(dp[i],min({a,b,c})+((i-3)>=0 ? dp[i-3]:0));
+    }
+
+ }
+ return dp.back(); ;
+
+}
+
 void solve(){
-lli n,m;cin>>n>>m;;
-get(a,n);
-get(b,m);
-vll pref(m,-1);
-vll suff(m+2,n);
-lli i=0,j=0;
-while(i<n && j<m){
- if(a[i]>=b[j]){
-    //j++;
-    pref[j++]=i;
- }
- i++;
-}
-if(pref[m]!=-1){
-    cout<<"0\n";
-    return;
-}
-i=n-1;
-j=n-1;
-while(i>=0){
- if(a[i]>=b[j]){
-    suff[j--]=i;
-   // j--;
- }
- i--;
-}
-frs(i,1,n){
-    lli left=pref[i-1];
-    lli right=suff[i+1];
+lli n,k;cin>>n;
+get(v,n);
 
+lli a=dpp(v);
+k=v.back();
+rfr(i,n-1,1){
+    v[i]=v[i-1];
 }
-
+v[0]=k;
+lli b=dpp(v);
+k=v.back();
+rfr(i,n-1,1){
+    v[i]=v[i-1];
+}
+v[0]=k;
+lli c=dpp(v);
+cout<<min({a,b,c})<<'\n';
 
 }
 

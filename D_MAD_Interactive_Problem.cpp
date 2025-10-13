@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-30 23:30
+//Date: 2025-10-13 00:05
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,6 +18,7 @@
 #define get(v,n) vll v(n);fr(i,n)cin>>v[i]
 #define ff first
 #define ss second
+#define bitc(x) __builtin_popcountll(x)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -31,6 +32,7 @@
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
+#define out1(v) frs(i,1,v.size())cout<<v[i]<<" ";nl
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
@@ -38,39 +40,42 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
+lli q(vll &v){
+    lli n=v.size();
+    cout<<"? ";
+    cout<<n<<" ";
+    out(v);
+    cout.flush();
+    cin>>n;
+    return n;
+
+}
+
 void solve(){
-lli n,m;cin>>n>>m;;
-get(a,n);
-get(b,m);
-vll pref(m,-1);
-vll suff(m+2,n);
-lli i=0,j=0;
-while(i<n && j<m){
- if(a[i]>=b[j]){
-    //j++;
-    pref[j++]=i;
- }
- i++;
-}
-if(pref[m]!=-1){
-    cout<<"0\n";
-    return;
-}
-i=n-1;
-j=n-1;
-while(i>=0){
- if(a[i]>=b[j]){
-    suff[j--]=i;
-   // j--;
- }
- i--;
-}
-frs(i,1,n){
-    lli left=pref[i-1];
-    lli right=suff[i+1];
+lli n,k;cin>>n;
+vll v,t;
+vll ans(2*n+1,-1);
+v.psb(1);
+frs(i,2,2*n){
+    v.psb(i);
+    k=q(v);
+
+    if(k){
+      ans[i]=k;
+      v.ppb;
+      t.psb(i);
+    } 
 
 }
-
+for(auto &it:v){
+    t.psb(it);
+    k=q(t);
+    ans[it]=k;
+    t.ppb;
+}
+cout<<"! ";
+frs(i,1,2*n)cout<<ans[i]<<' ';
+cout.flush();
 
 }
 

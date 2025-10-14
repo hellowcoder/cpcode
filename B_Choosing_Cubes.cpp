@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-05 22:46
+//Date: 2025-10-14 22:19
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -27,9 +27,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define y1 cout<<"1\n"
-#define y2 cout<<"2\n"
-#define no cout<<"0\n"
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
@@ -41,85 +40,26 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
+lli n,f,k;cin>>n>>f>>k;
 get(v,n);
-
-lli check=v[0];
-if(count(all(v),check)==n){
-    if(n&1){
-        if(check==(n+1)/2)y2;
-        else no;
-    }else{
-        if(check==(n/2) || check==(n/2+1))y1;
-        else no;
-    }
-    return;
-}
- 
-vector<char>temp(n,'*');
-frs(i,1,n-1){
-    if(abs(v[i]-v[i-1])>1){
-        no;
-        return;
-    }
-    if(v[i-1]>v[i]){ //LL
-      if(temp[i-1]=='R'){
-        no;return;
-      }
-      temp[i-1]='L';
-      temp[i]='L';
-    }else if(v[i-1]<v[i]){ //RR
-      if(temp[i-1]=='L'){
-        no;return;
-      }
-      temp[i-1]='R';
-      temp[i]='R';
-    }else{ //LR,RL
-      // temp[i]='R'+'L'-temp[i-1];
-    }
-}
-lli i=0;
-while(temp[i]=='*')i++;
-
-rfr(j,i-1,0){
-  temp[j]='R'+'L'-temp[j+1];
-}
-i=n-1;
-while(temp[i]=='*')i--;
-frs(j,i+1,n-1){
-  temp[j]='R'+'L'-temp[j-1];
-}
-
+lli fav=v[f-1];
+rsrt(v);
+lli low,high;
+bool bol=true;
 fr(i,n){
-    if(temp[i]=='*'){
-      //  cout<<"hi\n";
-        if((temp[i+1] != '*')  &&  (temp[i-1]!=temp[i+1])){
-            no;return;
-        }else{
-            temp[i]='R'+'L'-temp[i-1];
+    if(v[i]==fav){
+        high=i+1;
+        if(bol){
+            bol=false;
+            low=i+1;
         }
     }
+    
 }
+if(k<low)no;
+else if(k>=high)yes;
+else cout<<"MAYBE\n";
 
-vll pref(n,0); //R
-vll suff(n,0);  //L
-
-pref[0]=0;
-suff[n-1]=0;
-
-frs(i,1,n-1){
- pref[i]=pref[i-1]+(temp[i-1]=='R');
-}
-
-rfr(i,n-2,0){
-    suff[i]=suff[i+1]+(temp[i+1]=='L');
-}
-fr(i,n){
-    if(v[i]!=(pref[i]+suff[i]+1)){
-        no;return;
-    }
-}
-y1;
 
 }
 

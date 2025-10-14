@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-05 22:46
+//Date: 2025-10-13 19:18
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -27,12 +27,11 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define y1 cout<<"1\n"
-#define y2 cout<<"2\n"
-#define no cout<<"0\n"
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
-#define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
+#define out(v) fr(i,v.size())cout<<v[i]<<"";
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
@@ -41,92 +40,42 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
-get(v,n);
-
-lli check=v[0];
-if(count(all(v),check)==n){
-    if(n&1){
-        if(check==(n+1)/2)y2;
-        else no;
-    }else{
-        if(check==(n/2) || check==(n/2+1))y1;
-        else no;
-    }
+lli n,k;cin>>n>>k;
+if(n==1 &&k==0){
+    cout<<"0 0\n";
     return;
 }
- 
-vector<char>temp(n,'*');
-frs(i,1,n-1){
-    if(abs(v[i]-v[i-1])>1){
-        no;
-        return;
-    }
-    if(v[i-1]>v[i]){ //LL
-      if(temp[i-1]=='R'){
-        no;return;
-      }
-      temp[i-1]='L';
-      temp[i]='L';
-    }else if(v[i-1]<v[i]){ //RR
-      if(temp[i-1]=='L'){
-        no;return;
-      }
-      temp[i-1]='R';
-      temp[i]='R';
-    }else{ //LR,RL
-      // temp[i]='R'+'L'-temp[i-1];
-    }
+if(k>9*n || !k){
+    cout<<"-1 -1\n";
+    return;
 }
-lli i=0;
-while(temp[i]=='*')i++;
-
-rfr(j,i-1,0){
-  temp[j]='R'+'L'-temp[j+1];
-}
-i=n-1;
-while(temp[i]=='*')i--;
-frs(j,i+1,n-1){
-  temp[j]='R'+'L'-temp[j-1];
-}
-
+vll v(n,0);
 fr(i,n){
-    if(temp[i]=='*'){
-      //  cout<<"hi\n";
-        if((temp[i+1] != '*')  &&  (temp[i-1]!=temp[i+1])){
-            no;return;
-        }else{
-            temp[i]='R'+'L'-temp[i-1];
-        }
-    }
+if(k<9)v[i]=k;
+else v[i]=9;
+k=max(0LL,k-9);
 }
-
-vll pref(n,0); //R
-vll suff(n,0);  //L
-
-pref[0]=0;
-suff[n-1]=0;
-
+vll m=v;
+reverse(all(m));
+cout<<'\n';
+if(m[0]==0){
+    m[0]=1;
 frs(i,1,n-1){
- pref[i]=pref[i-1]+(temp[i-1]=='R');
-}
-
-rfr(i,n-2,0){
-    suff[i]=suff[i+1]+(temp[i+1]=='L');
-}
-fr(i,n){
-    if(v[i]!=(pref[i]+suff[i]+1)){
-        no;return;
+    if(m[i]){
+        m[i]--;
+        break;
     }
 }
-y1;
+}
+fr(i,n)cout<<m[i];
+cout<<' ';
+fr(i,n)cout<<v[i];
 
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
 while(tt--){
 solve();
 }

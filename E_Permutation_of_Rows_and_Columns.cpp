@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-05 22:46
+//Date: 2025-10-14 23:26
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -27,9 +27,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define y1 cout<<"1\n"
-#define y2 cout<<"2\n"
-#define no cout<<"0\n"
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
@@ -39,87 +38,92 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
- 
+vpr findSwapPairs(vll &a,vll&b){
+    lli n=a.size();
+    vpr ans;
+    map<lli,lli>m;
+    fr(i,n)m[a[i]]=i;
+    fr(i,n){
+        // for(auto &it:m){
+        //     cout<<it.ff<<' '<<it.ss<<" * ";
+        // }cout<<'\n';
+        if(b[i]!=a[i]){
+            lli pos=m[b[i]];
+            ans.push_back({i,pos});
+           
+            m[b[i]]=i;
+            m[a[i]]=pos;
+             swap(a[i],a[pos]);
+        }
+    }
+    return ans;
+}
 void solve(){
-lli n,k;cin>>n;
-get(v,n);
+lli n,m;cin>>n>>m;
+vvll v(n,vll(m));
+vvll t(n,vll(m));
 
-lli check=v[0];
-if(count(all(v),check)==n){
-    if(n&1){
-        if(check==(n+1)/2)y2;
-        else no;
-    }else{
-        if(check==(n/2) || check==(n/2+1))y1;
-        else no;
-    }
-    return;
-}
- 
-vector<char>temp(n,'*');
-frs(i,1,n-1){
-    if(abs(v[i]-v[i-1])>1){
-        no;
-        return;
-    }
-    if(v[i-1]>v[i]){ //LL
-      if(temp[i-1]=='R'){
-        no;return;
-      }
-      temp[i-1]='L';
-      temp[i]='L';
-    }else if(v[i-1]<v[i]){ //RR
-      if(temp[i-1]=='L'){
-        no;return;
-      }
-      temp[i-1]='R';
-      temp[i]='R';
-    }else{ //LR,RL
-      // temp[i]='R'+'L'-temp[i-1];
-    }
-}
-lli i=0;
-while(temp[i]=='*')i++;
-
-rfr(j,i-1,0){
-  temp[j]='R'+'L'-temp[j+1];
-}
-i=n-1;
-while(temp[i]=='*')i--;
-frs(j,i+1,n-1){
-  temp[j]='R'+'L'-temp[j-1];
-}
-
+lli x1,x2,y1,y2;
 fr(i,n){
-    if(temp[i]=='*'){
-      //  cout<<"hi\n";
-        if((temp[i+1] != '*')  &&  (temp[i-1]!=temp[i+1])){
-            no;return;
-        }else{
-            temp[i]='R'+'L'-temp[i-1];
+    fr(j,m){
+        cin>>v[i][j];
+        if(v[i][j]==1){
+            x1=i;
+            y1=j;
         }
     }
 }
-
-vll pref(n,0); //R
-vll suff(n,0);  //L
-
-pref[0]=0;
-suff[n-1]=0;
-
-frs(i,1,n-1){
- pref[i]=pref[i-1]+(temp[i-1]=='R');
-}
-
-rfr(i,n-2,0){
-    suff[i]=suff[i+1]+(temp[i+1]=='L');
-}
 fr(i,n){
-    if(v[i]!=(pref[i]+suff[i]+1)){
-        no;return;
+    fr(j,m){
+        cin>>t[i][j];
+        if(t[i][j]==1){
+            x2=i;
+            y2=j;
+        }
     }
 }
-y1;
+auto c=v;
+vll row1(m);
+vll row2(m);
+vll col1(n);
+vll col2(n);
+
+fr(j,m){
+    row1[j]=v[x1][j];
+    row2[j]=t[x2][j];
+}
+fr(i,n){
+    col1[i]=v[i][y1];
+    col2[i]=t[i][y2];
+}
+vpr r=findSwapPairs(row1,row2);
+vpr cc=findSwapPairs(col1,col2);
+
+// for(auto &it:cc){
+//     cout<<it.ff<<' '<<it.ss<<'\n';
+// }
+
+fr(i,n){
+    for(auto &it:r){
+        swap(c[i][it.ff],c[i][it.ss]);
+    }
+}
+fr(i,m){
+    for(auto &it:cc){
+        swap(c[it.ff][i],c[it.ss][i]);
+    }
+}
+
+fr(i,n){
+    fr(j,m){
+        if(c[i][j]!=t[i][j]){
+            no;return;
+        }
+    }
+}
+yes;
+
+
 
 }
 

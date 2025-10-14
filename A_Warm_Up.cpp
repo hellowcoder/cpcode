@@ -44,33 +44,47 @@ lli n,k;cin>>n;
 vector<pair<pr,lli>>p(n);
 get(v,n);
 get(b,n);
-map<lli,lli>m;
+map<lli,vll>m;
 fr(i,n){
-    p[i]={{v[i],b[i]},i+1};
-    m[v[i]]=i+1;
-}
+    p[i]={{b[i],v[i]},i+1};
+    if(v[i]>b[i]){
+        no1;
+        return;
+    }
+    m[v[i]].psb(i+1);
+}      
 srt(p);
 
 vpr ans;
 fr(i,n){
-    if(p[i].ff.ff>p[i].ff.ss){
-        no1;
-        return;
-    }
+
     if(p[i].ff.ff==p[i].ff.ss){
-        //m[p[i].ff.ff]=p[i].ss;
+       // m[p[i].ff.ss]=p[i].ss;
         continue;
     }
-    if(p[i].ff.ss>p[i].ff.ff){
-        lli check=p[i].ff.ss;
+    if(p[i].ff.ff>p[i].ff.ss){
+        lli check=p[i].ff.ff;
        //  lli prev=p[i].ff.ss;
         if(m.find(check)==m.end()){
             no1;
             return;
         }
-       // m.erase({p[i].ff.ss});
-        ans.push_back({i+1,m[check]});
-       // m[check]=i+1;
+        
+        ans.push_back({i+1,m[check].back()});
+        m[check].psb(p[i].ss);
+        check=p[i].ff.ss;
+        if(m.find(check)==m.end()){
+          continue;
+        }
+        if(m[check].size()==1)m.erase(check);
+        else{
+           fr(j,m[check].size()){
+             if(m[check][j]==p[i].ss){
+                m[check].erase(m[check].begin()+i);
+                break;
+             }
+           }
+        }
     }
     
 

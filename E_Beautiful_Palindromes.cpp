@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-17 01:31
+//Date: 2025-10-17 20:35
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,39 +39,39 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-bool check(string &s,lli mid,vll &v,lli k){
-    lli n=v.size();
-    char last='R';
-    lli c=0;
-    fr(i,n){
-        if(v[i]>mid){
-          if(s[i]=='B'  && last !='B')c++;
-          last=s[i];
-        }
-    }
-   // while(check.size() && check.back()=='R')check.ppb;
-   // out(check);
- 
-    return c<=k;  
-}
-
 void solve(){
 lli n,k;cin>>n>>k;
-string s;cin>>s;
 get(v,n);
-
-lli low=0,high=mxe(v);
-lli ans=high;
-
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(s,mid,v,k)){
-        high=mid-1;
-        ans=mid;
-    }else low=mid+1;
+vll f(n+1,0);
+fr(i,n)f[v[i]]++;
+vll temp;
+frs(i,1,n){
+    if(!f[i]){
+      temp.psb(i);
+    }
 }
-cout<<ans<<'\n';
+if(temp.size()==1){
+    f[v.back()]=0;
+}else if(temp.size()==0){
+    fr(i,n)temp.psb(v[i]);
 }
+frs(i,1,n){
+    if(f[i] && temp.size()<3)temp.psb(i);
+}
+if(temp.size()<3)temp.psb(v.back());
+
+lli x=temp.size();
+
+   lli i=0; 
+   while(i<k){
+    cout<<temp[i%x]<<' ';
+    i++;
+   }
+   cout<<'\n';
+}
+
+
+
 
 int32_t main(){
 fastio;

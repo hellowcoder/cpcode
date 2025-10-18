@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-17 01:31
+//Date: 2025-10-17 00:40
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,38 +39,44 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-bool check(string &s,lli mid,vll &v,lli k){
-    lli n=v.size();
-    char last='R';
-    lli c=0;
-    fr(i,n){
-        if(v[i]>mid){
-          if(s[i]=='B'  && last !='B')c++;
-          last=s[i];
-        }
-    }
-   // while(check.size() && check.back()=='R')check.ppb;
-   // out(check);
- 
-    return c<=k;  
-}
 
 void solve(){
 lli n,k;cin>>n>>k;
-string s;cin>>s;
-get(v,n);
-
-lli low=0,high=mxe(v);
-lli ans=high;
-
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(s,mid,v,k)){
-        high=mid-1;
-        ans=mid;
-    }else low=mid+1;
+lli mini=n;
+lli maxi=n*(n+1)/2;
+if(k<mini || k>maxi){
+    no1;
+    return;
 }
-cout<<ans<<'\n';
+vll ans(n+1,0);
+lli sum=0;
+rfr(i,n,1){
+    lli check=i+(i-1)+sum;
+    if(check>k){
+        sum++;
+        continue;
+    }
+    sum+=i;
+    ans[i]=1;
+}
+vll t,tt;
+rfr(i,n,1){
+ if(ans[i])   
+   t.psb(i);
+ else tt.psb(i);
+}
+if(t.size())
+ cout<<t[0]<<'\n';
+ fr(i,(lli)t.size()-1){
+    cout<<t[i]<<' '<<t[i+1]<<'\n';
+}
+if(tt.size())
+ cout<<"1 "<<tt[0]<<'\n';
+fr(i,(lli)tt.size()-1){
+    cout<<tt[i]<<' '<<tt[i+1]<<'\n';
+}
+
+
 }
 
 int32_t main(){

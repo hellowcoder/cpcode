@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-17 01:31
+//Date: 2025-10-17 20:10
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,38 +39,27 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-bool check(string &s,lli mid,vll &v,lli k){
-    lli n=v.size();
-    char last='R';
-    lli c=0;
-    fr(i,n){
-        if(v[i]>mid){
-          if(s[i]=='B'  && last !='B')c++;
-          last=s[i];
-        }
-    }
-   // while(check.size() && check.back()=='R')check.ppb;
-   // out(check);
- 
-    return c<=k;  
-}
-
 void solve(){
 lli n,k;cin>>n>>k;
-string s;cin>>s;
-get(v,n);
-
-lli low=0,high=mxe(v);
-lli ans=high;
-
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(s,mid,v,k)){
-        high=mid-1;
-        ans=mid;
-    }else low=mid+1;
+vll ans;
+fr(i,35){
+    lli kk=1LL<<i;
+    if(kk>n)break;
+    if((n&kk) == (k&kk))continue;
+   // n^=kk;
+    ans.psb(kk);
 }
-cout<<ans<<'\n';
+if(n==k){
+cout<<"0\n";
+return;
+}
+for(auto &it:ans){
+    n^=it;
+}
+if(n==k){
+    cout<<ans.size()<<'\n';
+    out(ans);
+}else no1;
 }
 
 int32_t main(){

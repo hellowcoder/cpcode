@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-17 01:31
+//Date: 2025-10-17 21:31
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,38 +39,67 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-bool check(string &s,lli mid,vll &v,lli k){
-    lli n=v.size();
-    char last='R';
-    lli c=0;
-    fr(i,n){
-        if(v[i]>mid){
-          if(s[i]=='B'  && last !='B')c++;
-          last=s[i];
-        }
-    }
-   // while(check.size() && check.back()=='R')check.ppb;
-   // out(check);
- 
-    return c<=k;  
-}
-
 void solve(){
 lli n,k;cin>>n>>k;
-string s;cin>>s;
-get(v,n);
-
-lli low=0,high=mxe(v);
-lli ans=high;
-
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(s,mid,v,k)){
-        high=mid-1;
-        ans=mid;
-    }else low=mid+1;
+vll pref(n+1);
+vpr c(k);
+fr(i,k){
+    lli l,r;cin>>l>>r;
+    c[i]={l-1,r-1};
+    pref[l-1]++;
+    pref[r]--;
 }
-cout<<ans<<'\n';
+vll v(n);
+v[0]=pref[0];
+frs(i,1,n-1){
+ v[i]=v[i-1]+pref[i];
+}
+vpr p(n);
+fr(i,n){
+    p[i]={v[i],i};
+}
+srt(p);
+vll ans(n);
+vll ans2(n);
+fr(i,n){
+    ans[p[i].ss]=i;
+}
+rsrt(p);
+fr(i,n){
+    ans2[p[i].ss]=i;
+}
+set<lli>st;
+fr(i,n+1)st.insert(i);
+set<lli>t;
+set<lli>t1=st;
+set<lli>t2=st;
+fr(i,k){
+ t=st;
+ frs(j,c[i].ff,c[i].ss){
+    t.erase(ans[j]);
+ }
+ t1.erase(*t.begin());
+}
+fr(i,k){
+ t=st;
+ frs(j,c[i].ff,c[i].ss){
+    t.erase(ans2[j]);
+ }
+ t2.erase(*t.begin());
+}
+lli tt1=*t1.begin();
+lli tt2=*t2.begin();
+if(tt1<tt2){
+   fr(i,n)cout<<ans[i]<<' ';
+   cout<<'\n';
+}
+else{
+ fr(i,n){
+    cout<<ans2[i]<<' ';
+   
+ }
+  cout<<'\n';
+}
 }
 
 int32_t main(){

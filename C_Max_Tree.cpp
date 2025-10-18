@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-17 01:31
+//Date: 2025-10-18 11:10
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,39 +38,57 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
- 
-bool check(string &s,lli mid,vll &v,lli k){
-    lli n=v.size();
-    char last='R';
-    lli c=0;
-    fr(i,n){
-        if(v[i]>mid){
-          if(s[i]=='B'  && last !='B')c++;
-          last=s[i];
-        }
-    }
-   // while(check.size() && check.back()=='R')check.ppb;
-   // out(check);
- 
-    return c<=k;  
+
+// void dfs(lli node,vll &sz,vvll &adj){
+//     sz[node]=1;
+//     for(auto &it: adj[node]){
+//         dfs(it,sz,adj);
+//         sz[node]+=sz[it];
+        
+//     }
+// }
+void dfs(lli node,vector<vector<lli>>& graph,vector<lli>&vis,stack<lli>&store){ //topological sort dfs
+  vis[node]=1;
+  for(lli &i : graph[node]){
+    if(!vis[i])dfs(i,graph,vis,store);
+  }
+  store.push(node);
+
 }
+vector<lli> toplogical(vector<vector<lli>>&graph){
+  lli x=graph.size();
+  vector<lli>vis(x,0);
+  stack<lli>store;
+  fr(i,x){
+   if(!vis[i])dfs(i,graph,vis,store);
+  }
+  vll res;
+  while(!store.empty()){
+    res.psb(store.top());
+    store.pop();
+  }
+  return res;
+}
+
 
 void solve(){
-lli n,k;cin>>n>>k;
-string s;cin>>s;
-get(v,n);
-
-lli low=0,high=mxe(v);
-lli ans=high;
-
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(s,mid,v,k)){
-        high=mid-1;
-        ans=mid;
-    }else low=mid+1;
+lli n,k;cin>>n;
+vvll e(n);
+fr(i,n-1){
+ lli u,v,x,y;
+ cin>>u>>v>>x>>y;
+ u--;
+ v--;
+ if(x<y){
+    e[u].psb(v);
+ }else e[v].psb(u);
 }
-cout<<ans<<'\n';
+vll t=toplogical(e);
+vll ans(n);
+fr(i,n){
+    ans[t[i]]=i+1;
+}
+out(ans);
 }
 
 int32_t main(){

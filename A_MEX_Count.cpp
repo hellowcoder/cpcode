@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-17 01:31
+//Date: 2025-10-16 21:51
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,38 +39,39 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-bool check(string &s,lli mid,vll &v,lli k){
-    lli n=v.size();
-    char last='R';
-    lli c=0;
-    fr(i,n){
-        if(v[i]>mid){
-          if(s[i]=='B'  && last !='B')c++;
-          last=s[i];
-        }
-    }
-   // while(check.size() && check.back()=='R')check.ppb;
-   // out(check);
- 
-    return c<=k;  
-}
-
 void solve(){
-lli n,k;cin>>n>>k;
-string s;cin>>s;
+lli n,k;cin>>n;
 get(v,n);
-
-lli low=0,high=mxe(v);
-lli ans=high;
-
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(s,mid,v,k)){
-        high=mid-1;
-        ans=mid;
-    }else low=mid+1;
+vll f(n+1);
+fr(i,n)f[v[i]]++;
+lli mex=0;
+while(mex<n){
+    if(f[mex])mex++;
+     else break;  
 }
-cout<<ans<<'\n';
+// vll t(mex);
+// fr(i,mex){
+//     t[i]=f[i];
+//   //  if(i)t[i]+=t[i-1];
+// }
+vll temp(n+1);
+fr(i,mex){
+    temp[f[i]]++;
+}
+frs(i,1,n)temp[i]+=temp[i-1];
+// out(temp);
+cout<<"1 ";
+
+frs(i,1,n-1){
+    if(n-i+1>=mex){
+      cout<<min(n-i+1,max(1LL,temp[i]+1))<<' ';
+    }else 
+    cout<<min(n-i+1,max(temp[i],1LL))<<' ';
+}
+
+
+cout<<"1\n";
+
 }
 
 int32_t main(){

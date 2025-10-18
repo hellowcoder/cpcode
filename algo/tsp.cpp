@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-17 01:31
+//Date: 2025-10-16 12:00
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,45 +38,40 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
- 
-bool check(string &s,lli mid,vll &v,lli k){
-    lli n=v.size();
-    char last='R';
-    lli c=0;
+const lli N=21;
+lli n;
+vvll c(N,vll(N));
+vvll dp((1LL<<N),vll(N,-1));
+vvll dpi((1LL<<N),vll(N,0));
+
+lli tsp_r(lli mask,lli ind){
+    if(mask==(1LL<<n)-1)return c[ind][0];
+
+    if(dp[mask][ind]!=-1)return dp[mask][ind];
+
+    lli ans=INT_MAX;
     fr(i,n){
-        if(v[i]>mid){
-          if(s[i]=='B'  && last !='B')c++;
-          last=s[i];
+        if(((1LL<<i)&mask) == 0){
+            lli new_mask=mask&(1LL<<i);
+            ans=min(ans,c[ind][i]+tsp_r(new_mask,i));
         }
     }
-   // while(check.size() && check.back()=='R')check.ppb;
-   // out(check);
- 
-    return c<=k;  
+    return dp[mask][ind]=ans;
 }
+
+lli tsp_it(){
+
+}
+
 
 void solve(){
-lli n,k;cin>>n>>k;
-string s;cin>>s;
-get(v,n);
 
-lli low=0,high=mxe(v);
-lli ans=high;
 
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(s,mid,v,k)){
-        high=mid-1;
-        ans=mid;
-    }else low=mid+1;
-}
-cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
 while(tt--){
 solve();
 }

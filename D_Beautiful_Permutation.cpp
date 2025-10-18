@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-17 01:31
+//Date: 2025-10-17 20:46
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,38 +39,35 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-bool check(string &s,lli mid,vll &v,lli k){
-    lli n=v.size();
-    char last='R';
-    lli c=0;
-    fr(i,n){
-        if(v[i]>mid){
-          if(s[i]=='B'  && last !='B')c++;
-          last=s[i];
-        }
-    }
-   // while(check.size() && check.back()=='R')check.ppb;
-   // out(check);
- 
-    return c<=k;  
+lli q(lli t,lli l,lli r){
+    cout<<t<<' '<<l<<' '<<r<<'\n';
+    cout.flush();
+    lli x;cin>>x;
+    return x;
 }
-
 void solve(){
-lli n,k;cin>>n>>k;
-string s;cin>>s;
-get(v,n);
-
-lli low=0,high=mxe(v);
-lli ans=high;
-
+lli n,k;cin>>n;
+lli orig=q(1,1,n);
+lli modi=q(2,1,n);
+lli diff=modi-orig;
+lli l,r;
+lli low=1,high=n;
+lli ans;
 while(low<=high){
     lli mid=(low+high)/2;
-    if(check(s,mid,v,k)){
-        high=mid-1;
-        ans=mid;
+    lli o=q(1,1,mid);
+    lli m=q(2,1,mid);
+    if((m-o)==diff){
+      ans=mid;
+      high=mid-1;
     }else low=mid+1;
 }
-cout<<ans<<'\n';
+r=ans;
+l=r-diff+1;
+
+
+cout<<"! "<<l<<' '<<r<<'\n';
+cout.flush();
 }
 
 int32_t main(){

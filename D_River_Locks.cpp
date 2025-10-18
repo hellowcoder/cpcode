@@ -39,9 +39,24 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
+
 void solve(){
-lli n,k;cin>>n>>k;
-//get(v,n);
+lli n,k;cin>>n;
+get(v,n);
+vll p(n);
+partial_sum(all(v),p.begin());
+lli maxi=0;
+fr(i,n){
+    maxi=max(maxi,(p[i]+i)/(i+1));
+}
+
+cin>>k;
+fr(i,k){
+    lli t;cin>>t;
+    if(t<maxi)no1;
+    else
+     cout<<(p[n-1]+t-1)/t<<'\n';
+}
 
 }
 

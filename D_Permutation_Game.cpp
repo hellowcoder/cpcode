@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-17 01:31
+//Date: 2025-10-17 18:55
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,38 +39,64 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-bool check(string &s,lli mid,vll &v,lli k){
-    lli n=v.size();
-    char last='R';
-    lli c=0;
-    fr(i,n){
-        if(v[i]>mid){
-          if(s[i]=='B'  && last !='B')c++;
-          last=s[i];
-        }
+lli score(lli src,vll &p,vll& val,lli k){
+    lli n=p.size();
+    vll vis(n,0);
+    lli maxi=0;
+    lli curr=0;
+    while(k && !vis[src]){
+        maxi=max(maxi,curr+val[src]*k);
+        vis[src]=1;
+        
+        curr+=val[src];
+        src=p[src];
+        k--;
+      //  cout<<maxi<<' ';
     }
-   // while(check.size() && check.back()=='R')check.ppb;
-   // out(check);
- 
-    return c<=k;  
+    return maxi;
 }
 
 void solve(){
-lli n,k;cin>>n>>k;
-string s;cin>>s;
+lli n,k,a,b,s;cin>>n>>k>>b>>s;
+b--;
+s--;
+
+
 get(v,n);
+fr(i,n)v[i]--;
+get(val,n);
+lli sum1=score(b,v,val,k);
+lli sum2=score(s,v,val,k);
+// vll bb,ss;
+// bb.psb(val[b]);
+// lli check=b;
+// b=v[b];
+// while(b!=check){
+//     bb.psb(val[b]);
+//     b=v[b];
+// }
+// check=s;
+// ss.psb(val[s]);
+// s=v[s];
+// while(s!=check){
+//     ss.psb(val[s]);
+//     s=v[s];
+// }
+// out(bb);
+// out(ss);
+// lli sum1=0,sum2=0;
+// lli curr=0,curr2=0;
+// fr(i,k){
+//   sum1=max(sum1,bb[i]*(k-i)+curr);
+//   sum2=max(sum2,ss[i]*(k-i)+curr2);
 
-lli low=0,high=mxe(v);
-lli ans=high;
+//   curr+=bb[i];
+//   curr2+=ss[i];
+// }
+if(sum1>sum2)cout<<"Bodya\n";
+else if(sum2>sum1)cout<<"Sasha\n";
+else cout<<"Draw\n";
 
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(s,mid,v,k)){
-        high=mid-1;
-        ans=mid;
-    }else low=mid+1;
-}
-cout<<ans<<'\n';
 }
 
 int32_t main(){

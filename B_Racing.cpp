@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-17 01:31
+//Date: 2025-10-16 22:28
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,38 +39,43 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-bool check(string &s,lli mid,vll &v,lli k){
-    lli n=v.size();
-    char last='R';
-    lli c=0;
-    fr(i,n){
-        if(v[i]>mid){
-          if(s[i]=='B'  && last !='B')c++;
-          last=s[i];
-        }
-    }
-   // while(check.size() && check.back()=='R')check.ppb;
-   // out(check);
- 
-    return c<=k;  
-}
-
 void solve(){
-lli n,k;cin>>n>>k;
-string s;cin>>s;
+lli n,k;cin>>n;
 get(v,n);
+lli low=0,high=0;
+bool bol=true;
+lli up=0;
+vll last;
+fr(i,n){
+    lli l,r;cin>>l>>r;
+    if(!bol)continue;
+    if(v[i]==-1){
+        last.psb(i);
+    }else up+=v[i];
 
-lli low=0,high=mxe(v);
-lli ans=high;
-
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(s,mid,v,k)){
-        high=mid-1;
-        ans=mid;
-    }else low=mid+1;
+    while(up<l){
+        if(last.empty()){
+            bol=false;
+            break;
+        }
+        v[last.back()]=1;
+        up++;
+        last.ppb;
+    }
+    while(up + last.size() > r){  //here all last have 1 potential
+      if(last.empty()){
+        bol=false;
+        break;
+      }
+      v[last.back()]=0;
+      last.ppb;
+    }
 }
-cout<<ans<<'\n';
+if(bol){
+   fr(i,n)cout<<max(0LL,v[i])<<' ';
+   cout<<'\n';
+}
+else no1;
 }
 
 int32_t main(){

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-10 23:31
+//Date: 2025-10-18 17:28
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,69 +39,224 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
-void solve(){
-lli n,k;cin>>n;
-vector<pair<pr,lli>>p(n);
-get(v,n);
-get(b,n);
-map<lli,vll>m;
-fr(i,n){
-    p[i]={{b[i],v[i]},i+1};
-    if(v[i]>b[i]){
-        no1;
-        return;
-    }
-    m[v[i]].psb(i+1);
-}      
-srt(p);
-
-vpr ans;
-fr(i,n){
-
-    if(p[i].ff.ff==p[i].ff.ss){
-       // m[p[i].ff.ss]=p[i].ss;
-        continue;
-    }
-    if(p[i].ff.ff>p[i].ff.ss){
-        lli check=p[i].ff.ff;
-       //  lli prev=p[i].ff.ss;
-        if(m.find(check)==m.end()){
-            no1;
-            return;
-        }
-        
-        ans.push_back({i+1,m[check].back()});
-        m[check].psb(p[i].ss);
-        check=p[i].ff.ss;
-        if(m.find(check)==m.end()){
-          continue;
-        }
-        if(m[check].size()==1)m.erase(check);
-        else{
-           fr(j,m[check].size()){
-             if(m[check][j]==p[i].ss){
-                m[check].erase(m[check].begin()+i);
-                break;
+  class math {
+     lli LIM;
+     vector<lli> fac, inv,spf;
+     vector<bool> isprime;
+     // --- fast pow (modular exponentiation) ---
+     static inline lli mod_pow(lli a, lli e, lli m=MOD){
+         lli r = 1 % m;
+         a %= m;
+         while(e){
+             if(e & 1) r = (__int128)r * a % m;
+             a = (__int128)a * a % m;
+             e >>= 1;
+         }
+         return r;
+     }
+ 
+ public:
+     math() : LIM(0) {}
+ 
+     // ---------- Lightweight Functions ----------
+     static inline lli gcd(lli a, lli b){ return b ? gcd(b, a % b) : a; }
+     static inline lli lcm(lli a, lli b){ return a / gcd(a,b) * b; }
+ 
+     // ---------- Digit Utilities ----------
+     static inline lli digit_sum(lli n){
+         lli s = 0;
+         while(n){ s += n % 10; n /= 10; }
+         return s;
+     }
+ 
+     static inline lli sum_of_digits_1_to_n(lli n){
+         if(n <= 0) return 0;
+         __int128 ans = 0;
+         for(lli f = 1; f <= n; f *= 10){
+             lli higher = n / (f*10);
+             lli curr   = (n / f) % 10;
+             lli lower  = n % f;
+ 
+             ans += (__int128)higher * 45 * f;
+             ans += (__int128)curr * (curr-1)/2 * f;
+             ans += (__int128)curr * (lower+1);
+         }
+         return (lli)ans;
+     }
+ 
+     static inline lli count_d_1_to_n(lli x){
+         lli ans=0;
+         for(lli i=1;i<=x;i*=10) ans+=(x-i+1);
+         return ans;
+     }
+ 
+     // ---------- Factorials (mod) ----------
+     void precompute_fac(lli limit){
+         LIM = limit;
+         fac.assign(LIM+1, 0);
+         inv.assign(LIM+1, 0);
+ 
+         fac[0] = 1;
+         for(lli i=1; i<=LIM; i++) fac[i] = (fac[i-1] * i) % MOD;
+         inv[LIM] = mod_pow(fac[LIM], MOD-2, MOD);
+         for(lli i=LIM; i>=1; i--) inv[i-1] = (inv[i] * i) % MOD;
+     }
+ 
+     lli nCr(lli n, lli r) const {
+         if(r < 0 || n < 0 || r > n) return 0;
+         if(n > LIM) return 0;
+         return fac[n] * inv[r] % MOD * inv[n-r] % MOD;
+     }
+     
+     
+     lli get_fac(lli x){
+         return fac[x];
+     }
+ 
+     lli get_inv(lli x){
+         return inv[x];
+     }
+ 
+     // ---------- Miller-Rabin + Pollard-Rho ----------
+     static inline lli mulmod(lli a, lli b, lli mod){
+         return (__int128)a * b % mod;
+     }
+ 
+     static lli powmod(lli a, lli d, lli mod){
+         lli r = 1;
+         while(d){
+             if(d & 1) r = mulmod(r, a, mod);
+             a = mulmod(a, a, mod);
+             d >>= 1;
+         }
+         return r;
+     }
+ 
+     static bool isPrime(lli n){
+         if(n < 2) return false;
+         for(lli p : {2,3,5,7,11,13,17,19,23,29,31,37})
+             if(n % p == 0) return n == p;
+         lli d = n-1, s = 0;
+         while((d & 1) == 0){ d >>= 1; ++s; }
+         for(lli a : {2,325,9375,28178,450775,9780504,1795265022}){
+             if(a % n == 0) continue;
+             lli x = powmod(a, d, n);
+             if(x == 1 || x == n-1) continue;
+             bool composite = true;
+             for(int r=1; r<s; r++){
+                 x = mulmod(x, x, n);
+                 if(x == n-1){ composite = false; break; }
              }
-           }
-        }
-    }
-    
-
-}
-cout<<ans.size()<<'\n';
-fr(i,ans.size()){
-    cout<<ans[i].ss<<' '<<ans[i].ff<<'\n';
-}
-
+             if(composite) return false;
+         }
+         return true;
+     }
+ 
+     static lli pollard(lli n){
+         if(n % 2 == 0) return 2;
+         static std::mt19937_64 rng(
+             chrono::steady_clock::now().time_since_epoch().count()
+         );
+         uniform_int_distribution<lli> dist(2, n-2);
+         lli x = dist(rng), y = x, c = dist(rng), d = 1;
+         auto f = [&](lli v){ return (mulmod(v, v, n) + c) % n; };
+         while(d == 1){
+             x = f(x);
+             y = f(f(y));
+             d = gcd(abs(x-y), n);
+         }
+         if(d == n) return pollard(n);
+         return d;
+     }
+ 
+     static void factor_rec(lli n, vector<lli> &facs){
+         if(n == 1) return;
+         if(isPrime(n)){ facs.push_back(n); return; }
+         lli d = pollard(n);
+         factor_rec(d, facs);
+         factor_rec(n/d, facs);
+     }
+ 
+     static vector<lli> factor(lli n){
+         vector<lli> facs;
+         factor_rec(n, facs);
+         sort(facs.begin(), facs.end());
+         return facs;
+     }
+ 
+     // ---------- SPF + Prime Sieve ----------
+ 
+     void precompute_spf(lli n){
+         spf.resize(n+1);
+         for(int i=0;i<=n;i++) spf[i]=i;
+ 
+         for(int i=2;i*i<=n;i++){
+             if(spf[i]==i){ // prime
+                 for(int j=i*i;j<=n;j+=i){
+                     if(spf[j]==j) spf[j]=i;
+                 }
+             }
+         }
+     }
+ 
+     void precompute_primes(lli n){
+         isprime.assign(n+1,true);
+         isprime[0]=isprime[1]=false;
+         for(lli i=2;i*i<=n;i++){
+             if(isprime[i]){
+                 for(lli j=i*i;j<=n;j+=i) isprime[j]=false;
+             }
+         }
+         
+     }
+ 
+     vector<lli> get_factorization(lli x){
+         vector<lli> res;
+         while(x!=1){
+             res.push_back(spf[x]);
+             x/=spf[x];
+         }
+         return res;
+     }
+     
+     vector<lli> print_prime(lli x){
+ 
+        vector<lli>primes;
+        for(int i=2;i<=x;i++) if(isprime[i]) primes.push_back(i);
+        return primes;
+     }
+ 
+     bool is_prime(lli x){
+         return isprime[x];
+     }
+ 
+ 
+ };
+ // global declaration
+ math m;
+ 
+ //max(a,b)=(a+b+abs(a-b))/2
+ //min(a,b)=(a+b-abs(a-b))/2
+ 
+ //chicken nugget formula 
+ //   -- max number which can be written in form of ax+by where __gcd(x,y)=1 id x*y-x-y 
+ //  -- total(x-1)(y-1)/2 numbers can be written in that form 
+ 
+ 
+ 
+ 
+ 
+void solve(){
+m.precompute_primes(1e9);
+vll v=m.print_prime(1e9-7);
+out(v);
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
 cin>>tt;
-frs(i,1,tt){
-    cout<<"Case #"<<i<<": ";
-    solve();
+while(tt--){
+solve();
 }
 }

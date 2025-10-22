@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-18 22:43
+//Date: 2025-10-21 18:32
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,67 +38,30 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-map<lli,vll>m; 
-bool check(lli mid,vll &v){
-    lli n=v.size();
-    // lli maxi=0;
-    // pr c={-mid,0LL};
-    auto it = m.lower_bound(-mid);
-    if(it==m.end())return false;
-    lli check=it->second.size();
-    lli cc=0;
-  for(auto &ind : it->second){
-    lli c=0;
-    frs(i,ind,n-2){
-        lli k=abs(v[i]-v[i+1]);
-        lli x=v[i+1];
-        x=min(x,k);
-        if(x>mid){
-          c++;
-          break;
-        }
-    }
-    rfr(i,ind,1){
-        lli k=abs(v[i]-v[i-1]);
-        lli x=v[i-1];
-        x=min(x,k);
-        if(x>mid){
-         c++;
-         break;
-        }
-    }
-    if(c)cc++;
-  }
-    return cc<check;
-}
-
+ 
 void solve(){
-lli n,k;cin>>n;
+lli n,k;cin>>n>>k;
 get(v,n);
-m.clear();
-
-fr(i,n){
-  //  p[i]={-v[i],i};
-    m[-v[i]].psb(i);
+map<lli,lli>m;
+lli ans=0;
+fr(i,n)m[v[i]%k]++;
+for(auto &it:m){
+    if(it.ff==0){
+        continue;
+    }
+    lli check=k-it.ff;
+    lli rem=it.ss-1;
+    ans=max(ans,check+k*rem);
 }
-
-lli low=0;
-lli high=mxe(v);
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(mid,v)){
-      high=mid-1;
-    }else low=mid+1;
-}
-cout<<low<<'\n';
+if(ans!=0)ans++;
+cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
 cin>>tt;
-fr(i,tt){
-    cout<<"Case #"<<i+1<<": ";
-    solve();
+while(tt--){
+solve();
 }
 }

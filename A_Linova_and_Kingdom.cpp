@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-18 22:43
+//Date: 2025-10-21 17:43
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -23,7 +23,7 @@
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
 #define ppb pop_back()
-#define all(v) v.begin(),v.end()
+#define all(v) v.begin(),v.begin()+k
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
@@ -38,67 +38,39 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-map<lli,vll>m; 
-bool check(lli mid,vll &v){
-    lli n=v.size();
-    // lli maxi=0;
-    // pr c={-mid,0LL};
-    auto it = m.lower_bound(-mid);
-    if(it==m.end())return false;
-    lli check=it->second.size();
-    lli cc=0;
-  for(auto &ind : it->second){
-    lli c=0;
-    frs(i,ind,n-2){
-        lli k=abs(v[i]-v[i+1]);
-        lli x=v[i+1];
-        x=min(x,k);
-        if(x>mid){
-          c++;
-          break;
-        }
-    }
-    rfr(i,ind,1){
-        lli k=abs(v[i]-v[i-1]);
-        lli x=v[i-1];
-        x=min(x,k);
-        if(x>mid){
-         c++;
-         break;
-        }
-    }
-    if(c)cc++;
-  }
-    return cc<check;
-}
-
+ 
 void solve(){
-lli n,k;cin>>n;
-get(v,n);
-m.clear();
-
-fr(i,n){
-  //  p[i]={-v[i],i};
-    m[-v[i]].psb(i);
+lli n,k;cin>>n>>k;
+vvll ad(n);
+vll val(n);
+fr(i,n-1){
+    lli u,v;cin>>u>>v;
+    u--;
+    v--;
+    ad[v].psb(u);
+    ad[u].psb(v);
 }
 
-lli low=0;
-lli high=mxe(v);
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(mid,v)){
-      high=mid-1;
-    }else low=mid+1;
-}
-cout<<low<<'\n';
+auto dfs=[&](auto&& self,lli node,lli depth,lli par)->lli {
+   lli sz=0;
+   for(auto &it:ad[node]){
+    if(it==par)continue;
+    sz+=self(self,it,depth+1,node);
+   }
+   val[node]=depth-sz;
+   return sz+1;
+};
+dfs(dfs,0,0,-1);
+rsrt(val);
+cout<<accumulate(all(val),0LL)<<'\n';
+
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
-fr(i,tt){
-    cout<<"Case #"<<i+1<<": ";
-    solve();
+
+while(tt--){
+solve();
 }
 }

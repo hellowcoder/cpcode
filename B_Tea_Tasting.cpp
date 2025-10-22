@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-18 22:43
+//Date: 2025-10-21 19:54
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,67 +38,43 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-map<lli,vll>m; 
-bool check(lli mid,vll &v){
-    lli n=v.size();
-    // lli maxi=0;
-    // pr c={-mid,0LL};
-    auto it = m.lower_bound(-mid);
-    if(it==m.end())return false;
-    lli check=it->second.size();
-    lli cc=0;
-  for(auto &ind : it->second){
-    lli c=0;
-    frs(i,ind,n-2){
-        lli k=abs(v[i]-v[i+1]);
-        lli x=v[i+1];
-        x=min(x,k);
-        if(x>mid){
-          c++;
-          break;
-        }
-    }
-    rfr(i,ind,1){
-        lli k=abs(v[i]-v[i-1]);
-        lli x=v[i-1];
-        x=min(x,k);
-        if(x>mid){
-         c++;
-         break;
-        }
-    }
-    if(c)cc++;
-  }
-    return cc<check;
-}
-
+ 
 void solve(){
 lli n,k;cin>>n;
-get(v,n);
-m.clear();
-
+get(a,n);
+get(b,n);
+vll p(n);
+partial_sum(all(b),p.begin());
+p.insert(p.begin(),0);
+vll full(n+2);
+vll ans(n+1);
 fr(i,n){
-  //  p[i]={-v[i],i};
-    m[-v[i]].psb(i);
+ lli it=upper_bound(all(p),a[i]+p[i])-p.begin();
+ full[i+1]++;
+ full[it]--;
+ if(it<n){
+  ans[it]+=(a[i]-p[it-1]);
+ }
+ 
 }
-
-lli low=0;
-lli high=mxe(v);
-while(low<=high){
-    lli mid=(low+high)/2;
-    if(check(mid,v)){
-      high=mid-1;
-    }else low=mid+1;
+out(ans);
+vll temp(n+1);
+temp[1]=full[1];
+frs(i,2,n){
+    temp[i]+=full[i]+temp[i-1];
 }
-cout<<low<<'\n';
+fr(i,n){
+    ans[i+1]+=temp[i+1]*b[i];
+    cout<<ans[i+1]<<' ';
+}
+nl;
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
 cin>>tt;
-fr(i,tt){
-    cout<<"Case #"<<i+1<<": ";
-    solve();
+while(tt--){
+solve();
 }
 }

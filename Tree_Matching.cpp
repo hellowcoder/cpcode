@@ -40,17 +40,33 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  vvll adj;
  lli n,k;
- 
+ vvll dp;
+ void dfs(lli node,lli par){
+    for(auto &it:adj[node]){
+        if(it==par)continue;
+        dfs(it,node);
+        dp[node][0]+=max(dp[it][0],dp[it][1]);
+    }
+    for(auto &it:adj[node]){
+        if(it==par)continue;
+        dp[node][1]=max(dp[node][1],1+dp[node][0]+dp[it][0]-max(dp[it][0],dp[it][1]));
+    }
+ }
+
 void solve(){
 cin>>n;
 adj.resize(n);
+dp=vvll(n,vll(2,0));
 fr(i,n-1){
-    lli u,v;cin>>u>>v;u--;
+    lli u,v;cin>>u>>v;
+    u--;
     v--;
     adj[u].psb(v);
     adj[v].psb(u);
 
 }
+dfs(0,-1);
+cout<<max(dp[0][0],dp[0][1]);
 
 }
 

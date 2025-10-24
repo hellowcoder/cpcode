@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-24 02:41
+//Date: 2025-10-23 14:37
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,37 +38,68 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+vector<vector<string>>N_Queen;
+vll queen; 
+lli n;
+void n_queen(lli row,lli col,lli diag1,lli diag2){
+   if(row==n){
+     vector<string>b(n,string(n,'.'));
+     fr(i,n){
+        b[i][queen[i]]='Q';
+     }
+     N_Queen.psb(b);
+     return;
+   }
+   lli avail=((1LL<<n)-1) & ~(col|diag1|diag2); //available position for this row
 
- 
-vll div(lli x){
-    vll t;
-    for(lli i=2;i*i<=x;i++){
-      if(x%i==0){
-        t.psb(i);
-        if(i*i!=x)t.psb(x/i);
-      }
-    } 
-    return t;
-} 
- 
- 
+   while(avail){
+     lli pick=avail & ~avail;  //rightmost set bit
+     avail-=pick;
+     
+     lli col_pos=__builtin_ctz(pick);//count number of zero at the end
+     queen[row]=col_pos;
+
+     n_queen(row+1,col|pick,(diag1|pick)<<1,(diag2|pick)>>1);
+   }
+}
+
+vvll M_color;
+vll color;
+vvll adj;
+lli n,m;
+
+bool safe(lli node,lli c){
+    for(auto &it : adj[node]){
+        if(color[it]==c)return false;
+    }
+    return true;
+}
+
+void M_coloring(lli ind){
+    if(ind==n){
+        M_color.psb(color);
+        return;
+    }
+    frs(c,1,m){
+     if(safe(ind,c)){
+       color[ind]=c;
+       M_coloring(ind+1);
+       color[ind]=0;
+     }
+    }
+}
+
+
+
 void solve(){
-lli n,k;cin>>n;
-get(v,n);
-srt(v);
-lli prod=v[0]*v.back();
-vll temp=div(prod);
-srt(temp);
-if(temp==v)
-cout<<prod<<'\n';
-else no1;
+lli n,k;cin>>n>>k;
+//get(v,n);
 
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
 while(tt--){
 solve();
 }

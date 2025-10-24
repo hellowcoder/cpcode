@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-24 02:41
+//Date: 2025-10-22 15:18
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,37 +38,41 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
- 
-vll div(lli x){
-    vll t;
-    for(lli i=2;i*i<=x;i++){
-      if(x%i==0){
-        t.psb(i);
-        if(i*i!=x)t.psb(x/i);
-      }
-    } 
-    return t;
-} 
- 
  
 void solve(){
-lli n,k;cin>>n;
+lli n,m,k,x;cin>>n>>m>>k>>x;
 get(v,n);
-srt(v);
-lli prod=v[0]*v.back();
-vll temp=div(prod);
-srt(temp);
-if(temp==v)
-cout<<prod<<'\n';
-else no1;
-
+get(w,n);
+map<lli,vll>mm;
+fr(i,n){
+    mm[v[i]].psb(w[i]);
+}
+lli ans=0;
+m=mm.size();
+for(auto &it:mm){
+    srt(it.ss);
+    ans+=it.ss.back();
+    it.ss.ppb;
+    if(it.ss.size()==0)mm.erase(it.ff);
+}
+vll temp;
+for(auto &it:mm){
+   rsrt(it.ss); 
+  for(lli i=0;i<(lli)min(x-1,(lli)it.ss.size());i++){
+     temp.psb(it.ss[i]);
+  }
+}
+rsrt(temp);
+n=temp.size();
+fr(i,(lli)min(k-m,n)){
+    ans+=temp[i];
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
 while(tt--){
 solve();
 }

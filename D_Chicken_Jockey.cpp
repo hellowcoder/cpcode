@@ -43,18 +43,19 @@ lli n,k;cin>>n;
 get(v,n);
 lli sum=accumulate(all(v),0LL);
 sum-=(n-1);
-//vll dp(n,0);
+vll dp(n,0);
 lli curr=0,prev=0;
+lli temp=0;
 frs(i,1,n-1){
     lli check=min(i,v[i])-2;
     if(check<0)check=0;
    
-    // dp[i]=max(dp[i-1],dp[i-2]+check);
-    lli temp=max(prev,curr+check);
-    curr=prev;
-    prev=temp;
+     dp[i]=max(dp[i-1],dp[i-2]+check);
+    // temp=max(prev,curr+check);
+    // curr=prev;
+    // prev=temp;
 }
-cout<<sum-prev<<'\n';
+cout<<sum-dp[n-2]<<'\n';
 }
 
 int32_t main(){

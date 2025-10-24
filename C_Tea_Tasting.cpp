@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-09-30 15:51
+//Date: 2025-10-21 19:54
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,6 +18,7 @@
 #define get(v,n) vll v(n);fr(i,n)cin>>v[i]
 #define ff first
 #define ss second
+#define bitc(x) __builtin_popcountll(x)
 #define mxe(v)  *max_element(v.begin(),v.end())
 #define mne(v)  *min_element(v.begin(),v.end())
 #define psb(a) push_back(a)
@@ -37,11 +38,36 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
+ 
 void solve(){
-lli n,k;cin>>n>>k;
-//get(v,n);
-
+lli n,k;cin>>n;
+get(a,n);
+get(b,n);
+vll p(n+1);
+frs(i,1,n){
+    p[i]=p[i-1]+b[i-1];
+}
+vll full(n+2);
+vll ans(n+1);
+fr(i,n){
+ lli it=upper_bound(all(p),a[i]+p[i])-p.begin();
+ full[i+1]++;
+ full[it]--;
+ if(it<=n){
+  ans[it]+=(a[i]+p[i]-p[it-1]);
+ }
+ 
+}
+vll temp(n+1);
+temp[1]=full[1];
+frs(i,2,n){
+    temp[i]+=full[i]+temp[i-1];
+}
+fr(i,n){
+    ans[i+1]+=temp[i+1]*b[i];
+    cout<<ans[i+1]<<' ';
+}
+nl;
 }
 
 int32_t main(){

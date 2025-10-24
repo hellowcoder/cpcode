@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-24 02:41
+//Date: 2025-10-24 20:32
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,31 +38,51 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+ 
+bool part(lli x,lli mid){
+     lli check=x/mid;
+     if(check==3 && (x%mid==0))return true;
+     if(check>=4)return true;
+     return false;
 
- 
-vll div(lli x){
-    vll t;
-    for(lli i=2;i*i<=x;i++){
-      if(x%i==0){
-        t.psb(i);
-        if(i*i!=x)t.psb(x/i);
-      }
-    } 
-    return t;
-} 
- 
- 
+}
+
+bool check(lli mid,vll &v,lli k){
+    lli n=v.size();
+    lli curr=0;
+    fr(i,n){
+       if(v[i]%mid){ 
+        if(part(v[i],mid))continue;
+        else curr++;
+       }
+    }
+    return curr<=k;
+}
+
+
+
 void solve(){
-lli n,k;cin>>n;
+lli n,k;cin>>n>>k;
 get(v,n);
+lli ans=1;
 srt(v);
-lli prod=v[0]*v.back();
-vll temp=div(prod);
-srt(temp);
-if(temp==v)
-cout<<prod<<'\n';
-else no1;
+map<lli,lli>m;
+fr(i,n){
+    m[v[i]]++;
 
+}
+
+
+frs(i,2,n){
+ lli count=upper_bound(all(v),4*i-1)-v.begin();
+ // remove 2 one 1 one
+ count-=m[3*i];
+ count-=m[2*i];
+ count-=m[i];
+
+ if(count<=k)ans=max(ans,i);
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){

@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-24 02:41
+//Date: 2025-10-24 19:34
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,30 +39,39 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
- 
-vll div(lli x){
-    vll t;
-    for(lli i=2;i*i<=x;i++){
-      if(x%i==0){
-        t.psb(i);
-        if(i*i!=x)t.psb(x/i);
-      }
-    } 
-    return t;
-} 
- 
- 
 void solve(){
-lli n,k;cin>>n;
+lli n;cin>>n;
 get(v,n);
-srt(v);
-lli prod=v[0]*v.back();
-vll temp=div(prod);
-srt(temp);
-if(temp==v)
-cout<<prod<<'\n';
-else no1;
+vvll prev(n+1,vll(n+1,0));
+vvll curr(n+1,vll(n+1,0));
+prev[0][0]=1;
+curr[0][0]=1;
+fr(i,n){ //index
+    fr(j,n+1){ //maximum of all time
+        fr(k,n+1){  //maximum of inversions
+           lli test=v[i];
+           if(test<k)continue; //lds of 3 size
+           if(test<j){
+              curr[j][test]=(curr[j][test]+prev[j][k])%MOD;
+           }else{
+              curr[test][k]=(curr[test][k]+prev[j][k])%MOD; // now k has become maximum of inversion 
+           }
+        }
+    }
+    fr(j,n+1){
+        fr(k,n+1){
+            prev[j][k]=curr[j][k];
+        }
+    }
+}
+lli ans=0;
+fr(i,n+1){
+    fr(j,n+1){
+        ans=(ans+prev[i][j])%MOD;
 
+    }
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){

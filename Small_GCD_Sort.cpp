@@ -1,9 +1,6 @@
-//Author: sandeep172918
-//Date: 2025-10-24 02:41
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -35,34 +32,16 @@
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
-using namespace __gnu_pbds;
-template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
- 
-vll div(lli x){
-    vll t;
-    for(lli i=2;i*i<=x;i++){
-      if(x%i==0){
-        t.psb(i);
-        if(i*i!=x)t.psb(x/i);
-      }
-    } 
-    return t;
-} 
- 
  
 void solve(){
 lli n,k;cin>>n;
-get(v,n);
-srt(v);
-lli prod=v[0]*v.back();
-vll temp=div(prod);
-srt(temp);
-if(temp==v)
-cout<<prod<<'\n';
-else no1;
-
+vpr p(n);
+fr(i,n){
+ p[i]={__gcd(n,i+1),i+1};
+}
+srtp(p);
+rfr(i,n-1,0)cout<<p[i].ss<<' ';
+nl;
 }
 
 int32_t main(){

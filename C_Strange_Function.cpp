@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-24 02:41
+//Date: 2025-10-23 22:17
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,31 +38,33 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
- 
-vll div(lli x){
-    vll t;
-    for(lli i=2;i*i<=x;i++){
-      if(x%i==0){
-        t.psb(i);
-        if(i*i!=x)t.psb(x/i);
-      }
-    } 
-    return t;
-} 
- 
  
 void solve(){
-lli n,k;cin>>n;
-get(v,n);
-srt(v);
-lli prod=v[0]*v.back();
-vll temp=div(prod);
-srt(temp);
-if(temp==v)
-cout<<prod<<'\n';
-else no1;
+// lli n,k;cin>>n;
+// lli od=(n+1)/2;
+// lli ans=(od%MOD)*2;
+// ans%=MOD;
 
+// //even 
+// lli ev=n/2;  // 3 3 4 3 3 5 repeat
+// lli check=ev/6;
+// ans+=((check%MOD)*21)%MOD;
+// lli rem=ev%6;
+// vll v={3,3,4,3,3,5};
+// fr(i,rem){ans+=v[i];ans%=MOD;}
+// cout<<ans<<'\n';
+lli n;cin>>n;
+lli x=1,i=1;
+lli ans=n%MOD;
+while(true){
+ 
+  ans=(ans%MOD+(n/x)%MOD);
+  ans%=MOD;
+  i++;
+   x=(lli)lcm(x,i);
+  if(x>n)break;
+}
+cout<<ans<<'\n';
 }
 
 int32_t main(){

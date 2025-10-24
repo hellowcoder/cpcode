@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-24 02:41
+//Date: 2025-10-24 21:52
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -38,30 +38,34 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
- 
-vll div(lli x){
-    vll t;
-    for(lli i=2;i*i<=x;i++){
-      if(x%i==0){
-        t.psb(i);
-        if(i*i!=x)t.psb(x/i);
-      }
-    } 
-    return t;
+lli q(lli i,lli n){
+    cout<<"? "<<i<<' '<<n<<'\n';
+    cout.flush();
+    lli x;cin>>x;
+    return x;
 } 
- 
- 
+
 void solve(){
 lli n,k;cin>>n;
-get(v,n);
-srt(v);
-lli prod=v[0]*v.back();
-vll temp=div(prod);
-srt(temp);
-if(temp==v)
-cout<<prod<<'\n';
-else no1;
+k=1LL<<30;
+set<lli>st;
+lli x;
+fr(i,n-1){
+  x=q(i+1,k);
+  st.insert(x);
+}
+lli ans=1;
+for(auto &it:st){
+    if(it!=ans){
+        cout<<"! "<<ans<<'\n';
+        cout.flush();
+        return;
+    }
+    ans++;
+}
+cout<<"! ";
+cout<<ans<<'\n';
+cout.flush();
 
 }
 

@@ -1,9 +1,6 @@
-//Author: sandeep172918
-//Date: 2025-10-24 02:41
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
+
 #define lli long long int
 #define fr(i,n) for(lli i=0;i<n;i++)
 #define frs(i,a,b) for(lli i=a;i<=b;i++)
@@ -35,40 +32,42 @@
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
-using namespace __gnu_pbds;
-template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
- 
-vll div(lli x){
-    vll t;
-    for(lli i=2;i*i<=x;i++){
-      if(x%i==0){
-        t.psb(i);
-        if(i*i!=x)t.psb(x/i);
-      }
-    } 
-    return t;
-} 
- 
+const int sz=4e3+1;
  
 void solve(){
-lli n,k;cin>>n;
-get(v,n);
-srt(v);
-lli prod=v[0]*v.back();
-vll temp=div(prod);
-srt(temp);
-if(temp==v)
-cout<<prod<<'\n';
-else no1;
+lli n,m,k;cin>>n>>m>>k;
+get(a,n);
+get(b,m);
+vector<bitset<sz>>aa(n+1);
+vector<bitset<sz>>bb(m+1);
+lli x;
+frs(i,1,n){
+ cin>>x;
+ aa[i]=aa[i-1];
+ aa[i][x]=1-aa[i][x];
+}
+frs(i,1,m){
+ cin>>x;
+ bb[i]=bb[i-1];
+ bb[i][x]=1-bb[i][x];
+}
+bitset<sz>t1,t2;
+fr(i,k){
+    lli l1,r1,l2,r2;
+    cin>>l1>>r1>>l2>>r2;
+    t1=aa[r1]^aa[l1-1]; //0 means odd 1 means even 
+    t2=bb[r2]^bb[l2-1];
+    //even to be discardded 
+    t1=t1^t2;
+    cout<<t1.count()<<'\n';
 
+
+}
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
 while(tt--){
 solve();
 }

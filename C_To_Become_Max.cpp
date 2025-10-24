@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-24 02:41
+//Date: 2025-10-22 19:24
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,29 +39,41 @@ using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
- 
-vll div(lli x){
-    vll t;
-    for(lli i=2;i*i<=x;i++){
-      if(x%i==0){
-        t.psb(i);
-        if(i*i!=x)t.psb(x/i);
-      }
-    } 
-    return t;
-} 
- 
- 
+bool check(lli mid,lli kk,vll &v){
+    lli n=v.size();
+     fr(i,n){
+        
+         lli count=0;
+        frs(j,i,n-1){
+            lli temp=mid-(j-i);
+            if(v[j]>=temp)break;  //key mil gya
+            lli need=temp-v[j];
+            if(j==(n-1)){
+                count=1e18;  //key bhi nhi mila last aa gya not possible to increase it
+                break;
+
+            }
+            count+=need;
+        }
+        if(count<=kk)return true;
+     }
+     return false;
+}
+
+
+
 void solve(){
-lli n,k;cin>>n;
+lli n,k;cin>>n>>k;
 get(v,n);
-srt(v);
-lli prod=v[0]*v.back();
-vll temp=div(prod);
-srt(temp);
-if(temp==v)
-cout<<prod<<'\n';
-else no1;
+lli low=0,high=1e9;
+
+while(low<=high){
+    lli mid=(low+high)/2;
+    if(check(mid,k,v)){
+        low=mid+1;
+    }else high=mid-1;
+}
+cout<<low-1<<'\n';
 
 }
 

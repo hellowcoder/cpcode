@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-25 12:22
+//Date: 2025-10-26 15:28
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -27,8 +27,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES "
-#define no cout<<"NO "
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
@@ -38,21 +38,40 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-  
+ 
 void solve(){
-lli n;cin>>n;
+lli n,k;cin>>n;
 get(v,n);
-fr(i,n){
+vll pref(n);
+vll suff(n);
+pref[0]=v[0];
 
-
-if(v[i]&2)yes;
-else no;
+lli c=count(all(v),0);
+if(c){
+    cout<<c<<'\n';
+    return;
+}
+suff.back()=v.back();
+frs(i,1,n-1){
+    pref[i]=pref[i-1]&v[i];
+}
+rfr(i,n-2,0){
+    suff[i]=suff[i+1]&v[i];
 }
 
+lli mini=suff[0];
+lli ans=1;
+frs(i,1,n-2){
+    lli sum=pref[i]+suff[i+1];
+    if(sum<=mini)ans=2;
 }
+cout<<ans<<'\n';
+}
+
 int32_t main(){
 fastio;
 lli tt=1;
+cin>>tt;
 while(tt--){
 solve();
 }

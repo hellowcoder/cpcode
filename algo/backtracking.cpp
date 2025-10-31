@@ -91,6 +91,51 @@ void M_coloring(lli ind){
 
 
 
+
+lli n;
+lli start=0;
+vvll adj(20);
+vvll dp(1LL<<20,vll(20,-1));
+lli hamiltonian_c(lli mask,lli ind){
+  if(mask==(1<<n)-1){
+    for(auto &it:adj[ind]){
+      if(it==start)return 1;
+    }
+    return 0;
+  }
+ 
+
+  if(dp[mask][ind] != -1)return dp[mask][ind];
+  lli ans=0;
+  
+  for(auto &it:adj[ind]){
+    lli k=1LL<<it;
+    if(k&mask)continue;
+    lli new_mask=k|mask;
+    ans+=hamiltonian_c(new_mask,it);
+  }
+  return ans;
+
+}
+
+lli hamiltonian_p(lli mask,lli ind){
+  if(mask==(1<<n)-1) return 1;
+ 
+
+  if(dp[mask][ind] != -1)return dp[mask][ind];
+  lli ans=0;
+  
+  for(auto &it:adj[ind]){
+    lli k=1LL<<it;
+    if(k&mask)continue;
+    lli new_mask=k|mask;
+    ans+=hamiltonian_p(new_mask,it);
+  }
+  return ans;
+
+}
+
+
 void solve(){
 lli n,k;cin>>n>>k;
 //get(v,n);

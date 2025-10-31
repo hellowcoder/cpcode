@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-25 12:22
+//Date: 2025-10-30 22:09
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -27,8 +27,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES "
-#define no cout<<"NO "
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
@@ -38,21 +38,32 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-  
+ 
 void solve(){
-lli n;cin>>n;
-get(v,n);
+lli r,x,d,n;cin>>r>>x>>d>>n;
+string s;cin>>s;
+lli ans=0;
+lli low=r,high=x;
 fr(i,n){
-
-
-if(v[i]&2)yes;
-else no;
+    if(s[i]=='2'){
+     if(low<x){
+        ans++;
+        low-=d;
+        high+=d;
+     }
+    }else{
+        low-=d;
+        high+=d;
+        ans++;
+    }
+}
+cout<<ans<<'\n';
 }
 
-}
 int32_t main(){
 fastio;
 lli tt=1;
+cin>>tt;
 while(tt--){
 solve();
 }

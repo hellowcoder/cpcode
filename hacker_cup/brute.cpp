@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-14 22:02
+//Date: 2025-10-25 12:22
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -27,8 +27,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES\n"
-#define no cout<<"NO\n"
+#define yes cout<<"YES "
+#define no cout<<"NO "
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
@@ -40,36 +40,20 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 void solve(){
-lli n,k;cin>>n;
-get(a,n);
-get(b,n);
-cin>>k;
-get(c,k);  
-
-
-fr(i,k){
-    bool bol=true;
-    fr(j,n){
-        if(b[j]==c[i]){
-            bol=false;
-            a[j]=c[i];
-            break;
-        }
-    }
-    if(bol)a[0]=c[i];
-}
+lli n;cin>>n;
+get(v,n);
 fr(i,n){
-    if(a[i]!=b[i]){
-        no;return;
-    }
+
+
+if(v[i]&2)yes;
+else no;
 }
-yes;
+
 }
 
 int32_t main(){
 fastio;
 lli tt=1;
-cin>>tt;
 while(tt--){
 solve();
 }

@@ -41,7 +41,7 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 vvll dp(1LL<<20, vll (20,-1));
 vvll adj;
-
+lli n;
 lli dpp(lli mask,lli ind){
     if(ind==0){
         if(mask==1)return 1;
@@ -58,16 +58,35 @@ lli dpp(lli mask,lli ind){
     return dp[mask][ind]=ans;
 }
 
+// lli dppp(lli mask,lli ind){  //tle for some cases
+//  if(mask==(1LL<<n)-1){
+//     if(ind==(n-1))return 1;
+//     return 0;
+//  }
+//  if(dp[mask][ind] != -1)return dp[mask][ind];
+//  lli ans=0;
+
+//  for(auto &it:adj[ind]){
+//     lli k=1LL<<it;
+//     if(k&mask)continue;
+//     lli new_mask=k|mask;
+//     ans=(ans+dppp(new_mask,it)%MOD)%MOD;
+//  }
+//  return dp[mask][ind]=ans;
+// }
+
 void solve(){
-lli n,k;cin>>n>>k;
+lli k;cin>>n>>k;
 adj.resize(n);
 fr(i,k){
     lli u,v;
     cin>>u>>v;
     u--;
     v--;
-    adj[v].psb(u);
+   // adj[u].psb(v);
+   adj[v].psb(u);
 }
+// cout<<dppp(1,0);  // from 0 to n-1
 cout<<dpp((1LL<<n)-1,n-1);
 }
 

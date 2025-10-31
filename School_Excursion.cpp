@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-25 12:22
+//Date: 2025-10-27 17:14
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -27,8 +27,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES "
-#define no cout<<"NO "
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
@@ -38,18 +38,79 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+ vector<lli> sz;
+ class UnionFind
+ {
+ private:
+     vector<lli> par;
+    
   
+ public:
+     UnionFind(lli n)
+     {
+         par = vector<lli>(n);
+         iota(par.begin(), par.end(), 0);
+         sz = vector<lli>(n, 1);
+     }
+  
+     lli find(lli u)
+     {
+         // this optimisation was good.
+         if (par[u] != par[par[u]])
+             par[u] = find(par[par[u]]);
+         return par[u];
+     }
+  
+     bool connected(lli u, lli v)
+     {
+         u = find(u);
+         v = find(v);
+         if (u == v)
+             return true;
+         return false;
+     }
+     bool join(lli u, lli v)
+     {
+         u = find(u);
+         v = find(v);
+         if (u == v)
+             return false;
+         if (sz[u] <= sz[v])
+         {
+             sz[v] += sz[u];
+             par[u] = v;
+         }
+         else
+         {
+             sz[u] += sz[v];
+             par[v] = u;
+         }
+         return true;
+     }
+     
+ };
 void solve(){
-lli n;cin>>n;
-get(v,n);
+lli n,k;cin>>n>>k;
+vpr p(k);
+UnionFind uf(n);
+fr(i,k){
+ lli u,v;cin>>u>>v;u--;v--;
+
+ uf.join(u,v);
+} 
+const lli x=1e5+1;
+bitset<x>dp;
+dp[0]=1;
 fr(i,n){
-
-
-if(v[i]&2)yes;
-else no;
+   lli check=uf.find(i);
+   if(check==i)
+     dp|=(dp<<(sz[check]));
+}
+frs(i,1,n){
+    cout<<dp[i];
+}
 }
 
-}
 int32_t main(){
 fastio;
 lli tt=1;

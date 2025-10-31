@@ -1,17 +1,17 @@
 #!/bin/bash
 set -e
 
-g++ -std=c++17 -O2 test.cpp -o main
+g++ -std=c++17 -O2 main.cpp -o main
 g++ -std=c++17 -O2 brute.cpp -o brute
 g++ -std=c++17 -O2 gen.cpp -o gen
 
-MAX_ITER=1000
+MAX_ITER=100
 # optional: change max n and max value passed to generator
-MAX_N=25        # maximum n generator can pick (it will only pick odd n)
-MAX_VALUE=100  # values will be distinct integers from 0..MAX_VALUE
+MAX_N=250        # maximum n generator can pick (it will only pick odd n)
+MAX_VALUE=10000  # values will be distinct integers from 0..MAX_VALUE
 
 for ((i=1; i<=MAX_ITER; i++)); do
-    ./gen $i $MAX_N $MAX_VALUE > in.txt
+    ./gen $MAX_N $MAX_VALUE $i > in.txt
     ./main < in.txt > out1.txt
     ./brute < in.txt > out2.txt
 

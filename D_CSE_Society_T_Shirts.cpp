@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-25 12:22
+//Date: 2025-10-25 16:13
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -27,8 +27,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES "
-#define no cout<<"NO "
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
@@ -38,18 +38,48 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-  
+ 
 void solve(){
-lli n;cin>>n;
-get(v,n);
+lli n,k;cin>>n;
+get(p,n);
+get(a,n);
+get(b,n);
+map<lli,set<lli>>m;
+
+
+cin>>k;
+get(r,k);
+
 fr(i,n){
+    m[a[i]].insert(p[i]);
+    m[b[i]].insert(p[i]);
+}
+
+// for(auto &it:m){
+//     cout<<it.ff<<' ';
+//     for(auto &itt:it.ss)cout<<itt<<' ';
+//     nl;
+// }
 
 
-if(v[i]&2)yes;
-else no;
+fr(i,k){
+    lli fav=r[i];
+   
+    if(m[fav].size()){
+        lli ans=*m[fav].begin();
+        cout<<ans<<' ';
+        for(auto &it:m){
+         it.ss.erase(ans);
+        }
+        
+    }else{
+        cout<<"-1 ";
+    }
+
 }
 
 }
+
 int32_t main(){
 fastio;
 lli tt=1;

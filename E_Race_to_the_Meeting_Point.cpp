@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-25 12:22
+//Date: 2025-10-25 15:55
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -11,7 +11,7 @@
 #define srt(v) sort(v.begin(),v.end())
 #define rsrt(v) sort(v.rbegin(),v.rend())
 #define pr pair<lli,lli>
-#define vll vector<lli>
+#define vll vector<double>
 #define vbl vector<bool>
 #define vpr vector<pr>
 #define vvll vector<vector<lli>>
@@ -27,8 +27,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES "
-#define no cout<<"NO "
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
@@ -38,21 +38,65 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-  
+ 
+pair<double,double> check(double mid,vll &v,vll &r){
+    lli n=v.size();
+    double t1=0;
+    double t2=0;
+    frs(i,1,n-1){
+        if(v[i]>=mid){
+            double rem=v[i]-mid;
+            t1+=rem/i;
+
+        }else{
+          t1+=(v[i]-v[i-1])/i;
+
+
+        }
+    }
+    frs(i,1,n-1){
+        if(r[i]<=mid){
+            double rem=mid-r[i];
+            t2+=rem/i;
+
+        }else{
+          t2+=(r[i-1]-r[i])/i;
+
+
+        }
+    }
+    return {t1,t2};
+}
+
 void solve(){
-lli n;cin>>n;
-get(v,n);
-fr(i,n){
+double n,k;cin>>n>>k;
+vll v(n);
+fr(i,n)cin>>v[i];
+v.insert(v.begin(),0.0);
+if(v.back()!=k)v.psb(k);
+auto t=v;
+reverse(all(t));
 
+double low=0,high=k;
+double ans=0;
+while((high-low)>=(1e-7)){
+    double mid=(low+high)/2.0;
+    pair<double,double> d=check(mid,v,t);
+    if(d.ff>=d.ss){
+        high=mid-1e-7;
+        ans=d.ff;
+    }else{
+        low=mid+1e-7;
+    }
 
-if(v[i]&2)yes;
-else no;
+}
+cout<<fixed<<setprecision(6)<<ans<<'\n';
 }
 
-}
 int32_t main(){
 fastio;
 lli tt=1;
+cin>>tt;
 while(tt--){
 solve();
 }

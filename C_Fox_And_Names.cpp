@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-25 12:22
+//Date: 2025-10-26 11:19
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -27,8 +27,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES "
-#define no cout<<"NO "
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
@@ -38,18 +38,48 @@ const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-  
+ 
+string conv(string s){
+    frs(i,1,s.size()-1){
+        if(s[i]==s[i-1]){
+            s[i-1]='*';
+        }
+    }
+    string asn="";
+    fr(i,s.size()){
+       if(s[i]=='*')continue;;
+       asn+=s[i];
+    }
+    return asn;
+}
+
+bool check(string &s){
+  map<lli,lli>m;
+  fr(i,s.size()){
+    m[s[i]]++;
+    if(m[s[i]]==2)return false;
+  }
+  return true;
+}
+
 void solve(){
-lli n;cin>>n;
-get(v,n);
-fr(i,n){
-
-
-if(v[i]&2)yes;
-else no;
+lli n,k;cin>>n;
+vector<string>v(n);
+fr(i,n)cin>>v[i];
+fr(i,100){
+   string curr="";
+   fr(j,n){
+    curr+=v[j][i];
+   }
+   curr=conv(curr);
+   if(!check(curr)){
+    cout<<"Impossible\n";
+    return;
+   }
+   break;
+}
 }
 
-}
 int32_t main(){
 fastio;
 lli tt=1;

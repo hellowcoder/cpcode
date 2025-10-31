@@ -1,62 +1,47 @@
-// gen.cpp
+// Author: sandeep172918
+// File: gen.cpp
 #include <bits/stdc++.h>
 using namespace std;
+#define lli long long  int
+lli rnd_ll(lli a, lli b) {
+    lli range = b - a + 1;
+    lli r = ( (lli)rand() * (RAND_MAX + 1LL) + rand() );
+    r = (r % range + range) % range;
+    return a + r;
+}
 
-int main(int argc, char** argv){
-    // seed from argv[1] when invoked by stress script
-    unsigned seed = (argc > 1) ? (unsigned)stoi(argv[1])
-                               : (unsigned)chrono::high_resolution_clock::now().time_since_epoch().count();
-    mt19937_64 rng(seed);
+int main(int argc, char* argv[]) {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    // optional params: maxN and maxValue
-    int maxN = (argc > 2) ? stoi(argv[2]) : 19;            // default max n (must be >=1)
-    long long maxValue = (argc > 3) ? atoll(argv[3]) : 100; // default max value (>=1)
-
-    if (maxN < 1) maxN = 1;
-    if (maxValue < 1) maxValue = 1;
-
-    // collect odd candidates in [1, maxN] (keeps previous behavior)
-    vector<int> oddCandidates;
-    for (int i = 1; i <= maxN; ++i) if (i % 2 == 1) oddCandidates.push_back(i);
-    if (oddCandidates.empty()) oddCandidates.push_back(1);
-
-    uniform_int_distribution<int> pickOdd(0, (int)oddCandidates.size() - 1);
-    int n = oddCandidates[pickOdd(rng)];
-
-    // value distribution: [1, maxValue]
-    uniform_int_distribution<long long> valDist(1, maxValue);
-
-    // generate arrays a and b of length n
-    vector<long long> a(n), b(n);
-    for (int i = 0; i < n; ++i) {
-        a[i] = valDist(rng);
-        b[i] = valDist(rng);
+    // Usage: ./gen n max_val [seed]
+    if (argc < 3) {
+        cerr << "Usage: ./gen n max_val [seed]\n";
+        return 1;
     }
 
-    // generate m in [1, maxN] (so it's comparable to n)
-    uniform_int_distribution<int> pickM(1, maxN);
-    int m = pickM(rng);
+    lli n = atoll(argv[1]);
+    lli MAXV = atoll(argv[2]); 
+    unsigned int seed = (argc >= 4) ? (unsigned int)atoi(argv[3]) : (unsigned int)time(0);
+    srand(seed);
 
-    // generate d of length m
-    vector<long long> d(m);
-    for (int i = 0; i < m; ++i) d[i] = valDist(rng);
+    lli a = -MAXV;
+    lli b = MAXV;
 
-    // print test case in required format
+    unordered_set<lli> used;
+    used.reserve((size_t)min(n, MAXV*2 + 1)); // hint to avoid rehashing
+    vector<lli> out;
+    out.reserve(n);
+
+    while ((lli)out.size() < n) {
+        lli x = rnd_ll(a, b);
+        if (used.insert(x).second) out.push_back(x);
+    }
+
     cout << n << '\n';
-    for (int i = 0; i < n; ++i) {
+    for (size_t i = 0; i < out.size(); ++i) {
         if (i) cout << ' ';
-        cout << a[i];
-    }
-    cout << '\n';
-    for (int i = 0; i < n; ++i) {
-        if (i) cout << ' ';
-        cout << b[i];
-    }
-    cout << '\n';
-    cout << m << '\n';
-    for (int i = 0; i < m; ++i) {
-        if (i) cout << ' ';
-        cout << d[i];
+        cout << out[i];
     }
     cout << '\n';
     return 0;

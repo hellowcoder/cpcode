@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-25 12:22
+//Date: 2025-10-26 13:14
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -27,29 +27,50 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES "
-#define no cout<<"NO "
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
-#define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
+#define out(v) fr(i,v.size())cout<<v[i]+1<<" ";nl
 #define srtp(v) sort(all(v),[](const pr& a,const pr& b){if(a.ff== b.ff)return a.ss>b.ss; return a.ff<b.ff;});
 using namespace std;
 const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-  
+ 
+lli q(lli a,lli b){
+    cout<<"? "<<a+1<<" "<<b+1<<'\n';
+    cout.flush();
+    lli x;cin>>x;
+    return x;
+
+}
+
 void solve(){
-lli n;cin>>n;
-get(v,n);
-fr(i,n){
-
-
-if(v[i]&2)yes;
-else no;
+lli n,k;cin>>n;
+vll ans(n);
+lli maxi=0;
+frs(i,1,n-1){
+     lli a=q(maxi,i);
+    lli b=q(i,maxi);
+   
+    if(a>b){
+     //   v[maxi]>v[i];
+       ans[maxi]=a;
+       maxi=i;
+    }{
+      ans[i]=b;
+     // maxi=i;
+     // maxi=i;
+    }
+}
+ans[maxi]=n;
+cout<<"! ";
+out(ans);
+cout.flush();
 }
 
-}
 int32_t main(){
 fastio;
 lli tt=1;

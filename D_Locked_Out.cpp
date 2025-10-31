@@ -1,5 +1,5 @@
 //Author: sandeep172918
-//Date: 2025-10-25 12:22
+//Date: 2025-10-30 23:25
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -27,8 +27,8 @@
 #define rall(v) v.rbegin(),v.rend()
 #define sq(x) sqrtl(x)
 #define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
-#define yes cout<<"YES "
-#define no cout<<"NO "
+#define yes cout<<"YES\n"
+#define no cout<<"NO\n"
 #define no1 cout<<"-1\n"
 #define nl cout<<"\n"
 #define out(v) fr(i,v.size())cout<<v[i]<<" ";nl
@@ -37,22 +37,56 @@ using namespace std;
 const int MOD=1e9+7;
 using namespace __gnu_pbds;
 template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-  
+using ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+ 
 void solve(){
-lli n;cin>>n;
+lli n,k;cin>>n;
 get(v,n);
+map<lli,lli>m;
+ordered_set<pr>os;
+fr(i,n)os.insert({v[i],i});
+
+lli ans=0;
+
+// vll t;
+// for(auto &it:m){
+//     t.psb(it.ff);
+// }
+// out(t);
+// rfr(i,t.size()-1,0){
+//     lli check=t[i];
+//     lli a=m[check];
+//     lli b=m[check+1];
+//     if(a<b){
+//         ans+=a;
+//         m[check]=0;
+//     }else{
+//         ans+=b;
+//         m[check+1]=0;
+//     }
+// }
+
+
 fr(i,n){
+  os.erase({v[i],i});
+  m[v[i]]++;
+  lli a=m[v[i]-1];
+  lli b=m[v[i]];
+  lli c=os.order_of_key({v[i]+1,0})-os.order_of_key({v[i],0});
 
+  cout<<a<<' '<<b<<' '<<c<<'\n';
 
-if(v[i]&2)yes;
-else no;
 }
 
+cout<<ans<<'\n';
+
+
 }
+
 int32_t main(){
 fastio;
 lli tt=1;
+cin>>tt;
 while(tt--){
 solve();
 }
